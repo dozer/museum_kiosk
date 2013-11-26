@@ -9,6 +9,14 @@ public class Exhibit {
 	private List<MuseumItem> exhibitList = new ArrayList<MuseumItem>();
 	
 	/**
+	 * Exhibit class constructor
+	 * @param location
+	 */
+	public Exhibit(int[] location){
+		setExhibitLocation(location);
+	}
+	
+	/**
 	 * Sets the grid location of the collection of items
 	 * @param location, representing the location inside the museum
 	 */
