@@ -1,5 +1,13 @@
 package model;
-
+/**
+ * The purpose of this module is to establish a user object
+ * which will be used for employees to login and make changes
+ * to the museum database.  Each user object will be made up 
+ * of a login ID, password, and a numerical representation of 
+ * their member access level
+ * Created November 25th 2013
+ * @author Sara
+ */
 public class User {
 
 	private String login;

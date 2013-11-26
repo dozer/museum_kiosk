@@ -17,6 +17,23 @@ public class MuseumItem {
 	private String video;
 	
 	/**
+	 * MuseumItem class constructor
+	 * @param name
+	 * @param description
+	 * @param image
+	 * @param audio
+	 * @param video
+	 */
+	public MuseumItem(String name, String description, String image, 
+			String audio, String video){
+		this.name = name;
+		this.description = description;
+		this.image = image;
+		this.audio = audio;
+		this.video = video;
+	}
+	
+	/**
 	 * Sets the name of the item
 	 * @param name, a string representing the new name to be 
 	 * 		assigned to the item
@@ -57,7 +74,13 @@ public class MuseumItem {
 		this.video = path;
 	}
 	
-	
+	/**
+	 * Returns the name of the museum item
+	 * @return a string representing the name of the item
+	 */
+	String getName(){
+		return name;
+	}
 	/**
 	 * Returns the description of the museum item
 	 * @return a string representing the description of an item
