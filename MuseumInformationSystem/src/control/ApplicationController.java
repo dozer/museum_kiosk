@@ -1,15 +1,5 @@
 package control;
 
-import java.util.ArrayList;
+public class ApplicationController {
 
-import model.User;
-
-public class ApplicationController 
-{
-	ArrayList<User> userList;
-	
-	public ApplicationController()
-	{
-		
-	}
 }
