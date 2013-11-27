@@ -1,4 +1,5 @@
 package model;
+import enums.Structure;
 
 /**
  * The Floor plan module is intended to allow an administrator user
@@ -8,10 +9,6 @@ package model;
  * @author Sara
  */
 public class FloorPlan {
-
-	public enum Structure{
-		OUTSIDEWALL, INSIDEWALL, HALLWAY, DOOR, EXHBIT, STAIRS
-	}
 	
 	Structure type;
 	
