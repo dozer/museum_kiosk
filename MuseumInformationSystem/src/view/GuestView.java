@@ -1,5 +1,7 @@
 package view;
 
+import model.MuseumItem;
+import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
@@ -12,14 +14,22 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
-
-
+/**
+ * The purpose of the guest view module is to provide a visual
+ * representation of the information on the museum's exhibits for 
+ * the patrons of the museum to see.  This is the highest level
+ * of the primary function, so it receives data from all the lower 
+ * levels.  It is also where the user inputs are received, and used 
+ * to call functions from the lower levels.
+ * Created November 26th 2013
+ * @author Sara
+ */
 public class GuestView extends Application {
     private Scene scene;
     @Override public void start(Stage stage) {
         // create the scene
         stage.setTitle("Web View");
-        scene = new Scene(new Browser(),750,500, Color.web("#666970"));
+        scene = new Scene(new Browser(),850,600, Color.web("#666970"));
         stage.setScene(scene);
         scene.getStylesheets().add("webviewsample/BrowserToolbar.css");        
         stage.show();
@@ -28,6 +38,28 @@ public class GuestView extends Application {
     public static void main(String[] args){
         launch(args);
     }
+    
+    /**
+     * Displays the home screen that users will access
+     */
+    void displayHome(){
+    }
+    
+    /**
+     * Displays the search page that will allow users
+     * to search the museum's exhibits
+     */
+    void displaySearch(){
+    }
+    
+    /**
+     * Display the information about the item being queried
+     * @param item, representing the museum item which holds all
+     * its data (description and file paths)
+     */
+    void displayMuseumItem(MuseumItem item){
+    }
+    
 }
 class Browser extends Region {
  
@@ -38,7 +70,7 @@ class Browser extends Region {
         //apply the styles
         getStyleClass().add("browser");
         // load the web page
-        webEngine.load("http://www.oracle.com/products/index.html");
+        webEngine.load("http://www.google.com");
         //add the web view to the scene
         getChildren().add(browser);
  
@@ -56,10 +88,10 @@ class Browser extends Region {
     }
  
     @Override protected double computePrefWidth(double height) {
-        return 750;
+        return 850;
     }
  
     @Override protected double computePrefHeight(double width) {
-        return 500;
+        return 600;
     }
 }
