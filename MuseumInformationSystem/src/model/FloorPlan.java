@@ -26,7 +26,7 @@ public class FloorPlan {
 	 * @param type, representing a type of building structure
          * @param location , location in the floor plan
 	 */
-	void setType(int[] location, Structure type){
+	public void setType(int[] location, Structure type){
 		this.floorPlan[location[0]][location[1]] = type;
 	}
 	
@@ -35,7 +35,7 @@ public class FloorPlan {
          * @param  location, the location in the floor plan
 	 * @return a string representing a type of building structure
 	 */
-	String getType(int[] location){
-		return floorPlan[location[0]][location[1]].toString();
+	public Structure getType(int[] location){
+		return floorPlan[location[0]][location[1]];
 	}
 }
