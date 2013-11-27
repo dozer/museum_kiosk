@@ -1,4 +1,5 @@
 package model;
+
 /**
  * This module represents an item inside the museum.
  * A single item will have a name, written description,

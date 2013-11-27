@@ -3,6 +3,14 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+/** 
+ * The exhibit model essentially represents a collection of Museum Items
+ * and their grouped location.  This module consists of creating and deleting
+ * groups of exhibits, and adding and removing individual items into that collection
+ * Created November 26th 2013
+ * @author Sara
+ *
+ */
 public class Exhibit {
 
 	private int[] location = new int[2];

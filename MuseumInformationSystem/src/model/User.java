@@ -1,4 +1,5 @@
 package model;
+
 /**
  * The purpose of this module is to establish a user object
  * which will be used for employees to login and make changes
