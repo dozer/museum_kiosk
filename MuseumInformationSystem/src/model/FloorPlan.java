@@ -10,14 +10,14 @@ import enums.Structure;
  */
 public class FloorPlan {
 	
-	Structure type;
+	Structure[][] floorPlan;
 	
 	/**
 	 * Floorplan class constructor
 	 * @param type
 	 */
-	public FloorPlan(Structure type){
-		this.type = type;
+	public FloorPlan(){
+		
 	}
 	
 	/**
@@ -25,15 +25,15 @@ public class FloorPlan {
 	 * 	hallways, doors, exhibits, etc
 	 * @param type, representing a type of building structure
 	 */
-	void setType(Structure type){
-		this.type = type;
+	void setType(int[] location, Structure type){
+		this.floorPlan[location[0]][location[1]] = type;
 	}
 	
 	/** 
 	 * Returns the name of the type of building structure the item is
 	 * @return a string representing a type of building structure
 	 */
-	String getType(){
-		return type.toString();
+	String getType(int[] location){
+		return floorPlan[location[0]][location[1]].toString();
 	}
 }
