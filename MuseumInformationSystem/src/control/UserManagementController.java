@@ -22,7 +22,19 @@ public class UserManagementController {
 	 * @param accessLevel representing the User's acess level
 	 *//*
 	ArrayList<User> addToUserList(ArrayList<User> list, String ID, String password, int accessLevel){
-		list.add(new User(ID, password,accessLevel));
+		boolean doesNotExist = true; 
+		
+		for(User u: list)
+		{
+			if(u.getUserID == ID)
+			{
+				doesNotExist = false;
+				break;
+			}
+		}
+		
+		if(doesNotExist)
+			list.add(new User(ID, password,accessLevel));
 		
 		return list;
 	}*/
