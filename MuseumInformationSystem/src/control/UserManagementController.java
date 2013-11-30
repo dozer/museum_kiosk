@@ -20,13 +20,13 @@ public class UserManagementController {
 	 * @param ID representing the User's login ID
 	 * @param password representing the User's password
 	 * @param accessLevel representing the User's acess level
-	 *//*
+	 */
 	ArrayList<User> addToUserList(ArrayList<User> list, String ID, String password, int accessLevel){
 		boolean doesNotExist = true; 
 		
 		for(User u: list)
 		{
-			if(u.getUserID == ID)
+			if(u.getLoginID() == ID)
 			{
 				doesNotExist = false;
 				break;
@@ -37,17 +37,17 @@ public class UserManagementController {
 			list.add(new User(ID, password,accessLevel));
 		
 		return list;
-	}*/
+	}
 	
 	/**
 	 * Removes the User from the list that matches the UserID
 	 * @param list representing list to be removed from
 	 * @param ID representing the User's login ID
-	 *//*
+	 */
 	ArrayList<User> removeFromUserList(ArrayList<User> list, String ID){
 		for(User u: list)
 		{
-			if(u.getUserID() == ID)
+			if(u.getLoginID() == ID)
 			{
 				list.remove(u);
 				break;
@@ -55,7 +55,7 @@ public class UserManagementController {
 		}
 		
 		return list;
-	}*/
+	}
 	
 	/** 
 	 * Edits either the password or the access level of the User matching the given ID
@@ -63,11 +63,11 @@ public class UserManagementController {
 	 * @param ID representing the User's login ID
 	 * @param password representing the User's password
 	 * @param accessLevel representing the User's accessLevel
-	 *//*
+	 */
 	ArrayList<User> editUserList(ArrayList<User> list, String ID, String password, int accessLevel){
 		for(User u: list)
 		{
-			if(u.getUserID() == ID)
+			if(u.getLoginID() == ID)
 			{
 				if(password == null)
 					password = u.getPassword();
@@ -79,7 +79,7 @@ public class UserManagementController {
 				break;
 			}
 		}
-		
-	}*/
+		return list;
+	}
 	
 }

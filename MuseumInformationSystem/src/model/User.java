@@ -64,7 +64,7 @@ public class User {
 	 * Returns the password of the user
 	 * @return, a string representing the password for the user
 	 */
-	String getPassword(){
+	public String getPassword(){
 		return password;
 	}
 	
@@ -72,7 +72,7 @@ public class User {
 	 * Returns a numerical value representing the user's level of access
 	 * @return, an integer representing the user's access level
 	 */
-	int getAccessLevel(){
+	public int getAccessLevel(){
 		return accessLevel;
 	}
 }

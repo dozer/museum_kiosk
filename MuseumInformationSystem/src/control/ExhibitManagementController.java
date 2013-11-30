@@ -2,6 +2,7 @@ package control;
 
 import java.util.ArrayList;
 
+import model.Exhibit;
 import model.MuseumItem;
 
 /**
@@ -18,22 +19,39 @@ public class ExhibitManagementController {
 	 * @param description
 	 * @param itemList
 	 */
-	void addExhibit(String name, String description, ArrayList<MuseumItem> itemList){
+	/*
+	ArrayList<Exhibit> addExhibit(ArrayList<Exhibit> list, String name, String description, ArrayList<MuseumItem> itemList){
+		list.add(new Exhibit(name, description, itemList));
+		
+		return list;
 		//changed []object itemlist to an arraylist because an array's size is not dynamic
 		//Im a little confused from the DDD definition.  
 		//		did you mean name and description of museum item??
 		//		if so, then description is not needed to add item to exhibit collection
 	}
-	
+	*/
 	/** 
 	 * remove Exhibit(String name)
 	 * @param name
 	 */
-	void removeExhibt(String name){
+	/*
+	ArrayList<Exhibit> removeExhibit(ArrayList<Exhibit> list, String name){
+		for(Exhibit e: list)
+		{
+			if(e.getName() == name)
+			{
+				list.remove(e);
+				
+				break;
+			}
+		}
+		
+		return list;
 		//again is this removing an exhibit or a museum item??
 			//if it is a museum item, i recommend that in the database we create a column for enabled/disabled
 			//and instead removing it, we disable it to prevent an accidental data loss
 	}
+	*/
 	
 	/**
 	 * Creates a new Item with the given paramters to the exhibit matching the given name's ItemList
