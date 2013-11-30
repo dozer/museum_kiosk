@@ -1,5 +1,9 @@
 package view;
 
+import java.beans.Statement;
+import access.UserDAO;
+
+
 import model.MuseumItem;
 import javafx.application.Application;
 import javafx.geometry.HPos;
@@ -35,10 +39,12 @@ public class GuestView extends Application {
         stage.show();
     }
  
-    public static void main(String[] args){
-        launch(args);
+    public static void main(String[] args) {
+        //launch(args);
+    	UserDAO.test();
     }
     
+
     /**
      * Displays the home screen that users will access
      */

@@ -56,7 +56,7 @@ public class User {
 	 * Returns the login name of the user
 	 * @return a string representing the login ID for the user
 	 */
-	String getLoginID(){
+	public String getLoginID(){
 		return login;
 	}
 	
