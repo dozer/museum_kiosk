@@ -71,7 +71,24 @@ public class ExhibitManagementController {
 	 * @param name representing the exhibit name
 	 * @param itemName representing the museum item name
 	 */
-	void removeFromExhibit(String name, String itemName){
+	/*
+	ArrayList<Exhibit> removeFromExhibit(ArrayList<Exhibit> list, String name, String itemName){
+		for(Exhibit e: list)
+		{
+			if(e.getName() == name)
+			{
+				for(MuseumItem m: e.exhibitList)
+				{
+					if(m.getName() == itemName)
+					{
+						e.exhibitList.remove(m);
+						break;
+					}
+				}
+			}
+		}
 		
+		return list;		
 	}
+	*/
 }
