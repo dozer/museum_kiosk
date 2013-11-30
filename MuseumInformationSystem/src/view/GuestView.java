@@ -40,8 +40,8 @@ public class GuestView extends Application {
     }
  
     public static void main(String[] args) {
-        //launch(args);
-    	UserDAO.test();
+        launch(args);
+    	UserDAO.usertest();
     }
     
 

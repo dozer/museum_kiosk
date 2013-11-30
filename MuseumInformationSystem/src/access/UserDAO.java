@@ -42,7 +42,10 @@ public class UserDAO {
 	}
 
 
-	public static void test(){
+	/**
+	 * Method is used as a test case, called from guestView in view folder
+	 */
+	public static void usertest(){	
 		ArrayList mylist = (ArrayList) find();
 		System.out.println((((User) mylist.get(0)).getLoginID().toString()));
 	}
@@ -94,10 +97,7 @@ public class UserDAO {
 		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
 		PreparedStatement statement = con.prepareStatement(sqlStatement);
 		return statement.executeQuery();
-
-		//    	while(result.next()){
-		//    		System.out.println(result.getString(2) + " " + result.getString(3));
-		//    		
+		
 	}
 
 }
