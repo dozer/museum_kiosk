@@ -31,7 +31,7 @@ public class User {
 	 * Sets the login name for the user
 	 * @param login, a string representing logniID
 	 */
-	void setLoginID(String login){
+	public void setLoginID(String login){
 		this.login = login;
 	}
 	
@@ -39,7 +39,7 @@ public class User {
 	 * Sets the password for the user
 	 * @param password, a string representing the password
 	 */
-	void setPassword(String password){
+	public void setPassword(String password){
 		this.password = password;
 	}
 	
@@ -48,7 +48,7 @@ public class User {
 	 * @param num, an integer representing the access level of the user
 	 *
 	 */
-	void setAccessLevel(int num){
+	public void setAccessLevel(int num){
 		this.accessLevel = num;
 	}
 	

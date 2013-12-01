@@ -11,28 +11,28 @@ import enums.Structure;
 public class FloorPlan {
 
 	Structure[][] floorPlan;
-	
+
 	/**
-	 * Floorplan class constructor
+	 * Floor plan class constructor
 	 * @param type
 	 */
 	public FloorPlan(){
-		
+
 	}
-	
+
 	/**
 	 * Sets the type of the building structure such as outside and inside walls, 
 	 * 	hallways, doors, exhibits, etc
 	 * @param type, representing a type of building structure
-         * @param location , location in the floor plan
+	 * @param location , location in the floor plan
 	 */
 	public void setType(int[] location, Structure type){
 		this.floorPlan[location[0]][location[1]] = type;
 	}
-	
+
 	/** 
 	 * Returns the name of the type of building structure the item is
-         * @param  location, the location in the floor plan
+	 * @param  location, the location in the floor plan
 	 * @return a string representing a type of building structure
 	 */
 	public Structure getType(int[] location){

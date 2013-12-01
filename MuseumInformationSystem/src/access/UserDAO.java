@@ -27,13 +27,13 @@ public class UserDAO {
 		List<User> list = new ArrayList<User>();
 		ResultSet result;
 		try {
-			result = sqlQuery("Select * from User");
-			
+			result = sqlQuery("Select * FROM User");
+
 			while(result.next()){
 				User user = new User(result.getString(2), result.getString(3), result.getInt(4));
 				list.add(user);
 			}	
-			
+
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,14 +50,29 @@ public class UserDAO {
 		System.out.println((((User) mylist.get(0)).getLoginID().toString()));
 	}
 
+	/**
+	 * Adds a new user to database
+	 * @param login
+	 * @param password
+	 * @param accessLevel
+	 */
+	public void addUser(String login, String password, int accessLevel){
+		try {
+			//sqlUpdate("INSERT INTO USER VALUES(default, '"+ login + "', '" + password + "', " + accessLevel);
+			sqlUpdate("INSERT INTO USER VALUES('"+ login + "', '" + password + "', " + accessLevel);
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Sets the login name for the user
 	 * @param login representing the User's login ID
 	 */
-	void setLoginID(String login, int userID){
+	public void setLoginID(String login, int userID){
 		try {
-			sqlQuery("UPDATE USER SET Login = '" + login + "'");
+			sqlUpdate("UPDATE USER SET Login = '" + login + "' WHERE UserID = " + userID);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,9 +83,9 @@ public class UserDAO {
 	 * Sets the password for the user
 	 * @param password representing  password
 	 */
-	void setPassword(String password, int userID){
+	public void setPassword(String password, int userID){
 		try {
-			sqlQuery("UPDATE USER SET Password = '" + password + "' WHERE UserID = " + userID);
+			sqlUpdate("UPDATE USER SET Password = '" + password + "' WHERE UserID = " + userID);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -81,23 +96,40 @@ public class UserDAO {
 	 * Sets the level of access to application
 	 * @param num
 	 */
-	void setAccessLevel(int num, int userID){
+	public void setAccessLevel(int num, int userID){
 		try {
-			sqlQuery("UPDATE USER SET AccessLevel = '" + num + "' WHERE UserID = " + userID);
+			sqlUpdate("UPDATE USER SET AccessLevel = '" + num + "' WHERE UserID = " + userID);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-
+	/**
+	 * sqlQuery takes a sql statement intended only as a query to retrieve a dataset from the user table
+	 * @param sqlStatement
+	 * @return resultset of sql query
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
+	 */
 	public static ResultSet sqlQuery(String sqlStatement) throws ClassNotFoundException, SQLException{
-
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
 		PreparedStatement statement = con.prepareStatement(sqlStatement);
 		return statement.executeQuery();
-		
+	}
+
+	/**
+	 * sqlUpdate takes a sql statement intended only as an update, delete, or insert to the user table
+	 * @param sqlStatement
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	public static void sqlUpdate(String sqlStatement) throws SQLException, ClassNotFoundException{
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
+		PreparedStatement statement = con.prepareStatement(sqlStatement);
+		statement.executeUpdate();
 	}
 
 }

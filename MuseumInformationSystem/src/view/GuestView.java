@@ -1,6 +1,8 @@
 package view;
 
 import java.beans.Statement;
+
+import access.MuseumItemDAO;
 import access.UserDAO;
 
 
@@ -40,8 +42,9 @@ public class GuestView extends Application {
     }
  
     public static void main(String[] args) {
-        launch(args);
-    	UserDAO.usertest();
+        //launch(args);
+    	//UserDAO.usertest();
+    	MuseumItemDAO.museumtest();
     }
     
 

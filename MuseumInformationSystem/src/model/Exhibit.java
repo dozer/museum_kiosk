@@ -28,7 +28,7 @@ public class Exhibit {
 	 * Sets the grid location of the collection of items
 	 * @param location, representing the location inside the museum
 	 */
-	void setExhibitLocation(int[] location){
+	public void setExhibitLocation(int[] location){
 		this.location[0] = location[0];
 		this.location[1] = location [1];
 	}
@@ -39,7 +39,7 @@ public class Exhibit {
 	 * @return a string representing the location of the exhibit
 	 * 	inside the museum
 	 */
-	int[] getExhibitLocation(){
+	public int[] getExhibitLocation(){
 		return this.location;
 	}
 	
@@ -47,7 +47,7 @@ public class Exhibit {
 	 * Adds a museuem item to the collection/exhibit
 	 * @param item, representing a museum item to be added to the collection
 	 */
-	void addItem(MuseumItem item){
+	public void addItem(MuseumItem item){
 		exhibitList.add(item);
 	}
 	
@@ -55,7 +55,7 @@ public class Exhibit {
 	 * Removes a given item from a collection
 	 * @param item, representing a museum item to be removed from the collection
 	 */
-	void removeItem(MuseumItem item){
+	public void removeItem(MuseumItem item){
 		exhibitList.remove(item);
 	}
 }

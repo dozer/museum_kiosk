@@ -1,5 +1,13 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  * This module represents an item inside the museum.
  * A single item will have a name, written description,
@@ -39,7 +47,7 @@ public class MuseumItem {
 	 * @param name, a string representing the new name to be 
 	 * 		assigned to the item
 	 */
-	void setName(String name){
+	public void setName(String name){
 		this.name = name;
 	}
 	
@@ -47,7 +55,7 @@ public class MuseumItem {
 	 * Sets the description for the item
 	 * @param description, a string representing the description of the item
 	 */
-	void setDescription(String description){
+	public void setDescription(String description){
 		this.description = description;
 	}
 	
@@ -55,7 +63,7 @@ public class MuseumItem {
 	 * Sets the directory path for the item's image file
 	 * @param path, a string representing the directory path
 	 */
-	void setImage(String path){
+	public void setImage(String path){
 		this.image = path;
 	}
 	
@@ -63,7 +71,7 @@ public class MuseumItem {
 	 * Sets the directory path for the item's audio file
 	 * @param path, a string representing the directory path
 	 */
-	void setAudio(String path){
+	public void setAudio(String path){
 		this.audio = path;
 	}
 	
@@ -71,7 +79,7 @@ public class MuseumItem {
 	 * Sets the directory path for the item's video file
 	 * @param path, a string representing the directory path
 	 */
-	void setVideo(String path){
+	public void setVideo(String path){
 		this.video = path;
 	}
 	
@@ -79,14 +87,14 @@ public class MuseumItem {
 	 * Returns the name of the museum item
 	 * @return a string representing the name of the item
 	 */
-	String getName(){
+	public String getName(){
 		return name;
 	}
 	/**
 	 * Returns the description of the museum item
 	 * @return a string representing the description of an item
 	 */
-	String getDescription(){
+	public String getDescription(){
 		return description;	//must retrieve description from database
 	}
 	
@@ -94,7 +102,7 @@ public class MuseumItem {
 	 * Returns the directory path for the item's audio file
 	 * @return a string representing the directory path
 	 */
-	String getAudio(){
+	public String getAudio(){
 		return audio;
 	}
 	
@@ -102,7 +110,7 @@ public class MuseumItem {
 	 * Returns a directory path for the item's image file
 	 * @return a string representing the directory path
 	 */
-	String getImage(){
+	public String getImage(){
 		return image;
 	}
 	
@@ -110,8 +118,9 @@ public class MuseumItem {
 	 * Returns a directory path for the item's video file
 	 * @return a string representing the directory path
 	 */
-	String getVideo(){
+	public String getVideo(){
 		return video;
 	}
+	
 	
 }
