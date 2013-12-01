@@ -47,7 +47,7 @@ public class MuseumItem {
 	 * @param name, a string representing the new name to be 
 	 * 		assigned to the item
 	 */
-	public void setName(String name){
+	public void setTitle(String name){
 		this.name = name;
 	}
 	
@@ -87,7 +87,7 @@ public class MuseumItem {
 	 * Returns the name of the museum item
 	 * @return a string representing the name of the item
 	 */
-	public String getName(){
+	public String getTitle(){
 		return name;
 	}
 	/**

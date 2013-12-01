@@ -41,25 +41,16 @@ public class UserDAO {
 		return list;
 	}
 
-
-	/**
-	 * Method is used as a test case, called from guestView in view folder
-	 */
-	public static void usertest(){	
-		ArrayList mylist = (ArrayList) find();
-		System.out.println((((User) mylist.get(0)).getLoginID().toString()));
-	}
-
 	/**
 	 * Adds a new user to database
 	 * @param login
 	 * @param password
 	 * @param accessLevel
 	 */
-	public void addUser(String login, String password, int accessLevel){
+	public static void  addUser(String login, String password, int accessLevel){
 		try {
 			//sqlUpdate("INSERT INTO USER VALUES(default, '"+ login + "', '" + password + "', " + accessLevel);
-			sqlUpdate("INSERT INTO USER VALUES('"+ login + "', '" + password + "', " + accessLevel);
+			sqlUpdate("INSERT INTO USER VALUES('"+ login + "', '" + password + "', " + accessLevel + ")" );
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -70,7 +61,7 @@ public class UserDAO {
 	 * Sets the login name for the user
 	 * @param login representing the User's login ID
 	 */
-	public void setLoginID(String login, int userID){
+	public static void  setLoginID(String login, int userID){
 		try {
 			sqlUpdate("UPDATE USER SET Login = '" + login + "' WHERE UserID = " + userID);
 		} catch (ClassNotFoundException | SQLException e) {
@@ -83,7 +74,7 @@ public class UserDAO {
 	 * Sets the password for the user
 	 * @param password representing  password
 	 */
-	public void setPassword(String password, int userID){
+	public static void  setPassword(String password, int userID){
 		try {
 			sqlUpdate("UPDATE USER SET Password = '" + password + "' WHERE UserID = " + userID);
 		} catch (ClassNotFoundException | SQLException e) {
@@ -96,7 +87,7 @@ public class UserDAO {
 	 * Sets the level of access to application
 	 * @param num
 	 */
-	public void setAccessLevel(int num, int userID){
+	public static void  setAccessLevel(int num, int userID){
 		try {
 			sqlUpdate("UPDATE USER SET AccessLevel = '" + num + "' WHERE UserID = " + userID);
 		} catch (ClassNotFoundException | SQLException e) {
@@ -131,7 +122,14 @@ public class UserDAO {
 		PreparedStatement statement = con.prepareStatement(sqlStatement);
 		statement.executeUpdate();
 	}
-
+	
+	/**
+	 * Method is used as a test case, called from guestView in view folder
+	 */
+	public static void usertest(){	
+		ArrayList mylist = (ArrayList) find();
+		System.out.println((((User) mylist.get(0)).getLoginID().toString()));
+	}
 }
 
 

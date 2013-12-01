@@ -41,11 +41,25 @@ public class MuseumItemDAO {
 		return list;
 	}
 	
+	
+	public static void addMuseumItem(String title, String description, String image, String audio, String video){
+		try {
+			if (image != null) image = "'" + image + "'";
+			if (audio != null) audio = "'" + audio + "'";
+			if (video != null) video = "'" + video + "'";
+			
+			sqlUpdate("INSERT INTO MuseumItem VALUES(default, '" + title + "', '" + description + "', " + image + ", " + audio + ", " + video + ", " + 1 + ")");
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Sets the name of an item
 	 * @param name representing the new name to be assigned to the item
 	 */
-	void setName(String name){
+	public static void  setName(String name){
 		try {
 			sqlUpdate("UPDATE MUSEUMITEM SET ItemTitle = '" + name + "'");
 		} catch (ClassNotFoundException | SQLException e) {
@@ -58,7 +72,7 @@ public class MuseumItemDAO {
 	 * Sets the description for an item
 	 * @param description representing the description of the item
 	 */
-	void setDesciption(String description, String name){
+	public static void  setDesciption(String description, String name){
 		try {
 			sqlUpdate("UPDATE MUSEUMITEM SET ItemDescription = '" + description + "' WHERE ItemTitle = '" + name + "'");
 		} catch (ClassNotFoundException | SQLException e) {
@@ -71,7 +85,7 @@ public class MuseumItemDAO {
 	 * Sets the directory path for the items image file
 	 * @param path representing the directory path
 	 */
-	void setImage(String path, String name){
+	public static void  setImage(String path, String name){
 		try {
 			sqlUpdate("UPDATE MUSEUMITEM SET ItemImage = '" + path + "' WHERE ItemTitle = '" + name + "'");
 		} catch (ClassNotFoundException | SQLException e) {
@@ -84,7 +98,7 @@ public class MuseumItemDAO {
 	 * Sets the directory path for the item's audio file
 	 * @param path representing the directory path
 	 */
-	void setAdudio(String path, String name){
+	public static void setAdudio(String path, String name){
 		try {
 			sqlUpdate("UPDATE MUSEUMITEM SET ItemAudio = '" + path + "' WHERE ItemTitle = '" + name + "'");
 		} catch (ClassNotFoundException | SQLException e) {
@@ -97,7 +111,7 @@ public class MuseumItemDAO {
 	 * Sets the directory path for the item's video file
 	 * @param path representing the directory path
 	 */
-	static void setVideo(String path, String name){
+	public static void  setVideo(String path, String name){
 		try {
 			sqlUpdate("UPDATE MUSEUMITEM SET ItemVideo = '" + path + "' WHERE ItemTitle = '" + name + "'");
 		} catch (ClassNotFoundException | SQLException e) {
@@ -140,9 +154,10 @@ public class MuseumItemDAO {
 	 * Method is used as a test case, called from guestView in view folder
 	 */
 	public static void museumtest(){	
-		setVideo("mypathtest", "Abacus");
+		//setVideo("mypathtest", "Abacus");
+		//addMuseumItem("this2", "is", "a", "test", null);
 		ArrayList mylist = (ArrayList) find();
-		System.out.println((((MuseumItem) mylist.get(0)).getVideo().toString()));
+		System.out.println((((MuseumItem) mylist.get(1)).getTitle().toString()));
 	}
 }
 

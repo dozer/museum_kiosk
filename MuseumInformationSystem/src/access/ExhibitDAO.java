@@ -33,7 +33,7 @@ public class ExhibitDAO {
 	 * Sets the location of collection of items
 	 * @param location representing the location inside the museum
 	 */
-	void setExhibitLocation(int[] location){
+	public static void  setExhibitLocation(int[] location){
 		//I changed the location parameter from a string into an array of size 2 to stay 
 		//	formalized with other objects representing location
 	}
@@ -42,7 +42,7 @@ public class ExhibitDAO {
 	 * Adds a museum item to the collection
 	 * @param item representing an item inside the museum
 	 */
-	void addItem(MuseumItem item){
+	public static void  addItem(MuseumItem item){
 //		try {
 //			sqlUpdate("INSERT INTO MUSEUMITEM VALUES( ItemDescription = '" + description + "' WHERE ItemTitle = '" + name + "'");
 //		} catch (ClassNotFoundException | SQLException e) {
