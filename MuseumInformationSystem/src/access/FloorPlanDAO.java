@@ -24,8 +24,8 @@ public class FloorPlanDAO {
 	 * Queries the database to populate a collection of Floor plan objects
 	 * @return a list of Floor Plan objects populated with data
 	 */
-	FloorPlan find(){
-		FloorPlan floor;
+	static FloorPlan find(){
+		FloorPlan floor = null;
   			ResultSet result;
 		int[] index = {0,0};
                 try {
@@ -55,7 +55,7 @@ public class FloorPlanDAO {
 	 * door, divider, exhibit, etc)
 	 * @param type representing a type of building structure
 	 */
-	void setType(Structure type){
+	public static void setType(Structure type){
 		//I changed the parameter from string to structure. feel free to reverse my change
 		try {
                         sqlUpdate("UPDATE FLOORPLAN SET Structure = '" + type + "'");
