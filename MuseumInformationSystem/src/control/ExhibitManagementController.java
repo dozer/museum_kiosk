@@ -21,7 +21,7 @@ public class ExhibitManagementController {
 	 * @param description, representing the description of the Exhibit
 	 */
 	ArrayList<Exhibit> addExhibit(ArrayList<Exhibit> list, int[] location, String name, String description){
-		list.add(new Exhibit(location, name, description));
+		list.add(new Exhibit(name, description, location));
 		
 		return list;
 	}
