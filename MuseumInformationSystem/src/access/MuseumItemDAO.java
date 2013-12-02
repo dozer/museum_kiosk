@@ -31,6 +31,7 @@ public class MuseumItemDAO {
 
 			while(result.next()){
 				MuseumItem item = new MuseumItem(result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6));
+												//Itemtitle			itemdescription			itemimage			itemaudio			itemvideo
 				list.add(item);
 			}	
 

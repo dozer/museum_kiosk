@@ -32,6 +32,7 @@ public class ExhibitDAO {
 			while(result.next()){
 				int[] location = {result.getInt(4), result.getInt(5)};
 				Exhibit exhibit = new Exhibit(result.getString(2), result.getString(3), location);
+											//exhibitname		exhibitdescription		locationx, locationy
 				list.add(exhibit);
 			}	
 
@@ -51,6 +52,41 @@ public class ExhibitDAO {
 		try {
 			sqlUpdate("UPDATE ExhibitList SET LocationX = " + location[0] + ", LocationY = " + location[1] + "WHERE ExhibitName = '" + 
 					ExhibitName + "'");
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Sets the description of the exhibit on the exhibitlist table
+	 * @param ExhibitName
+	 * @param ExhibitDescription
+	 */
+	public static void  setExhibitDescriptin(String ExhibitName, String ExhibitDescription){
+		try {
+			sqlUpdate("UPDATE ExhibitList SET ExhibitDescription = '" + ExhibitDescription + "' WHERE ExhibitName = '" + 
+					ExhibitName + "'");
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Adds a new row to the exhibitlist table and creates a new table to fill with museum items
+	 * @param ExhibitName
+	 * @param ExhibitDescription
+	 * @param LocationX
+	 * @param LocationY
+	 */
+	public static void  CreateExhibit(String ExhibitName, String ExhibitDescription, int LocationX, int LocationY){
+		try {
+			sqlUpdate("INSERT INTO ExhibitList VALUES(default, " + ExhibitName + "," + ExhibitDescription + ", " +  LocationX + ", " + LocationY + ")");
+			
+			sqlUpdate("CREATE TABLE " + ExhibitName + " (ExhibtID int not null autoincrement, ExhibitName varchar(50) not null"
+					+ ", Enabled int, Primary Key (ExhibitID))");
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
