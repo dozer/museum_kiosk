@@ -93,4 +93,12 @@ public class Exhibit {
 	public void removeItem(MuseumItem item){
 		museumItemList.remove(item);
 	}
+	
+	/**
+	 * Returns the Exhibit's list of museum items
+	 * @return the Exhibit's list of museum items
+	 */
+	public ArrayList<MuseumItem> getMuseumItemList(){
+		return this.museumItemList;
+	}
 }

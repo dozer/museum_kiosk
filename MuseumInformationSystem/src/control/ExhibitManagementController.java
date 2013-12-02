@@ -71,7 +71,7 @@ public class ExhibitManagementController {
 			{
 				for(MuseumItem m: e.getMuseumItemList())
 				{
-					if(m.getName() == itemName)
+					if(m.getTitle() == itemName)
 					{
 						e.removeItem(m);
 						break;
