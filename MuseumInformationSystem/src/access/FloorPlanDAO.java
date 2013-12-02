@@ -98,8 +98,9 @@ public class FloorPlanDAO {
          */
         public static void floorplantest(){        
                 FloorPlan floor = (FloorPlan) find();
+                int[] index = {0,0};
                 while(index[1] != 11) {
-                	System.out.println((floor.getType(index[0], index[1]).toString()));
+                	System.out.println((floor.getType(index).toString()));
                 	//Not sure what the size of the grid is or if there's a better way to do it.
                         //Feel free to change.
                         if(index[0] == 10) {
