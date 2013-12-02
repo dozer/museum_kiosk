@@ -14,14 +14,18 @@ import java.util.List;
 public class Exhibit {
 
 	private int[] location = new int[2];
-	private List<MuseumItem> exhibitList = new ArrayList<MuseumItem>();
+	private ArrayList<MuseumItem> museumItemList = new ArrayList<MuseumItem>();
+	private String exhibitName;
+	private String exhibitDescription;
 	
 	/**
 	 * Exhibit class constructor
 	 * @param location
 	 */
-	public Exhibit(int[] location){
+	public Exhibit(int[] location, String exhibitName, String exhibitDescription){
 		setExhibitLocation(location);
+		setExhibitName(exhibitName);
+		setExhibitDescription(exhibitDescription);
 	}
 	
 	/**
@@ -44,11 +48,42 @@ public class Exhibit {
 	}
 	
 	/**
+	 * Sets the exhibit name
+	 * @param exhibitName, representing the exhibit name
+	 */
+	public void setExhibitName(String exhibitName){
+		this.exhibitName = exhibitName;
+	}
+	
+	/**
+	 * Returns the exhibit name
+	 * @return a string representing the exhibit name
+	 */
+	public String getExhibitName(){
+		return this.exhibitName;
+	}
+	
+	/**
+	 * Sets the exhibit description
+	 * @param exhibitDescription, representing the exhibit description
+	 */
+	public void setExhibitDescription(String exhibitDescription){
+		this.exhibitDescription = exhibitDescription;
+	}
+	
+	/**
+	 * Returns the exhibit description
+	 * @return a string representing the exhibit description
+	 */
+	public String getExhibitDescription(){
+		return this.exhibitDescription;
+	}
+	/**
 	 * Adds a museuem item to the collection/exhibit
 	 * @param item, representing a museum item to be added to the collection
 	 */
 	public void addItem(MuseumItem item){
-		exhibitList.add(item);
+		museumItemList.add(item);
 	}
 	
 	/**
@@ -56,6 +91,6 @@ public class Exhibit {
 	 * @param item, representing a museum item to be removed from the collection
 	 */
 	public void removeItem(MuseumItem item){
-		exhibitList.remove(item);
+		museumItemList.remove(item);
 	}
 }
