@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import model.Exhibit;
-import model.MuseumItem;
 
 /**
  * The purpose of this module is to populate Exhibit objects with their 
@@ -26,29 +25,64 @@ public class ExhibitDAO {
 	 */
 	List<Exhibit> find(){
 		List<Exhibit> list = new ArrayList<Exhibit>();
+		ResultSet result;
+		try {
+			result = sqlQuery("Select * FROM ExhibitList WHERE Enabled = 1");
+
+			while(result.next()){
+				int[] location = {result.getInt(4), result.getInt(5)};
+				Exhibit exhibit = new Exhibit(result.getString(2), result.getString(3), location);
+				list.add(exhibit);
+			}	
+
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return list;
 	}
 	
 	/**
 	 * Sets the location of collection of items
+	 * @param string representing exhibit name
 	 * @param location representing the location inside the museum
 	 */
-	public static void  setExhibitLocation(int[] location){
-		//I changed the location parameter from a string into an array of size 2 to stay 
-		//	formalized with other objects representing location
+	public static void  setExhibitLocation(String ExhibitName, int[] location){
+		try {
+			sqlUpdate("UPDATE ExhibitList SET LocationX = " + location[0] + ", LocationY = " + location[1] + "WHERE ExhibitName = '" + 
+					ExhibitName + "'");
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
 	 * Adds a museum item to the collection
-	 * @param item representing an item inside the museum
+	 * @param string representing exhibit name
+	 * @param string representing an item inside the museum
 	 */
-	public static void  addItem(MuseumItem item){
-//		try {
-//			sqlUpdate("INSERT INTO MUSEUMITEM VALUES( ItemDescription = '" + description + "' WHERE ItemTitle = '" + name + "'");
-//		} catch (ClassNotFoundException | SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+	public static void  addItem(String ExhibitName, String item){
+		try {
+			sqlUpdate("INSERT INTO " + ExhibitName + " VALUES(default, '" + item + "', 1)");
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Removes (disables) item from exhibit list
+	 * @param ExhibitName representing the exhibit name
+	 * @param item representing the item to be removed from list
+	 */
+	public static void removeItem(String ExhibitName, String item){
+		try {
+			sqlUpdate("UPDATE " + ExhibitName + " SET Enabled = 0 WHERE MuseumItemName = '" + item + "'");
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -60,12 +94,10 @@ public class ExhibitDAO {
 	 * @throws SQLException
 	 */
 	public static ResultSet sqlQuery(String sqlStatement) throws ClassNotFoundException, SQLException{
-
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
 		PreparedStatement statement = con.prepareStatement(sqlStatement);
 		return statement.executeQuery();
-		
 	}
 	
 	/**
@@ -75,7 +107,6 @@ public class ExhibitDAO {
 	 * @throws ClassNotFoundException
 	 */
 	public static void sqlUpdate(String sqlStatement) throws SQLException, ClassNotFoundException{
-
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
 		PreparedStatement statement = con.prepareStatement(sqlStatement);

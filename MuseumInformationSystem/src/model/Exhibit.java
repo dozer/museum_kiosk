@@ -22,7 +22,7 @@ public class Exhibit {
 	 * Exhibit class constructor
 	 * @param location
 	 */
-	public Exhibit(int[] location, String exhibitName, String exhibitDescription){
+	public Exhibit(String exhibitName, String exhibitDescription, int[] location){
 		setExhibitLocation(location);
 		setExhibitName(exhibitName);
 		setExhibitDescription(exhibitDescription);

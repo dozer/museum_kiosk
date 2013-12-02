@@ -28,33 +28,42 @@ public class MuseumItemDAO {
 		ResultSet result;
 		try {
 			result = sqlQuery("Select * FROM MuseumItem WHERE Enabled = 1");
-			
+
 			while(result.next()){
 				MuseumItem item = new MuseumItem(result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6));
 				list.add(item);
 			}	
-			
+
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return list;
 	}
-	
-	
+
+
 	public static void addMuseumItem(String title, String description, String image, String audio, String video){
 		try {
-			if (image != null) image = "'" + image + "'";
-			if (audio != null) audio = "'" + audio + "'";
-			if (video != null) video = "'" + video + "'";
-			
+			if (image != null){
+				image = image.replaceAll("/", "//");
+				image = "'" + image + "'";
+			}
+			if (audio != null){
+				audio = audio.replaceAll("/","//");
+				audio = "'" + audio + "'";
+			}
+			if (video != null){
+				video = video.replaceAll("/", "//");
+				video = "'" + video + "'";
+			}
+
 			sqlUpdate("INSERT INTO MuseumItem VALUES(default, '" + title + "', '" + description + "', " + image + ", " + audio + ", " + video + ", " + 1 + ")");
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Sets the name of an item
 	 * @param name representing the new name to be assigned to the item
@@ -67,7 +76,7 @@ public class MuseumItemDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Sets the description for an item
 	 * @param description representing the description of the item
@@ -80,46 +89,58 @@ public class MuseumItemDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Sets the directory path for the items image file
 	 * @param path representing the directory path
 	 */
 	public static void  setImage(String path, String name){
 		try {
+			if (path != null){
+				path = path.replaceAll("/", "//");
+				path = "'" + path + "'";
+			}
 			sqlUpdate("UPDATE MUSEUMITEM SET ItemImage = '" + path + "' WHERE ItemTitle = '" + name + "'");
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Sets the directory path for the item's audio file
 	 * @param path representing the directory path
 	 */
 	public static void setAdudio(String path, String name){
 		try {
+			if (path != null){
+				path = path.replaceAll("/", "//");
+				path = "'" + path + "'";
+			}
 			sqlUpdate("UPDATE MUSEUMITEM SET ItemAudio = '" + path + "' WHERE ItemTitle = '" + name + "'");
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Sets the directory path for the item's video file
 	 * @param path representing the directory path
 	 */
 	public static void  setVideo(String path, String name){
 		try {
+			if (path != null){
+				path = path.replaceAll("/", "//");
+				path = "'" + path + "'";
+			}
 			sqlUpdate("UPDATE MUSEUMITEM SET ItemVideo = '" + path + "' WHERE ItemTitle = '" + name + "'");
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * sqlQuery takes a sql statement intended only as a query to retrieve a dataset from the museumitem table
 	 * @param sqlStatement
@@ -133,9 +154,9 @@ public class MuseumItemDAO {
 		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
 		PreparedStatement statement = con.prepareStatement(sqlStatement);
 		return statement.executeQuery();
-		
+
 	}
-	
+
 	/**
 	 * sqlUpdate takes a sql statement intended only as an update, delete, or insert to the msueumitem table
 	 * @param sqlStatement
@@ -149,7 +170,7 @@ public class MuseumItemDAO {
 		PreparedStatement statement = con.prepareStatement(sqlStatement);
 		statement.executeUpdate();
 	}
-	
+
 	/**
 	 * Method is used as a test case, called from guestView in view folder
 	 */
