@@ -14,28 +14,31 @@ import model.MuseumItem;
 public class ExhibitManagementController {
 
 	/**
-	 * Creates a new Exhibit with the location, name, and description of the Exhibit
-	 * @param list, representing current list of Exhibits
-	 * @param location, representing the coordinates of the Exhibit on the floor plan
-	 * @param name, representing the name of the Exhibit
-	 * @param description, representing the description of the Exhibit
+	 * Creates a new Exhibit with the given parameters and adds it to the Exhibit list
+	 * @param name
+	 * @param description
+	 * @param itemList
 	 */
-	ArrayList<Exhibit> addExhibit(ArrayList<Exhibit> list, int[] location, String name, String description){
-		list.add(new Exhibit(location, name, description));
+	/*
+	ArrayList<Exhibit> addExhibit(ArrayList<Exhibit> list, String name, String description, ArrayList<MuseumItem> itemList){
+		list.add(new Exhibit(name, description, itemList));
 		
 		return list;
+		//changed []object itemlist to an arraylist because an array's size is not dynamic
+		//Im a little confused from the DDD definition.  
+		//		did you mean name and description of museum item??
+		//		if so, then description is not needed to add item to exhibit collection
 	}
-	
+	*/
 	/** 
-	 * Removes an Exhibit from the current ArrayList of Exhibits
-	 * @param list, representing the current list of Exhibits
-	 * @param name, representing the name of the Exhibit to remove
-	 * @return ArrayList of Exhibits minus the Exhibit to remove
+	 * remove Exhibit(String name)
+	 * @param name
 	 */
+	/*
 	ArrayList<Exhibit> removeExhibit(ArrayList<Exhibit> list, String name){
 		for(Exhibit e: list)
 		{
-			if(e.getExhibitName() == name)
+			if(e.getName() == name)
 			{
 				list.remove(e);
 				
@@ -44,7 +47,11 @@ public class ExhibitManagementController {
 		}
 		
 		return list;
+		//again is this removing an exhibit or a museum item??
+			//if it is a museum item, i recommend that in the database we create a column for enabled/disabled
+			//and instead removing it, we disable it to prevent an accidental data loss
 	}
+	*/
 	
 	/**
 	 * Creates a new Item with the given paramters to the exhibit matching the given name's ItemList
@@ -64,16 +71,17 @@ public class ExhibitManagementController {
 	 * @param name representing the exhibit name
 	 * @param itemName representing the museum item name
 	 */
-	ArrayList<Exhibit> removeMuseumItemFromExhibit(ArrayList<Exhibit> list, String name, String itemName){
+	/*
+	ArrayList<Exhibit> removeFromExhibit(ArrayList<Exhibit> list, String name, String itemName){
 		for(Exhibit e: list)
 		{
-			if(e.getExhibitName() == name)
+			if(e.getName() == name)
 			{
-				for(MuseumItem m: e.getMuseumItemList())
+				for(MuseumItem m: e.exhibitList)
 				{
 					if(m.getName() == itemName)
 					{
-						e.removeItem(m);
+						e.exhibitList.remove(m);
 						break;
 					}
 				}
@@ -82,5 +90,5 @@ public class ExhibitManagementController {
 		
 		return list;		
 	}
-	
+	*/
 }
