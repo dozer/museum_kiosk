@@ -15,7 +15,9 @@ public class ExhibitEditView {
 	 */
 	Exhibit createExhibit(){
 		int[] location = {0,0};
-		Exhibit exhibit = new Exhibit(location);
+		String exhibitName = "Default";
+		String exhibitDescription = "Default";
+		Exhibit exhibit = new Exhibit(location, exhibitName, exhibitDescription);
 		//Not sure of purpose to return exhibit
 		return exhibit;
 	}
