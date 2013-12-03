@@ -24,7 +24,7 @@ public class ExhibitDAO {
 	 * Queries the database to populate a collection of Exhibit objects
 	 * @return a list of Exhibit objects populated with data
 	 */
-	List<Exhibit> find(){
+	static List<Exhibit> find(){
 		List<Exhibit> list = new ArrayList<Exhibit>();
 		ResultSet result;
 		try {
@@ -49,7 +49,7 @@ public class ExhibitDAO {
 	 * Queries the database to populate a collection of Museum objects in Exhibit
 	 * @return a list of items  in exhibit
 	 */
-	List<MuseumItem> findMuseumItem(String ExhibitName){
+	List<MuseumItem> findMuseumItemInExhibit(String ExhibitName){
 		List<MuseumItem> list = new ArrayList<MuseumItem>();
 		ResultSet result1;
 		ResultSet result2;
@@ -106,7 +106,7 @@ public class ExhibitDAO {
 	 * any changes that were made to the exhibit's list
 	 * @param list, representing a collection of museum items
 	 */
-	static void updateExhibitItems(String ExhibitName, ArrayList<MuseumItem> list){
+	static void updateItemsInExhibit(String ExhibitName, ArrayList<MuseumItem> list){
 		try {
 			sqlUpdate("DELETE FROM " + ExhibitName);
 
@@ -221,5 +221,25 @@ public class ExhibitDAO {
 		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
 		PreparedStatement statement = con.prepareStatement(sqlStatement);
 		statement.executeUpdate();
+	}
+	
+	/**
+	 * Method is used as a test case, called from guestView in view folder
+	 */
+	public static void exhibittest(){
+		
+		List<Exhibit>  mylist = (List<Exhibit> ) find();
+		
+//		ArrayList mylist = new ArrayList();
+//		int[] location = {-1,-1};
+//		MuseumItem item = new MuseumItem("Z3","First functional program-controlled Turing-complete computer, the Z3, which "
+//				+ "became operational in May 1941. Thanks to this machine and its predecessors, Konrad Zuse is often regarded"
+//				+ " as the inventor of the computer. Using 2,300 relays, the Z3 used floating point binary arithmetic and had "
+//				+ "a 22-bit word length. The original Z3 was destroyed in a bombing raid of Berlin in late 1943. However, Zuse "
+//				+ "later supervised a reconstruction of the Z3 in the 1960s.", null,null,null, location);
+//		mylist.add(item);
+//		update(mylist);
+		
+		System.out.println((((Exhibit) mylist.get(0)).getExhibitName().toString()));
 	}
 }
