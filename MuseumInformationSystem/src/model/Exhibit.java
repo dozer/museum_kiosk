@@ -24,8 +24,8 @@ public class Exhibit {
 	 */
 	public Exhibit(String exhibitName, String exhibitDescription, int[] location){
 		setExhibitLocation(location);
-		setExhibitName(exhibitName);
-		setExhibitDescription(exhibitDescription);
+		this.exhibitName = exhibitName;
+		this.exhibitDescription = exhibitDescription;
 	}
 	
 	/**

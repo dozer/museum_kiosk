@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import model.Exhibit;
+import model.MuseumItem;
 
 /**
  * The purpose of this module is to populate Exhibit objects with their 
@@ -27,12 +28,13 @@ public class ExhibitDAO {
 		List<Exhibit> list = new ArrayList<Exhibit>();
 		ResultSet result;
 		try {
-			result = sqlQuery("Select * FROM ExhibitList WHERE Enabled = 1");
+			result = sqlQuery("Select ExhibitName, ExhibitDescription, LocationX, LocationY "
+					+ "FROM ExhibitList");
 
 			while(result.next()){
-				int[] location = {result.getInt(4), result.getInt(5)};
-				Exhibit exhibit = new Exhibit(result.getString(2), result.getString(3), location);
-											//exhibitname		exhibitdescription		locationx, locationy
+				int[] location = {result.getInt(3), result.getInt(4)};
+				Exhibit exhibit = new Exhibit(result.getString(1), result.getString(2), location);
+				//exhibitname		exhibitdescription		locationx, locationy
 				list.add(exhibit);
 			}	
 
@@ -42,86 +44,158 @@ public class ExhibitDAO {
 		}
 		return list;
 	}
-	
+
 	/**
-	 * Sets the location of collection of items
-	 * @param string representing exhibit name
-	 * @param location representing the location inside the museum
+	 * Queries the database to populate a collection of Museum objects in Exhibit
+	 * @return a list of items  in exhibit
 	 */
-	public static void  setExhibitLocation(String ExhibitName, int[] location){
+	List<MuseumItem> findMuseumItem(String ExhibitName){
+		List<MuseumItem> list = new ArrayList<MuseumItem>();
+		ResultSet result1;
+		ResultSet result2;
 		try {
-			sqlUpdate("UPDATE ExhibitList SET LocationX = " + location[0] + ", LocationY = " + location[1] + "WHERE ExhibitName = '" + 
-					ExhibitName + "'");
+			result1 = sqlQuery("SELECT ExhibitName FROM " + ExhibitName);
+
+
+			while(result1.next()){
+
+				result2 = sqlQuery("SELECT ItemName, ItemDescription, ItemImage, ItemAudio, "
+						+ "ItemVideo, LocationX, LocationY FROM MuseumItem " +
+						" WHERE ItemName = '" + result1.getString(1) + "'");
+				
+				int[] location = {result2.getInt(6), result2.getInt(7)};
+				MuseumItem item = new MuseumItem(result2.getString(1), result2.getString(2), 
+												//ItemName			itemdescription	
+						result2.getString(3), result2.getString(4), result2.getString(5), location );
+							//itemimage			itemaudio			itemvideo			x, y locations
+				list.add(item);
+			}	
+
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	/**
+	 * Updates entire database by dropping the previous table and inserting values back into the table based on
+	 * any changes that were made to the list of exhibits
+	 * @param list, representing a collection of exhibits
+	 */
+	static void updateExhibitTable(List<Exhibit> list){
+		try {
+			sqlUpdate("DELETE FROM ExhibitList");
+
+			for(int i = 0; i < list.size(); i++){
+
+				int[] location = list.get(i).getExhibitLocation();
+				sqlUpdate("INSERT INTO ExhibitList VALUES('"
+						+ list.get(i).getExhibitName() + "', '" + list.get(i).getExhibitDescription() + "', "
+						+ ", " + location[0] + ", " + location[1] + ")");
+			}	
+
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
-	 * Sets the description of the exhibit on the exhibitlist table
-	 * @param ExhibitName
-	 * @param ExhibitDescription
+	 * Updates entire database by dropping the previous table and inserting values back into the table based on
+	 * any changes that were made to the exhibit's list
+	 * @param list, representing a collection of museum items
 	 */
-	public static void  setExhibitDescriptin(String ExhibitName, String ExhibitDescription){
+	static void updateExhibitItems(String ExhibitName, ArrayList<MuseumItem> list){
 		try {
-			sqlUpdate("UPDATE ExhibitList SET ExhibitDescription = '" + ExhibitDescription + "' WHERE ExhibitName = '" + 
-					ExhibitName + "'");
+			sqlUpdate("DELETE FROM " + ExhibitName);
+
+			for(int i = 0; i < list.size(); i++){
+
+				sqlUpdate("INSERT INTO " + ExhibitName + " VALUES('"
+						+ list.get(i).getName() + ")");
+			}	
+
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
+
+	//	/**
+	//	 * Sets the location of collection of items
+	//	 * @param string representing exhibit name
+	//	 * @param location representing the location inside the museum
+	//	 */
+	//	public static void  setExhibitLocation(String ExhibitName, int[] location){
+	//		try {
+	//			sqlUpdate("UPDATE ExhibitList SET LocationX = " + location[0] + ", LocationY = " + location[1] + "WHERE ExhibitName = '" + 
+	//					ExhibitName + "'");
+	//		} catch (ClassNotFoundException | SQLException e) {
+	//			// TODO Auto-generated catch block
+	//			e.printStackTrace();
+	//		}
+	//	}
+	//	
+	//	/**
+	//	 * Sets the description of the exhibit on the exhibitlist table
+	//	 * @param ExhibitName
+	//	 * @param ExhibitDescription
+	//	 */
+	//	public static void  setExhibitDescriptin(String ExhibitName, String ExhibitDescription){
+	//		try {
+	//			sqlUpdate("UPDATE ExhibitList SET ExhibitDescription = '" + ExhibitDescription + "' WHERE ExhibitName = '" + 
+	//					ExhibitName + "'");
+	//		} catch (ClassNotFoundException | SQLException e) {
+	//			// TODO Auto-generated catch block
+	//			e.printStackTrace();
+	//		}
+	//	}
+	//	
 	/**
 	 * Adds a new row to the exhibitlist table and creates a new table to fill with museum items
 	 * @param ExhibitName
-	 * @param ExhibitDescription
-	 * @param LocationX
-	 * @param LocationY
 	 */
-	public static void  CreateExhibit(String ExhibitName, String ExhibitDescription, int LocationX, int LocationY){
+	public static void  CreateExhibit(String ExhibitName){
 		try {
-			sqlUpdate("INSERT INTO ExhibitList VALUES(default, " + ExhibitName + "," + ExhibitDescription + ", " +  LocationX + ", " + LocationY + ")");
-			
-			sqlUpdate("CREATE TABLE " + ExhibitName + " (ExhibtID int not null autoincrement, ExhibitName varchar(50) not null"
-					+ ", Enabled int, Primary Key (ExhibitID))");
-			
+			sqlUpdate("CREATE TABLE " + ExhibitName + " (MuseumItemName varchar(50)");
+
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	/**
-	 * Adds a museum item to the collection
-	 * @param string representing exhibit name
-	 * @param string representing an item inside the museum
-	 */
-	public static void  addItem(String ExhibitName, String item){
-		try {
-			sqlUpdate("INSERT INTO " + ExhibitName + " VALUES(default, '" + item + "', 1)");
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * Removes (disables) item from exhibit list
-	 * @param ExhibitName representing the exhibit name
-	 * @param item representing the item to be removed from list
-	 */
-	public static void removeItem(String ExhibitName, String item){
-		try {
-			sqlUpdate("UPDATE " + ExhibitName + " SET Enabled = 0 WHERE MuseumItemName = '" + item + "'");
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	
+	//	
+	//	/**
+	//	 * Adds a museum item to the collection
+	//	 * @param string representing exhibit name
+	//	 * @param string representing an item inside the museum
+	//	 */
+	//	public static void  addItem(String ExhibitName, String item){
+	//		try {
+	//			sqlUpdate("INSERT INTO " + ExhibitName + " VALUES(default, '" + item + "', 1)");
+	//		} catch (ClassNotFoundException | SQLException e) {
+	//			// TODO Auto-generated catch block
+	//			e.printStackTrace();
+	//		}
+	//	}
+	//	
+	//	/**
+	//	 * Removes (disables) item from exhibit list
+	//	 * @param ExhibitName representing the exhibit name
+	//	 * @param item representing the item to be removed from list
+	//	 */
+	//	public static void removeItem(String ExhibitName, String item){
+	//		try {
+	//			sqlUpdate("UPDATE " + ExhibitName + " SET Enabled = 0 WHERE MuseumItemName = '" + item + "'");
+	//		} catch (ClassNotFoundException | SQLException e) {
+	//			// TODO Auto-generated catch block
+	//			e.printStackTrace();
+	//		}
+	//	}
+	//	
+
 	/**
 	 * sqlQuery takes a sql statement intended only as a query to retrieve a dataset from the museumitem table
 	 * @param sqlStatement
@@ -135,7 +209,7 @@ public class ExhibitDAO {
 		PreparedStatement statement = con.prepareStatement(sqlStatement);
 		return statement.executeQuery();
 	}
-	
+
 	/**
 	 * sqlUpdate takes a sql statement intended only as an update, delete, or insert to the msueumitem table
 	 * @param sqlStatement
