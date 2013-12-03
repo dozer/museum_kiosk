@@ -24,6 +24,7 @@ public class MuseumItem {
 	private String image;
 	private String audio;
 	private String video;
+	private int[] location;
 	
 	/**
 	 * MuseumItem class constructor
@@ -33,13 +34,15 @@ public class MuseumItem {
 	 * @param audio
 	 * @param video
 	 */
-	public MuseumItem(String name, String description, String image, 
-			String audio, String video){
+	public MuseumItem(String name, String description, String image, String audio, String video,
+			int location[]){
 		this.name = name;
 		this.description = description;
 		this.image = image;
 		this.audio = audio;
 		this.video = video;
+		this.location = location;
+		
 	}
 	
 	/**
@@ -47,7 +50,7 @@ public class MuseumItem {
 	 * @param name, a string representing the new name to be 
 	 * 		assigned to the item
 	 */
-	public void setTitle(String name){
+	public void setName(String name){
 		this.name = name;
 	}
 	
@@ -84,10 +87,18 @@ public class MuseumItem {
 	}
 	
 	/**
+	 * Sets the location for the item on the museum's map
+	 * @param location, an array of size 2 representing the items location
+	 */
+	public void setlocation(int[] location){
+		this.location = location;
+	}
+	
+	/**
 	 * Returns the name of the museum item
 	 * @return a string representing the name of the item
 	 */
-	public String getTitle(){
+	public String getName(){
 		return name;
 	}
 	/**
@@ -95,7 +106,7 @@ public class MuseumItem {
 	 * @return a string representing the description of an item
 	 */
 	public String getDescription(){
-		return description;	//must retrieve description from database
+		return description;
 	}
 	
 	/**
@@ -122,5 +133,12 @@ public class MuseumItem {
 		return video;
 	}
 	
+	/**
+	 * Returns an array of size 2 representing the x and y axis on the museums grid/map
+	 * @return an array representing the location on the museum map
+	 */
+	public int[] getLocation(){
+		return location;
+	}
 	
 }

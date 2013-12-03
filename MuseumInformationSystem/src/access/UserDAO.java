@@ -14,6 +14,7 @@ import model.User;
  * The purpose of this module is to populate the User objects with their
  * corresponding data from the database
  * Created November 26th 2013
+ * Updated Decemeber 2nd 2013
  * @author Sara
  *
  */
@@ -27,10 +28,10 @@ public class UserDAO {
 		List<User> list = new ArrayList<User>();
 		ResultSet result;
 		try {
-			result = sqlQuery("Select * FROM User");
+			result = sqlQuery("Select Login, Password, AccessLevel FROM User");
 
 			while(result.next()){
-				User user = new User(result.getString(2), result.getString(3), result.getInt(4));
+				User user = new User(result.getString(1), result.getString(2), result.getInt(3));
 				list.add(user);
 			}	
 
@@ -40,56 +41,22 @@ public class UserDAO {
 		}
 		return list;
 	}
-
+	
 	/**
-	 * Adds a new user to database
-	 * @param login
-	 * @param password
-	 * @param accessLevel
+	 * Updates entire database by dropping the previous table and inserting values back into the table based on
+	 * any changes that were made to the list of users
+	 * @param list, representing the list of users
 	 */
-	public static void  addUser(String login, String password, int accessLevel){
+	static void update(List<User> list){
 		try {
-			//sqlUpdate("INSERT INTO USER VALUES(default, '"+ login + "', '" + password + "', " + accessLevel);
-			sqlUpdate("INSERT INTO USER VALUES('"+ login + "', '" + password + "', " + accessLevel + ")" );
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+			sqlUpdate("DELETE FROM User");
 
-	/**
-	 * Sets the login name for the user
-	 * @param login representing the User's login ID
-	 */
-	public static void  setLoginID(String login, int userID){
-		try {
-			sqlUpdate("UPDATE USER SET Login = '" + login + "' WHERE UserID = " + userID);
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+			for(int i = 0; i < list.size(); i++){
+				sqlUpdate("INSERT INTO User VALUES('"
+						+ list.get(i).getLogin() + "', '" + list.get(i).getPassword() + "', "
+						+ list.get(i).getAccessLevel() + ")");
+			}	
 
-	/**
-	 * Sets the password for the user
-	 * @param password representing  password
-	 */
-	public static void  setPassword(String password, int userID){
-		try {
-			sqlUpdate("UPDATE USER SET Password = '" + password + "' WHERE UserID = " + userID);
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Sets the level of access to application
-	 * @param num
-	 */
-	public static void  setAccessLevel(int num, int userID){
-		try {
-			sqlUpdate("UPDATE USER SET AccessLevel = '" + num + "' WHERE UserID = " + userID);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -128,7 +95,7 @@ public class UserDAO {
 	 */
 	public static void usertest(){	
 		ArrayList mylist = (ArrayList) find();
-		System.out.println((((User) mylist.get(0)).getLoginID().toString()));
+		System.out.println((((User) mylist.get(0)).getLogin().toString()));
 	}
 }
 
