@@ -26,7 +26,7 @@ public class UserManagementController {
 		
 		for(User u: list)
 		{
-			if(u.getLoginID() == ID)
+			if(u.getLogin() == ID)
 			{
 				doesNotExist = false;
 				break;
@@ -47,7 +47,7 @@ public class UserManagementController {
 	ArrayList<User> removeFromUserList(ArrayList<User> list, String ID){
 		for(User u: list)
 		{
-			if(u.getLoginID() == ID)
+			if(u.getLogin() == ID)
 			{
 				list.remove(u);
 				break;
@@ -67,7 +67,7 @@ public class UserManagementController {
 	ArrayList<User> editUserList(ArrayList<User> list, String ID, String password, int accessLevel){
 		for(User u: list)
 		{
-			if(u.getLoginID() == ID)
+			if(u.getLogin() == ID)
 			{
 				if(password == null)
 					password = u.getPassword();

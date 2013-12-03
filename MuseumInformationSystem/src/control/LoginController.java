@@ -25,7 +25,7 @@ public class LoginController {
 	int verifyID(ArrayList<User> list, String userID, String userPassword){
 		for(User u: list)
 		{
-			if(u.getLoginID() == userID)
+			if(u.getLogin() == userID)
 			{
 				if(u.getPassword() == userPassword)
 					return 1;  //return USER;

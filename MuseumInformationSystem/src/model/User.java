@@ -31,7 +31,7 @@ public class User {
 	 * Sets the login name for the user
 	 * @param login, a string representing logniID
 	 */
-	public void setLoginID(String login){
+	public void setLogin(String login){
 		this.login = login;
 	}
 	
@@ -56,7 +56,7 @@ public class User {
 	 * Returns the login name of the user
 	 * @return a string representing the login ID for the user
 	 */
-	public String getLoginID(){
+	public String getLogin(){
 		return login;
 	}
 	
