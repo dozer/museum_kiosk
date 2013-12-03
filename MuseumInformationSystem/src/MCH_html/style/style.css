@@ -46,7 +46,7 @@ a, a:hover
 
 a:hover
 { border-bottom: 1px solid;
-  color: #00C5EE;}
+  color: #B60000;}
 
 img
 { border: 0px; 
@@ -96,15 +96,21 @@ ol li
 { margin: 0px 0px 11px 0px; 
   padding: 0px;}
 
-#main, #logo, #menubar, #site_content, #footer
+#main, #logo, #site_content, #footer
 { margin-left: auto; 
-  margin-right: auto;}
+  margin-right: auto;
+  background: transparent url(techbg3.jpg); }
+
+#menubar
+{ margin-left: auto; 
+  margin-right: auto; 
+  background: color: #FFF;}
 
 #main
 { padding-bottom: 40px;}
 
 #header
-{ background: transparent url(techbg3.jpg) no-repeat;}
+{ background: transparent url(techbg3.jpg) no-repeat; }
 
 #logo
 { width: 860px;
@@ -176,10 +182,10 @@ ul#menu li.selected
 { margin: 7px 0 0 0;}
 
 ul#menu li.selected a, ul#menu li.selected a:hover
-{ color: #00C6EF;}
+{ color: #B60000;}
 
 ul#menu li a:hover
-{ color: #00C6EF;}
+{ color: #B60000;}
 
 #site_content
 { width: 858px;
@@ -319,3 +325,20 @@ table tr td
 { background: #E5E5DB;
   color: #47433F;
   border-top: 1px solid #FFF;}
+
+.main_title img {
+  float: left;
+  width: 75px;
+  height: 75px;
+}
+
+.main_title h1 {
+  float: right;
+  position: relative;
+  left: 12px;
+}
+
+.main_title h2 {
+  position: relative;
+  top: 13px;
+}
