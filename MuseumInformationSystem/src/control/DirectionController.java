@@ -68,6 +68,13 @@ public class DirectionController {
 
     private int[][] directions;
 
+    /**
+     * DirectionController takes a floorplan, and runs Dijkstra's algorithm on it.
+     * This will fill intFloorPlan with the shortest route from terminal to destination
+     * @param floorplan, representing the floorplan of the museum filled with Walls, Exhibits, Items, Open Space
+     * @param terminalPoint, representing the beginning point of the user
+     * @param destinationPoint, representing the destination point of the user
+     */
     public DirectionController(CoordinateObject[][] floorplan, int[] terminalPoint, int[] destinationPoint) {
         this.coordFloorplan = floorplan;
         this.intFloorplan = convertToIntArray(floorplan);
@@ -83,10 +90,24 @@ public class DirectionController {
         this.directions = new int[height][width];
     }
 
+    /**
+     * finds the shortest route to the destination, starting
+     * at the terminal
+     * @return true or false depending on if the program could find
+     * the destination, and it's not hidden behind walls
+     */
     public boolean find() {
         return traverse(this.startX,this.startY);
     }
-
+    
+    /**
+     * traverses to the next point on the map, depending if
+     * the coordinate is suitable(not a wall)
+     * @param i, representing the x coordinate
+     * @param j, representing the y coordinate
+     * @return true or false, depending if the program could
+     * move onto an adjacent coordinate
+     */
     private boolean traverse(int i, int j) {
         if (!isValid(i,j)) {
             return false;
@@ -127,10 +148,23 @@ public class DirectionController {
         return false;
     }
 
+    /**
+     * isEnd returns true if this coordinate is the destination
+     * @param i, representing the x coordinate
+     * @param j, representing the y coordinate
+     * @return true or false depending on if the coordinates are the destination
+     */
     private boolean isEnd(int i, int j) {
         return i == findX  && j == findY;
     }
-
+    
+    /**
+     * isValid determines if the coordinate is a valid one(in array range, not a wall
+     * or if not already tried
+     * @param i, representing x coordinate
+     * @param j, repres
+     * @return
+     */
     private boolean isValid(int i, int j) {
         if (inRange(i, j) && isOpen(i, j) && !isTried(i, j)) {
             return true;
