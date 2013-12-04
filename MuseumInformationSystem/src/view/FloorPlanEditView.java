@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import model.CoordinateObject;
+import model.FloorPlan;
 
 /**
  * Provides a visual interface to create and alter the floor plan of the museum
@@ -26,6 +27,7 @@ public class FloorPlanEditView extends JFrame {
     static CoordinateObject[][] gridObject = new CoordinateObject[N][N];
     static String currentSelectedObject = "Wall";
     static CoordinateObject currentObject;
+    FloorPlan floorplan;
     
     JButton wall;
     JButton exhibit;

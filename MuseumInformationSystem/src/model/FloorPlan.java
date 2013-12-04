@@ -47,4 +47,18 @@ public class FloorPlan {
         public String[][] getFloorPlan() {
             return floorPlan;
         }
+        
+        public void setFloorPlanSize(int size) {
+        	floorPlan = new String[size][size];
+        }
+        
+        public void initializeFloorPlan() {
+        	for(int i = 0; i < floorPlan.length; i++)
+        	{
+        		for(int j = 0; j < floorPlan.length; j++)
+        		{
+        			floorPlan[i][j] = "";
+        		}
+        	}
+        }
 }
