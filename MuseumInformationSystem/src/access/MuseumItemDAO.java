@@ -24,7 +24,7 @@ public class MuseumItemDAO {
 	 * Queries the database to populate a collection of MuseumItem objects
 	 * @return a list of Museum item objects populated with data
 	 */
-	static List<MuseumItem> find(){
+	public static List<MuseumItem> find(){
 		List<MuseumItem> list= new ArrayList<MuseumItem>();
 		ResultSet result;
 		try {

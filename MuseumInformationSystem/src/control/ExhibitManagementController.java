@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import model.Exhibit;
 import model.MuseumItem;
 import access.ExhibitDAO;
+import access.MuseumItemDAO;
 
 /**
  * The purpose of the Exhibit Management Controller is to add, remove or edit
@@ -24,7 +25,7 @@ public class ExhibitManagementController {
     public List<Exhibit> getExhibits() {
         List<Exhibit> list = ExhibitDAO.find();
         for(Exhibit e: list)
-            e.setMuseumItemList(findMuseumItemInExhibit(e.getExhibitName()));
+            e.setMuseumItemList(ExhibitDAO.findMuseumItemInExhibit(e.getExhibitName()));
         return list;
     }
     
