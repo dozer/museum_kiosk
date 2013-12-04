@@ -15,6 +15,28 @@ import access.ExhibitDAO;
  *
  */
 public class ExhibitManagementController {
+    
+    /**
+     * Gets all Exhibits currently in the database
+     * 
+     * @return list, representing all Exhibits
+     */
+    public List<Exhibit> getExhibits() {
+        List<Exhibit> list = ExhibitDAO.find();
+        for(Exhibit e: list)
+            e.setMuseumItemList(findMuseumItemInExhibit(e.getExhibitName()));
+        return list;
+    }
+    
+    /**
+     * Gets all MuseumItems currently in the database
+     * 
+     * @return list, representing all MuseumItems
+     */
+    public List<MuseumItem> getMuseumItems() {
+        List<MuseumItem> list = MuseumItemDAO.find();
+        return list;
+    }
 
     /**
      * Creates a new Exhibit with the location, name, and description of the
