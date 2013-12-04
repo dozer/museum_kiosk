@@ -1,7 +1,10 @@
 package control;
 
 import view.FloorPlanEditView;
+
 import java.util.Arrays;
+
+import model.CoordinateObject;
 
 /**
  * The purpose of the Direction Controller is to guide the User from the
@@ -45,7 +48,8 @@ public class DirectionController {
         System.out.println(dc.toString());
     }
 */
-    private int[][] floorplan;
+    private CoordinateObject[][] coordFloorplan;
+    private int[][] intFloorplan;
     private int height;
     private int width;
     private int startX;
@@ -55,12 +59,14 @@ public class DirectionController {
 
     private int[][] directions;
 
-    public DirectionController(int[][] floorplan) {
-        this.floorplan = floorplan;
-        this.height = floorplan.length;
-        this.width = floorplan[0].length;
-        findY = this.width - 1;
-        findX = this.height - 1;
+    public DirectionController(CoordinateObject[][] floorplan) {
+        this.coordFloorplan = floorplan;
+        this.intFloorplan = convertToIntArray(floorplan);
+        
+        this.height = intFloorplan.length;
+        this.width = intFloorplan[0].length;
+        findY = this.width - 1;		//item coordinate
+        findX = this.height - 1;    //item coordinate
 
         this.directions = new int[height][width];
     }
@@ -118,7 +124,7 @@ public class DirectionController {
     }
 
     private boolean isOpen(int i, int j) {
-        return floorplan[i][j] == 1 || floorplan[i][j] == 8 || floorplan[i][j] == 9;
+        return intFloorplan[i][j] == 1 || intFloorplan[i][j] == 8 || intFloorplan[i][j] == 9;
     }
 
     private boolean isTried(int i, int j) {
@@ -145,7 +151,7 @@ public class DirectionController {
 
         return s;
     }
-    /*
+    
     public int[][] convertToIntArray(CoordinateObject[][] objectArray) {
     	int height = objectArray.length; 
     	int width = objectArray[0].length;
@@ -169,7 +175,7 @@ public class DirectionController {
     	
     	return intArray;
     }
-    */
+    
     /**
 	 * Output directions from the user terminal to the chosen exhibit, by using other 
 	 * exhibits for landmarks.  Uses Dikstra's algorithm
