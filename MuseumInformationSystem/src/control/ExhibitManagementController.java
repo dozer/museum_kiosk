@@ -38,7 +38,7 @@ public class ExhibitManagementController {
      * @param name, representing the name of the Exhibit to remove
      * @return ArrayList of Exhibits minus the Exhibit to remove
      */
-    void removeExhibit(String name) {
+    public void removeExhibit(String name) {
         List<Exhibit> list = ExhibitDAO.find();
         for (Exhibit e : list) {
             if (e.getExhibitName() == name) {
@@ -61,7 +61,7 @@ public class ExhibitManagementController {
      * @param location representing the location of the exhibit
      * @param museumItemList representing the museum items of this Exhibit
      */
-    void editExhibit(String name, String newName, String description, int[] location, ArrayList<MuseumItem> museumItemList) {
+    public void editExhibit(String name, String newName, String description, int[] location, ArrayList<MuseumItem> museumItemList) {
         //this method may need to be altered;
         //what is considered media?? museum item model can have image, audio, and video
         // also is the name representing the exhibit name supposed to be the museum item?
@@ -93,7 +93,7 @@ public class ExhibitManagementController {
      * @param name representing the exhibit name
      * @param itemName representing the museum item name
      */
-    void removeMuseumItemFromExhibit(String name, String itemName) {
+    public void removeMuseumItemFromExhibit(String name, String itemName) {
         List<Exhibit> list = ExhibitDAO.find();
         for (Exhibit e : list) {
             if (e.getExhibitName().equals(name)) {
