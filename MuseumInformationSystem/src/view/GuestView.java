@@ -1,14 +1,6 @@
 package view;
 
-import java.beans.Statement;
-
-
 import java.net.URL;
-
-import access.ExhibitDAO;
-import access.MuseumItemDAO;
-import access.UserDAO;
-
 
 import model.MuseumItem;
 import javafx.application.Application;
@@ -90,6 +82,7 @@ class Browser extends Region {
         getChildren().add(browser);
  
     }
+    
     private Node createSpacer() {
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
