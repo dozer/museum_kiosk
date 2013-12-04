@@ -64,7 +64,7 @@ public class DirectionController {
     private int startY;
     private int findX;
     private int findY;
-    private String directionString;
+    private String directionString = "";
 
     private int[][] directions;
 
