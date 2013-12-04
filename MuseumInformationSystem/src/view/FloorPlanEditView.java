@@ -260,6 +260,10 @@ public class FloorPlanEditView extends JFrame {
         });*/
     }
     
+    public Object[][] getGridObject() {
+    	return this.gridObject;
+    }
+    
     /**
      * An Object that will be contained within an array.  Will hold all information about what is
      * held within coordinate
