@@ -13,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import model.CoordinateObject;
+
 /**
  * Provides a visual interface to create and alter the floor plan of the museum
  * Created November 26th 2013
@@ -263,13 +265,14 @@ public class FloorPlanEditView extends JFrame {
     public CoordinateObject[][] getGridObject() {
     	return this.gridObject;
     }
-    
+    /*
     /**
      * An Object that will be contained within an array.  Will hold all information about what is
      * held within coordinate
      * @author caseytcaprice
      *
      */
+    /*
     private class CoordinateObject {
     	private String type;
     	private int x;
@@ -299,5 +302,5 @@ public class FloorPlanEditView extends JFrame {
     	{
     		return this.type;
     	}
-    }
+    }*/
 }
