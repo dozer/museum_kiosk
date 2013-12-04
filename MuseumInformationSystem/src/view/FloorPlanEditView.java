@@ -8,10 +8,13 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import access.ExhibitDAO;
@@ -29,8 +32,8 @@ public class FloorPlanEditView extends JFrame {
     private static final int SIZE = 60;
     static CoordinateObject[][] gridObject = new CoordinateObject[N][N];
     static String currentSelectedObject = "Wall";
-    static //static CoordinateObject currentObject;
-    String currentObjectString = "Wall";
+    //static CoordinateObject currentObject;
+    static String currentObjectString = "Wall";
     static int currentObjectX;
     static int currentObjectY;
     static FloorPlan floorplan;
@@ -236,6 +239,9 @@ public class FloorPlanEditView extends JFrame {
     	exhibit.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e)
         	{
+        		//JList exhibitPopup = new JList(exhibitList.toArray());
+        		
+        		//String s = (String) JOptionPane.showInputDialog(null, "Choose an Exhibit", "Choose an Exhibit", JOptionPane.QUESTION_MESSAGE, null, exhibitList.toArray(), exhibitList.toArray()[0]);
         		//popUp window populated with Exhibits
         		//e = Exhibit chosen by user
         		//currentObject = new Object("Exhibit", -1, -1, e.getName(), e.getDescription(), e.getMedia());
@@ -277,13 +283,13 @@ public class FloorPlanEditView extends JFrame {
     }
     
     public static void main(String[] args) {
-        /*EventQueue.invokeLater(new Runnable() {
+        EventQueue.invokeLater(new Runnable() {
 
             @Override
             public void run() {
                 new FloorPlanEditView().display();
             }
-        });*/
+        });
     }
     
     public CoordinateObject[][] getGridObject() {

@@ -163,35 +163,36 @@ public class ExhibitDAO {
          * Method is used as a test case, called from guestView in view folder
          */
         public static void exhibittest(){
-
-                List<Exhibit> exhibitlist = (List<Exhibit> ) find();
+/*
+                //List<Exhibit> exhibitlist = (List<Exhibit> ) find();
 
                 //creating new exhibitlist for testing and updating it to exhibitlist table
-//                List<Exhibit> exhibitlist = new ArrayList<Exhibit>();
-//                int[] location = {-1,-1};
-//                Exhibit exhibit = new Exhibit("Generation1","Description of Generation1", location);        
-//                exhibitlist.add(exhibit);                                                        
+        		List<Exhibit> exhibitlist = new ArrayList<Exhibit>();
+                int[] location = {-1,-1};
+                Exhibit exhibit = new Exhibit("Generation1","Description of Generation1", location);        
+                exhibitlist.add(exhibit);                                                        
                 updateExhibitTable(exhibitlist);
 
                 //creating a table specifically for that exhibit
-//                CreateExhibit("Generation1");                                        
+                CreateExhibit("Generation1");                                        
 
                 //creating a list of museumitems to put in exhibit table        
-//                ArrayList itemlist = new ArrayList();
-//                itemlist.add("Z3");
-//                itemlist.add("Atanasoff–Berry Computer (ABC)");
-//                updateItemsInExhibit("Generation1", itemlist);
+                ArrayList itemlist = new ArrayList();
+                itemlist.add("Z3");
+                itemlist.add("Atanasoff–Berry Computer (ABC)");
+                updateItemsInExhibit("Generation1", itemlist);
 
                 //printing all exhibits
                 for(int i = 0; i < exhibitlist.size(); i++){
                         System.out.println((((Exhibit) exhibitlist.get(i)).getExhibitName().toString()));
                 }
 
-                List<MuseumItem> itemlist = (List<MuseumItem> ) findMuseumItemInExhibit("Generation1");
+                List<MuseumItem> itemlist2 = (List<MuseumItem> ) findMuseumItemInExhibit("Generation1");
                 //printing all Museumitems in exhibit
-                for(int i = 0; i < itemlist.size(); i++){
-                        System.out.println("ITEMNAME: "+ itemlist.get(i).getName() +", DESCRIPTION: "+ itemlist.get(i).getDescription());
+                for(int i = 0; i < itemlist2.size(); i++){
+                        System.out.println("ITEMNAME: "+ itemlist2.get(i).getName() +", DESCRIPTION: "+ itemlist2.get(i).getDescription());
                 }
+                */
                 
         }
 }
