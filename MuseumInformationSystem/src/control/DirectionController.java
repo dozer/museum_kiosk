@@ -200,6 +200,7 @@ public class DirectionController {
 	 */
 	
     	void outputDirections(){
+    		System.out.println(directionString);
 		
 	}
 	
