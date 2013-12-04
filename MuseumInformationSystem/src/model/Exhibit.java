@@ -98,8 +98,8 @@ public class Exhibit {
          * Sets the museum item list
          * @param museumItemList the new museum item list to be set
          */
-        public void setMuseumItemList(ArrayList<MuseumItem> museumItemList) {
-            this.museumItemList = museumItemList;
+        public void setMuseumItemList(List<MuseumItem> museumItemList) {
+            this.museumItemList = new ArrayList(museumItemList);
         }
 	
 	/**
