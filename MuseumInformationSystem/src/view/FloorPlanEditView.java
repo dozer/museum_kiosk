@@ -8,12 +8,15 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import access.ExhibitDAO;
 import model.CoordinateObject;
+import model.Exhibit;
 import model.FloorPlan;
 
 /**
@@ -31,13 +34,11 @@ public class FloorPlanEditView extends JFrame {
     static int currentObjectX;
     static int currentObjectY;
     static FloorPlan floorplan;
-    
+    List<Exhibit> exhibitList;
     JButton wall;
     JButton exhibit;
     JButton item;
-    JButton space;
-    
-    
+    JButton space;    
     
     /**
      * Create the Panel, as well as all coordinates and object buttons.  The User will
@@ -46,6 +47,7 @@ public class FloorPlanEditView extends JFrame {
      */
     public FloorPlanEditView() {
     	initializeArray();
+    	exhibitList = ExhibitDAO.find();
     	//currentObject = new CoordinateObject("Wall", -1, -1, "", "", "");
     	currentObjectString = "Wall";
     	floorplan.setFloorPlanSize(N);    	
