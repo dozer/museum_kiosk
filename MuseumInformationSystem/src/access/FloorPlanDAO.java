@@ -25,7 +25,7 @@ public class FloorPlanDAO {
 	 * @num representing the stack (version of floorplan)
 	 * @return a list of Floor Plan objects populated with data
 	 */
-//	static List<FloorPlan>findCurrentFloorPlan2(int num){
+//	public static List<FloorPlan>findCurrentFloorPlan2(int num){
 //		List<FloorPlan> list= new ArrayList<FloorPlan>();
 //		ResultSet result;
 //		try {
@@ -45,7 +45,7 @@ public class FloorPlanDAO {
 //		return (List<FloorPlan>) list;
 //	}
 
-	static String[][] findFloorPlan(int num){
+	public static String[][] findFloorPlan(int num){
 		String[][] floorplan = new String[18][18];
 		ResultSet result;
 		try {
@@ -69,7 +69,7 @@ public class FloorPlanDAO {
 	 * @param num representing the stack (version of floorplan)
 	 * @param floorplan representing the floorplan of structure types
 	 */
-	static void updateFloorPlan(String[][] floorPlan, int num){
+	public static void updateFloorPlan(String[][] floorPlan, int num){
 		try {
 			sqlUpdate("DELETE FROM FloorPlan" + num);
 
