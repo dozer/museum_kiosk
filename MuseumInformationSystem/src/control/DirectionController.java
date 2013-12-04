@@ -41,6 +41,7 @@ public class DirectionController {
         { 1, 1, 1, 1, 1 } 
     };
 
+    /*
     public static void main(String[] args) {
     	
     	int[] a = new int[2];
@@ -54,7 +55,7 @@ public class DirectionController {
         boolean solved = dc.find();
         System.out.println(dc.toString());
     }
-
+*/
     private CoordinateObject[][] coordFloorplan;
     private int[][] intFloorplan;
     private int height;

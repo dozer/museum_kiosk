@@ -32,12 +32,15 @@ public class FloorPlanEditView extends JFrame {
     JButton item;
     JButton space;
     
+    
+    
     /**
      * Create the Panel, as well as all coordinates and object buttons.  The User will
      * be able to click a button to choose which type of object (Wall, Exhibit, Item, Open Space)
      * to populate coordinates within the Floor Plan.
      */
     public FloorPlanEditView() {
+    	initializeArray();
     	currentObject = new CoordinateObject("Wall", -1, -1, "", "", "");
     	
     	JPanel coordGrid = new JPanel(new GridLayout(N,N));
@@ -150,7 +153,7 @@ public class FloorPlanEditView extends JFrame {
     /**
      * Displays Panel
      */
-    private void display() {
+    public void display() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         this.setLocationRelativeTo(null);
@@ -264,6 +267,17 @@ public class FloorPlanEditView extends JFrame {
     
     public CoordinateObject[][] getGridObject() {
     	return this.gridObject;
+    }
+    
+    public void initializeArray(){
+    	CoordinateObject temp = new CoordinateObject("Space", -1, -1, "", "", "");
+    	for(int i = 0; i < N; i++)
+    	{
+    		for(int j = 0; j < N; j++)
+    		{
+    			gridObject[i][j] = temp;
+    		}
+    	}
     }
     /*
     /**
