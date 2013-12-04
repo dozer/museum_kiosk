@@ -5,6 +5,7 @@ import view.FloorPlanEditView;
 import java.util.Arrays;
 
 import model.CoordinateObject;
+import model.FloorPlan;
 
 /**
  * The purpose of the Direction Controller is to guide the User from the
@@ -57,6 +58,7 @@ public class DirectionController {
     }
 */
     private CoordinateObject[][] coordFloorplan;
+    private FloorPlan floorplan;
     private int[][] intFloorplan;
     private int height;
     private int width;
@@ -70,14 +72,16 @@ public class DirectionController {
 
     /**
      * DirectionController takes a floorplan, and runs Dijkstra's algorithm on it.
-     * This will fill intFloorPlan with the shortest route from terminal to destination
+     * This will fill intFloorPlan with the shortest rou;te from terminal to destination
      * @param floorplan, representing the floorplan of the museum filled with Walls, Exhibits, Items, Open Space
      * @param terminalPoint, representing the beginning point of the user
      * @param destinationPoint, representing the destination point of the user
      */
-    public DirectionController(CoordinateObject[][] floorplan, int[] terminalPoint, int[] destinationPoint) {
-        this.coordFloorplan = floorplan;
-        this.intFloorplan = convertToIntArray(floorplan);
+    //public DirectionController(CoordinateObject[][] floorplan, int[] terminalPoint, int[] destinationPoint) {
+    public DirectionController(FloorPlan floorplan, int[] terminalPoint, int[] destinationPoint) {
+    	//this.coordFloorplan = floorplan;
+        this.floorplan = floorplan;
+    	this.intFloorplan = convertToIntArray(floorplan);
         this.height = intFloorplan.length;
         this.width = intFloorplan[0].length;
         
@@ -202,6 +206,32 @@ public class DirectionController {
         return s;
     }
     
+    public int[][] convertToIntArray(FloorPlan floorplan) {
+    	String[][] stringFloorPlan = floorplan.getFloorPlan();
+    	int height = stringFloorPlan.length; 
+    	int width = stringFloorPlan[0].length;
+    	
+    	int[][] intArray = new int[height][width];
+    	
+    	for(int i = 0; i < height; i++)
+    	{
+    		for(int j = 0; j < width; j++)
+    		{
+    			if(floorplan.getType(i,j) == "Space")
+    				intArray[i][j] = 1;
+    			else if(floorplan.getType(i,j) == "Exhibit")
+    				intArray[i][j] = 8;
+    			else if(floorplan.getType(i,j) == "Item")
+    				intArray[i][j] = 9;
+    			else if(floorplan.getType(i,j) == "Wall")
+    				intArray[i][j] = 0;
+    		}
+    	}
+    	
+    	return intArray;
+    }
+    
+    /*
     public int[][] convertToIntArray(CoordinateObject[][] objectArray) {
     	int height = objectArray.length; 
     	int width = objectArray[0].length;
@@ -225,6 +255,7 @@ public class DirectionController {
     	
     	return intArray;
     }
+    */
     
     /**
 	 * Output directions from the user terminal to the chosen exhibit, by using other 

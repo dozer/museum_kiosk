@@ -26,8 +26,11 @@ public class FloorPlanEditView extends JFrame {
     private static final int SIZE = 60;
     static CoordinateObject[][] gridObject = new CoordinateObject[N][N];
     static String currentSelectedObject = "Wall";
-    static CoordinateObject currentObject;
-    FloorPlan floorplan;
+    static //static CoordinateObject currentObject;
+    String currentObjectString = "Wall";
+    static int currentObjectX;
+    static int currentObjectY;
+    static FloorPlan floorplan;
     
     JButton wall;
     JButton exhibit;
@@ -43,7 +46,9 @@ public class FloorPlanEditView extends JFrame {
      */
     public FloorPlanEditView() {
     	initializeArray();
-    	currentObject = new CoordinateObject("Wall", -1, -1, "", "", "");
+    	//currentObject = new CoordinateObject("Wall", -1, -1, "", "", "");
+    	currentObjectString = "Wall";
+    	floorplan.setFloorPlanSize(N);    	
     	
     	JPanel coordGrid = new JPanel(new GridLayout(N,N));
     	coordGrid.setPreferredSize(new Dimension(N * SIZE, N * SIZE));
@@ -126,12 +131,18 @@ public class FloorPlanEditView extends JFrame {
             this.addActionListener(new ActionListener() {
             	public void actionPerformed(ActionEvent e)
             	{
-            		currentObject.setX(x);
-            		currentObject.setY(y);
+            		currentObjectX = x;
+            		currentObjectY = y;
             		
-            		gridObject[x][y] = currentObject;
+            		int[] tempLocation = new int[2];
+            		tempLocation[0] = x;
+            		tempLocation[1] = y;
             		
-            		switch(currentSelectedObject)
+            		floorplan.setType(tempLocation, currentObjectString);
+            		//gridObject[x][y] = currentObject;
+            		
+            		//switch(currentSelectedObject)
+            		switch(currentObjectString) //currentObjectType
             		{
             			case("Wall"):
             				makeRed();
@@ -211,7 +222,8 @@ public class FloorPlanEditView extends JFrame {
     	wall.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e)
         	{
-        		currentObject = new CoordinateObject("Wall", -1, -1, "", "", "");
+        		currentObjectString = "Wall";
+        		//= new CoordinateObject("Wall", -1, -1, "", "", "");
         		setCurrent("Wall");
         	}
         });
@@ -225,8 +237,10 @@ public class FloorPlanEditView extends JFrame {
         		//popUp window populated with Exhibits
         		//e = Exhibit chosen by user
         		//currentObject = new Object("Exhibit", -1, -1, e.getName(), e.getDescription(), e.getMedia());
-        		currentObject = new CoordinateObject("Exhibit", -1, -1, "Exhibit Name", "Exhibit Description", "Exhibit Media");
-        		setCurrent("Exhibit");
+        		currentObjectString = "Exhibit"; //change to Exhibit.name when hooked up****
+        		//currentObjectType = "Exhibit";
+        		//currentObject = new CoordinateObject("Exhibit", -1, -1, "Exhibit Name", "Exhibit Description", "Exhibit Media");
+        		setCurrent("Exhibit"); 
         	}
         });
     	
@@ -241,7 +255,9 @@ public class FloorPlanEditView extends JFrame {
         		//popUp window populated with e.getMuseumItems
         		//m = MuseumItem chosen by user
         		//currentObject = new Object("Item", -1, -1, m.getName(), m.getDescription, m.getMedia());
-        		currentObject = new CoordinateObject("Item", -1, -1, "Item Name", "Item Description", "Item Media");
+        		currentObjectString = "Item"; //change to Item.name when hooked up****
+        		//currentObjectType = "Item";
+        		//currentObject = new CoordinateObject("Item", -1, -1, "Item Name", "Item Description", "Item Media");
         		setCurrent("Item");
         	}
         });
@@ -251,7 +267,8 @@ public class FloorPlanEditView extends JFrame {
     	space.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e)
         	{
-        		currentObject = new CoordinateObject("Space", -1, -1, "", "", "");
+        		currentObjectString = "Space";
+        		//currentObject = new CoordinateObject("Space", -1, -1, "", "", "");
         		setCurrent("Space");
         	}
         });
@@ -269,6 +286,10 @@ public class FloorPlanEditView extends JFrame {
     
     public CoordinateObject[][] getGridObject() {
     	return this.gridObject;
+    }
+    
+    public FloorPlan getFloorPlan() {
+    	return floorplan;
     }
     
     public void initializeArray(){

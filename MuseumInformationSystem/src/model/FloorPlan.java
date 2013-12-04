@@ -39,7 +39,15 @@ public class FloorPlan {
 	public String getType(int[] location){
 		return floorPlan[location[0]][location[1]];
 	}
-        
+	
+	/**
+	 * Returns the name of the type of building structure the item is
+	 * @param  location, the location in the floor plan
+	 * @return a string representing a type of building structure
+	 */
+    public String getType(int x, int y) {
+    	return floorPlan[x][y];
+    }
         /** 
 	 * Returns the entire building structure in a two-dimensional array
 	 * @return a string representing the whole building structure
