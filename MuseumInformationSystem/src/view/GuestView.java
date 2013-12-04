@@ -31,7 +31,7 @@ public class GuestView extends Application {
     @Override public void start(Stage stage) {
         // create the scene
         stage.setTitle("Museum Information System");
-        scene = new Scene(new Browser(),1200,700, Color.web("#666970"));
+        scene = new Scene(new Browser(),1200,900, Color.web("#666970"));
         stage.setScene(scene);     
         stage.show();
     }

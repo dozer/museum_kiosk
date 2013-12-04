@@ -45,14 +45,13 @@ public class FloorPlanDAO {
 //		return (List<FloorPlan>) list;
 //	}
 
-	static String[][] findCurrentFloorPlan(int num){
+	static String[][] findFloorPlan(int num){
 		String[][] floorplan = new String[18][18];
 		ResultSet result;
 		try {
-			result = sqlQuery("Select StructureType LocationX, LocationY FROM FloorPlan" + num);
+			result = sqlQuery("Select StructureType, LocationX, LocationY FROM FloorPlan" + num);
 
 			while(result.next()){
-				int[] location = {result.getInt(2), result.getInt(3)};
 				floorplan[result.getInt(2)][result.getInt(3)] = result.getString(1);
 				// x location		y location			structure type
 			}	
@@ -70,16 +69,18 @@ public class FloorPlanDAO {
 	 * @param num representing the stack (version of floorplan)
 	 * @param floorplan representing the floorplan of structure types
 	 */
-	static void update(String[][] floorPlan, int num){
+	static void updateFloorPlan(String[][] floorPlan, int num){
 		try {
 			sqlUpdate("DELETE FROM FloorPlan" + num);
 
 			for(int i = 0; i < floorPlan[0].length; i++){
 				for(int j = 0; j < floorPlan[1].length; j++){
-
+					if (floorPlan[i][j] == null)
+						floorPlan[i][j] = "Space";
+					
 					sqlUpdate("INSERT INTO FloorPlan" + num + " VALUES('"
 							+ floorPlan[i][j] + "', " + i + ", " + j + ")");
-				}
+				};
 			}	
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -87,7 +88,6 @@ public class FloorPlanDAO {
 			e.printStackTrace();
 		}
 	}
-
 
 	/**
 	 * sqlQuery takes a sql statement intended only as a query to retrieve a dataset from the user table
@@ -98,7 +98,7 @@ public class FloorPlanDAO {
 	 */
 	public static ResultSet sqlQuery(String sqlStatement) throws ClassNotFoundException, SQLException{
 		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInfoSystem", "root", "sschlosser3");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
 		PreparedStatement statement = con.prepareStatement(sqlStatement);
 		return statement.executeQuery();
 	}
@@ -111,7 +111,7 @@ public class FloorPlanDAO {
 	 */
 	public static void sqlUpdate(String sqlStatement) throws SQLException, ClassNotFoundException{
 		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInfoSystem", "root", "sschlosser3");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
 		PreparedStatement statement = con.prepareStatement(sqlStatement);
 		statement.executeUpdate();
 	}
@@ -120,7 +120,21 @@ public class FloorPlanDAO {
 	 * Method is used as a test case, called from guestView in view folder
 	 */
 	public static void floorplantest(){        
-
+		String[][] mylist = new String[18][18];
+		mylist[0][0] = "Wall";
+		mylist[0][1] = "Wall";
+		mylist[0][2] = "Item";
+		mylist[1][0] = "Item";
+		mylist[1][1] = "Space";
+		
+		updateFloorPlan(mylist, 0);
+		
+		String[][] testlist = findFloorPlan(0);
+		for(int i = 0; i < testlist[0].length; i++){
+			for(int j = 0; j < testlist[1].length; j++){
+				System.out.println(testlist[i][j]);
+			}
+		}	
 	}
 
 
