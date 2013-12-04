@@ -79,7 +79,7 @@ class Browser extends Region {
      
     public Browser() {
         //apply the styles
-        getStyleClass().add("browser");
+
         // load the web page
         
         
