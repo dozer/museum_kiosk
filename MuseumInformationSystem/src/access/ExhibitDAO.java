@@ -34,7 +34,7 @@ public class ExhibitDAO {
 			while(result.next()){
 				int[] location = {result.getInt(3), result.getInt(4)};
 				Exhibit exhibit = new Exhibit(result.getString(1), result.getString(2), location);
-				//exhibitname		exhibitdescription		locationx, locationy
+											//exhibitname		exhibitdescription		x,y locations
 				list.add(exhibit);
 			}	
 
@@ -49,24 +49,20 @@ public class ExhibitDAO {
 	 * Queries the database to populate a collection of Museum objects in Exhibit
 	 * @return a list of items  in exhibit
 	 */
-	List<MuseumItem> findMuseumItemInExhibit(String ExhibitName){
+	static List<MuseumItem> findMuseumItemInExhibit(String ExhibitName){
 		List<MuseumItem> list = new ArrayList<MuseumItem>();
-		ResultSet result1;
-		ResultSet result2;
+		ResultSet result;
 		try {
-			result1 = sqlQuery("SELECT ExhibitName FROM " + ExhibitName);
-
-
-			while(result1.next()){
-
-				result2 = sqlQuery("SELECT ItemName, ItemDescription, ItemImage, ItemAudio, "
-						+ "ItemVideo, LocationX, LocationY FROM MuseumItem " +
-						" WHERE ItemName = '" + result1.getString(1) + "'");
-				
-				int[] location = {result2.getInt(6), result2.getInt(7)};
-				MuseumItem item = new MuseumItem(result2.getString(1), result2.getString(2), 
-												//ItemName			itemdescription	
-						result2.getString(3), result2.getString(4), result2.getString(5), location );
+			result = sqlQuery("SELECT ItemName, ItemDescription, ItemImage, ItemAudio, "
+						+ "ItemVideo, LocationX, LocationY FROM MuseumItem "
+						+ "INNER JOIN " + ExhibitName +" ON " + ExhibitName + ".MuseumItemName = MuseumItem.ItemName");
+//						" WHERE ItemName = '" + result1.getString(1) + "'");
+				while(result.next()){
+				int[] location = {result.getInt(6), result.getInt(7)};
+//				MuseumItem item = new MuseumItem("me", "me", null, null, null, location);
+				MuseumItem item = new MuseumItem(result.getString(1), result.getString(2), 
+													//ItemName			itemdescription	
+						result.getString(3), result.getString(4), result.getString(5), location );
 							//itemimage			itemaudio			itemvideo			x, y locations
 				list.add(item);
 			}	
@@ -78,6 +74,20 @@ public class ExhibitDAO {
 		return list;
 	}
 
+	/**
+	 * Adds a new row to the exhibitlist table and creates a new table to fill with museum items
+	 * @param ExhibitName
+	 */
+	public static void  CreateExhibit(String ExhibitName){
+		try {
+			sqlUpdate("CREATE TABLE " + ExhibitName + " (MuseumItemName varchar(50))");
+
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Updates entire database by dropping the previous table and inserting values back into the table based on
 	 * any changes that were made to the list of exhibits
@@ -92,7 +102,7 @@ public class ExhibitDAO {
 				int[] location = list.get(i).getExhibitLocation();
 				sqlUpdate("INSERT INTO ExhibitList VALUES('"
 						+ list.get(i).getExhibitName() + "', '" + list.get(i).getExhibitDescription() + "', "
-						+ ", " + location[0] + ", " + location[1] + ")");
+						+ location[0] + ", " + location[1] + ")");
 			}	
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -106,14 +116,14 @@ public class ExhibitDAO {
 	 * any changes that were made to the exhibit's list
 	 * @param list, representing a collection of museum items
 	 */
-	static void updateItemsInExhibit(String ExhibitName, ArrayList<MuseumItem> list){
+	static void updateItemsInExhibit(String ExhibitName, ArrayList list){
 		try {
 			sqlUpdate("DELETE FROM " + ExhibitName);
 
 			for(int i = 0; i < list.size(); i++){
 
-				sqlUpdate("INSERT INTO " + ExhibitName + " VALUES('"
-						+ list.get(i).getName() + ")");
+				sqlUpdate("INSERT INTO " + ExhibitName + " VALUES('" + list.get(i).toString() + "')");
+																		//MuseumItemName
 			}	
 
 		} catch (ClassNotFoundException | SQLException e) {
@@ -121,81 +131,7 @@ public class ExhibitDAO {
 			e.printStackTrace();
 		}
 	}
-
-
-	//	/**
-	//	 * Sets the location of collection of items
-	//	 * @param string representing exhibit name
-	//	 * @param location representing the location inside the museum
-	//	 */
-	//	public static void  setExhibitLocation(String ExhibitName, int[] location){
-	//		try {
-	//			sqlUpdate("UPDATE ExhibitList SET LocationX = " + location[0] + ", LocationY = " + location[1] + "WHERE ExhibitName = '" + 
-	//					ExhibitName + "'");
-	//		} catch (ClassNotFoundException | SQLException e) {
-	//			// TODO Auto-generated catch block
-	//			e.printStackTrace();
-	//		}
-	//	}
-	//	
-	//	/**
-	//	 * Sets the description of the exhibit on the exhibitlist table
-	//	 * @param ExhibitName
-	//	 * @param ExhibitDescription
-	//	 */
-	//	public static void  setExhibitDescriptin(String ExhibitName, String ExhibitDescription){
-	//		try {
-	//			sqlUpdate("UPDATE ExhibitList SET ExhibitDescription = '" + ExhibitDescription + "' WHERE ExhibitName = '" + 
-	//					ExhibitName + "'");
-	//		} catch (ClassNotFoundException | SQLException e) {
-	//			// TODO Auto-generated catch block
-	//			e.printStackTrace();
-	//		}
-	//	}
-	//	
-	/**
-	 * Adds a new row to the exhibitlist table and creates a new table to fill with museum items
-	 * @param ExhibitName
-	 */
-	public static void  CreateExhibit(String ExhibitName){
-		try {
-			sqlUpdate("CREATE TABLE " + ExhibitName + " (MuseumItemName varchar(50)");
-
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	//	
-	//	/**
-	//	 * Adds a museum item to the collection
-	//	 * @param string representing exhibit name
-	//	 * @param string representing an item inside the museum
-	//	 */
-	//	public static void  addItem(String ExhibitName, String item){
-	//		try {
-	//			sqlUpdate("INSERT INTO " + ExhibitName + " VALUES(default, '" + item + "', 1)");
-	//		} catch (ClassNotFoundException | SQLException e) {
-	//			// TODO Auto-generated catch block
-	//			e.printStackTrace();
-	//		}
-	//	}
-	//	
-	//	/**
-	//	 * Removes (disables) item from exhibit list
-	//	 * @param ExhibitName representing the exhibit name
-	//	 * @param item representing the item to be removed from list
-	//	 */
-	//	public static void removeItem(String ExhibitName, String item){
-	//		try {
-	//			sqlUpdate("UPDATE " + ExhibitName + " SET Enabled = 0 WHERE MuseumItemName = '" + item + "'");
-	//		} catch (ClassNotFoundException | SQLException e) {
-	//			// TODO Auto-generated catch block
-	//			e.printStackTrace();
-	//		}
-	//	}
-	//	
-
+	
 	/**
 	 * sqlQuery takes a sql statement intended only as a query to retrieve a dataset from the museumitem table
 	 * @param sqlStatement
@@ -222,24 +158,40 @@ public class ExhibitDAO {
 		PreparedStatement statement = con.prepareStatement(sqlStatement);
 		statement.executeUpdate();
 	}
-	
+
 	/**
 	 * Method is used as a test case, called from guestView in view folder
 	 */
 	public static void exhibittest(){
-		
-		List<Exhibit>  mylist = (List<Exhibit> ) find();
-		
-//		ArrayList mylist = new ArrayList();
+
+		List<Exhibit>  exhibitlist = (List<Exhibit> ) find();
+
+		//creating new exhibitlist for testing and updating it to exhibitlist table
+//		List<Exhibit> exhibitlist = new ArrayList<Exhibit>();
 //		int[] location = {-1,-1};
-//		MuseumItem item = new MuseumItem("Z3","First functional program-controlled Turing-complete computer, the Z3, which "
-//				+ "became operational in May 1941. Thanks to this machine and its predecessors, Konrad Zuse is often regarded"
-//				+ " as the inventor of the computer. Using 2,300 relays, the Z3 used floating point binary arithmetic and had "
-//				+ "a 22-bit word length. The original Z3 was destroyed in a bombing raid of Berlin in late 1943. However, Zuse "
-//				+ "later supervised a reconstruction of the Z3 in the 1960s.", null,null,null, location);
-//		mylist.add(item);
-//		update(mylist);
+//		Exhibit exhibit = new Exhibit("Generation1","Description of Generation1", location);	
+//		exhibitlist.add(exhibit);							
+		updateExhibitTable(exhibitlist);
+
+		//creating a table specifically for that exhibit
+//		CreateExhibit("Generation1");					
+
+		//creating a list of museumitems to put in exhibit table	
+//		ArrayList itemlist = new ArrayList();
+//		itemlist.add("Z3");
+//		itemlist.add("Atanasoff–Berry Computer (ABC)");
+//		updateItemsInExhibit("Generation1", itemlist);
+
+		//printing all exhibits
+		for(int i = 0; i < exhibitlist.size(); i++){
+			System.out.println((((Exhibit) exhibitlist.get(i)).getExhibitName().toString()));
+		}
+
+		List<MuseumItem>  itemlist = (List<MuseumItem> )  findMuseumItemInExhibit("Generation1");
+		//printing all Museumitems in exhibit
+		for(int i = 0; i < itemlist.size(); i++){
+			System.out.println("ITEMNAME: "+ itemlist.get(i).getName() +", DESCRIPTION: "+ itemlist.get(i).getDescription());
+		}
 		
-		System.out.println((((Exhibit) mylist.get(0)).getExhibitName().toString()));
 	}
 }
