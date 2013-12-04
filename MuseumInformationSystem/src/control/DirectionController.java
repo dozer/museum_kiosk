@@ -59,20 +59,23 @@ public class DirectionController {
 
     private int[][] directions;
 
-    public DirectionController(CoordinateObject[][] floorplan) {
+    public DirectionController(CoordinateObject[][] floorplan, int[] terminalPoint, int[] destinationPoint) {
         this.coordFloorplan = floorplan;
         this.intFloorplan = convertToIntArray(floorplan);
-        
         this.height = intFloorplan.length;
         this.width = intFloorplan[0].length;
-        findY = this.width - 1;		//item coordinate
-        findX = this.height - 1;    //item coordinate
+        
+        this.startX = terminalPoint[1];
+        this.startY = terminalPoint[0];
+        
+        this.findY = destinationPoint[0];		//item coordinate
+        this.findX = destinationPoint[1];    //item coordinate
 
         this.directions = new int[height][width];
     }
 
     public boolean find() {
-        return traverse(0,0);
+        return traverse(this.startX,this.startY);
     }
 
     private boolean traverse(int i, int j) {
