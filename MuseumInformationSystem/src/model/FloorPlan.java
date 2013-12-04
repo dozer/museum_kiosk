@@ -39,4 +39,12 @@ public class FloorPlan {
 	public String getType(int[] location){
 		return floorPlan[location[0]][location[1]];
 	}
+        
+        /** 
+	 * Returns the entire building structure in a two-dimensional array
+	 * @return a string representing the whole building structure
+	 */
+        public String[][] getFloorPlan() {
+            return floorPlan;
+        }
 }
