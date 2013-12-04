@@ -15,10 +15,10 @@ import enums.Structure;
  *
  */
 public class FloorPlanManagementController {
-    
-    private FloorPlan[] stack = new FloorPlan[3];
-        //undo is added to allocate space for user error in floor plan editing
-    private FloorPlan[] undo = new FloorPlan[3];
+
+	private FloorPlan[] stack = new FloorPlan[3];
+	//undo is added to allocate space for user error in floor plan editing
+	private FloorPlan[] undo = new FloorPlan[3];
 
 	/**
 	 * Edits the Floor plan objects which could be the structure type,
@@ -26,11 +26,10 @@ public class FloorPlanManagementController {
 	 * @param location representing the x and y coordinate
 	 * @param type representing the structure type of the floor plan
 	 */
-	void editFloorPlan(int[] location, Structure type){
-		//coordinate x and y params might be easier to manage if written as a array of size 2
-            stack[0].setType(location, type);
+	void editFloorPlan(int[] location, String type){
+		stack[0].setType(location, type);
 	}
-	
+
 	/**
 	 * Move takes the object currently in the floor plan in location1
 	 * and moves it to the object in location2.  
@@ -38,47 +37,40 @@ public class FloorPlanManagementController {
 	 * @param location2 representing the new x and y coordinate on the grid
 	 */
 	void move(int[] location1, int[] location2){
-		// this method may have to be rewritten.  old x, y params dont seem unnessesary
-                // implemented the method so that the two Structures are swapped
-            Structure str = stack[0].getType(location2);
-            stack[0].setType(location2, stack[0].getType(location1));
-            stack[0].setType(location1, str);
+		String str = stack[0].getType(location2);
+		stack[0].setType(location2, stack[0].getType(location1));
+		stack[0].setType(location1, str);
 	}
-	
+
 	/**
 	 * Falls back to the chosen floor plan
 	 * @param fp representing the old floor plan
 	 */
 	void fallbackToFloorPlan(){
-		//method may not need param for floor plan. instead maybe just pop the most recent from stack??
-		//also floorplan object is misunderstood. floorplan from model represents objects/structures such as walls
-		//	doors, outterwalls, etc.  not an actual floor plan.
-            undo[2] = undo[1];
-            undo[1] = undo[0];
-            undo[0] = stack[0];
-            stack[0] = stack[1];
-            stack[1] = stack[2];
-            stack[2] = null;
-            
+		undo[2] = undo[1];
+		undo[1] = undo[0];
+		undo[0] = stack[0];
+		stack[0] = stack[1];
+		stack[1] = stack[2];
+		stack[2] = null;
+
 	}
-	
+
 	/**
 	 * Adds the new Floor Plan created by editFloorPlan to the list of FloorPlans
 	 * @param fp representing a new floorplan
 	 */
 	void addToFloorPlanList(FloorPlan fp){
-		//Floorplan object is misunderstood. Floorplan from model represents objects/structures such as walls
-		//	doors, outterwalls, etc.  not an actual floor plan.
-            stack[2] = stack[1];
-            stack[1] = stack[0];
-            stack[0] = fp;
+		stack[2] = stack[1];
+		stack[1] = stack[0];
+		stack[0] = fp;
 	}
-	
+
 	/**
 	 * Removes last floor plan from the floor plan list.
 	 */
 	void removeFromFloorPlanList(){
-                //not sure if neccessary
-		
+		//not sure if neccessary
+
 	}
 }
