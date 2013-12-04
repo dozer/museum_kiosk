@@ -40,14 +40,21 @@ public class DirectionController {
         { 1, 0, 0, 0, 0 },
         { 1, 1, 1, 1, 1 } 
     };
-    
-/*
+
     public static void main(String[] args) {
-    	DirectionController dc = new DirectionController(FLOORPLAN);
+    	
+    	int[] a = new int[2];
+    	int[] b = new int[2];
+    	a[0] = 0;
+    	a[1] = 1;
+    	b[0] = 5;
+    	b[1] = 5;
+    	CoordinateObject[][] coordFloorplanTest = new CoordinateObject[1][1];
+    	DirectionController dc = new DirectionController(coordFloorplanTest, a,b);
         boolean solved = dc.find();
         System.out.println(dc.toString());
     }
-*/
+
     private CoordinateObject[][] coordFloorplan;
     private int[][] intFloorplan;
     private int height;
@@ -190,14 +197,16 @@ public class DirectionController {
 	 * @param currentPosition representing the position of the user
 	 * @param exhibitPosition representing the position of the chosen exhibit
 	 */
-	void outputDirections(){
+	
+    	void outputDirections(){
 		
 	}
 	
 	/**
 	 * 
 	 */
-	String checkForExhibitEastWest(int i, int j){
+	
+    	String checkForExhibitEastWest(int i, int j){
 		int eastX = i;
 		int eastY = j;
 		int westX = i;
@@ -211,7 +220,7 @@ public class DirectionController {
 			
 			//check west
 			if(this.intFloorplan[westX][westY] == 8 || this.intFloorplan[westX][westY] == 9)
-				return "pass " + this.coordFloorplan[eastX][eastY].getType() + " to the West"; 
+				return "pass " + this.coordFloorplan[westX][westY].getType() + " to the West"; 
 			
 			eastX--;
 			westX++;
@@ -223,17 +232,25 @@ public class DirectionController {
 	 * 
 	 */
 	String checkForExhibitNorthSouth(int i, int j){
-		int eastX = i;
-		int eastY = j;
-		int westX = i;
-		int westY = j;
+		int northX = i;
+		int northY = j;
+		int southX = i;
+		int southY = j;
 		
-		//check north
-		
-		//check south
-		
+		while(southX != this.intFloorplan.length && northY != 0)
+		{
+			//check north
+			if(this.intFloorplan[northX][northY] == 8 || this.intFloorplan[northX][northY] == 9)
+				return "pass " + this.coordFloorplan[northX][northY].getType() + " to the North";
+			
+			//check south
+			if(this.intFloorplan[southX][southY] == 8 || this.intFloorplan[southX][southY] == 9)
+				return "pass " + this.coordFloorplan[southX][southY].getType() + " to the South"; 
+			
+			northY--;
+			southY++;
+		}
 		return "";
 	}
 	
-
 }
