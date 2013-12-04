@@ -2,6 +2,7 @@ package control;
 
 import view.FloorPlanEditView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import model.CoordinateObject;
@@ -207,7 +208,8 @@ public class DirectionController {
     }
     
     public int[][] convertToIntArray(FloorPlan floorplan) {
-    	String[][] stringFloorPlan = floorplan.getFloorPlan();
+    	ArrayList FloorPlanstring = floorplan.getFloorPlan();
+    	String[][] stringFloorPlan = (String[][]) FloorPlanstring.get(0);
     	int height = stringFloorPlan.length; 
     	int width = stringFloorPlan[0].length;
     	

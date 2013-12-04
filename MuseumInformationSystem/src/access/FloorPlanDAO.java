@@ -19,47 +19,33 @@ import model.FloorPlan;
  *
  */
 public class FloorPlanDAO {
-
+	static String[][] floorPlanType = new String[18][18];
+	static String[][] floorPlanItem = new String[18][18];
 	/**
 	 * Queries the database to populate a collection of Floor plan objects
 	 * @num representing the stack (version of floorplan)
 	 * @return a list of Floor Plan objects populated with data
 	 */
-//	public static List<FloorPlan>findCurrentFloorPlan2(int num){
-//		List<FloorPlan> list= new ArrayList<FloorPlan>();
-//		ResultSet result;
-//		try {
-//			result = sqlQuery("Select StructureType LocationX, LocationY FROM FloorPlan" + num);
-//
-//			while(result.next()){
-//				int[] location = {result.getInt(2), result.getInt(3)};
-//				FloorPlan item = new FloorPlan(location, result.getString(1));
-//				//Structure type		x, y locations
-//				list.add(item);
-//			}	
-//
-//		} catch (ClassNotFoundException | SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		return (List<FloorPlan>) list;
-//	}
+	public static ArrayList findFloorPlan(int num){
+		ArrayList floorplan = new ArrayList();
 
-	public static String[][] findFloorPlan(int num){
-		String[][] floorplan = new String[18][18];
 		ResultSet result;
 		try {
-			result = sqlQuery("Select StructureType, LocationX, LocationY FROM FloorPlan" + num);
+			result = sqlQuery("Select LocationX, LocationY, StructureType, ItemName FROM FloorPlan" + num);
 
 			while(result.next()){
-				floorplan[result.getInt(2)][result.getInt(3)] = result.getString(1);
-				// x location		y location			structure type
+				floorPlanType[result.getInt(1)][result.getInt(2)] = result.getString(3);
+					// x location		y location			structure type
+				floorPlanItem[result.getInt(1)][result.getInt(2)] = result.getString(4);
 			}	
 
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		floorplan.add(floorPlanType);
+		floorplan.add(floorPlanItem);
 		return floorplan;
 	}
 
@@ -69,17 +55,24 @@ public class FloorPlanDAO {
 	 * @param num representing the stack (version of floorplan)
 	 * @param floorplan representing the floorplan of structure types
 	 */
-	public static void updateFloorPlan(String[][] floorPlan, int num){
+	public static void updateFloorPlan(String[][] floorPlanType, String[][] floorPlanItem, int num){
 		try {
-			sqlUpdate("DELETE FROM FloorPlan" + num);
+			sqlQuery("set global max_connections = 500");
+			sqlUpdate("DELETE FROM FloorPlan" + num );
 
-			for(int i = 0; i < floorPlan[0].length; i++){
-				for(int j = 0; j < floorPlan[1].length; j++){
-					if (floorPlan[i][j] == null)
-						floorPlan[i][j] = "Space";
+			for(int i = 0; i < floorPlanType[0].length; i++){
+				for(int j = 0; j < floorPlanType[1].length; j++){
+					if (floorPlanType[i][j] == null){
+						floorPlanType[i][j] = "";
+						floorPlanItem[i][j] = "";
+					}
+					if (floorPlanType[i][j] == "Wall" || floorPlanType[i][j] == "Space"){
+						floorPlanItem[i][j] = "";
+					}
 					
-					sqlUpdate("INSERT INTO FloorPlan" + num + " VALUES('"
-							+ floorPlan[i][j] + "', " + i + ", " + j + ")");
+					
+					sqlUpdate("INSERT INTO FloorPlan" + num + " VALUES("
+						 + i + ", " + j + ", '" + floorPlanType[i][j] + "', '" + floorPlanItem[i][j] + "')");
 				};
 			}	
 
@@ -120,23 +113,31 @@ public class FloorPlanDAO {
 	 * Method is used as a test case, called from guestView in view folder
 	 */
 	public static void floorplantest(){        
-		String[][] mylist = new String[18][18];
-		mylist[0][0] = "Wall";
-		mylist[0][1] = "Wall";
-		mylist[0][2] = "Item";
-		mylist[1][0] = "Item";
-		mylist[1][1] = "Space";
+		String[][] mylist1 = new String[18][18];
+		String[][] mylist2 = new String[18][18];
+		mylist1[0][0] = "Wall";
+		mylist1[0][1] = "Wall";
 		
-		updateFloorPlan(mylist, 0);
+		mylist1[0][2] = "Item";
+		mylist2[0][2] = "ExhibitItem";
 		
-		String[][] testlist = findFloorPlan(0);
+		mylist1[1][0] = "Item";
+		mylist2[1][0] = "ExhibitITem2";
+		
+		mylist1[1][1] = "Space";
+		
+		updateFloorPlan(mylist1, mylist2, 0);
+		
+		
+//		System.out.println(mylist2[0][2]);
+		ArrayList floorplan = findFloorPlan(0);
+		String[][] testlist = (String[][]) floorplan.get(0);
+		String[][] testlist2 = (String[][]) floorplan.get(1);
+
 		for(int i = 0; i < testlist[0].length; i++){
 			for(int j = 0; j < testlist[1].length; j++){
-				System.out.println(testlist[i][j]);
+				System.out.println( testlist2[i][j]);
 			}
 		}	
 	}
-
-
-
 }

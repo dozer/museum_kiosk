@@ -1,4 +1,6 @@
 package model;
+import java.util.ArrayList;
+
 import enums.Structure;
 
 /**
@@ -10,15 +12,18 @@ import enums.Structure;
  */
 public class FloorPlan {
 
-	String[][] floorPlan;
+	String[][] floorPlanType;
+	String[][] floorPlanItem;
+
 
 	/**
 	 * Floor plan class constructor
 	 * @param location representing the location of the cell
 	 * @param type representing the structure type of the cell
 	 */
-	public FloorPlan(int[] location, String type){
-		this.floorPlan[location[0]][location[1]] = type;
+	public FloorPlan(int[] location, String type, String itemName){
+		this.floorPlanType[location[0]][location[1]] = type;
+		this.floorPlanItem[location[0]][location[1]] = itemName;
 	}
 
 	/**
@@ -28,7 +33,7 @@ public class FloorPlan {
 	 * @param location , location in the floor plan
 	 */
 	public void setType(int[] location, String type){
-		this.floorPlan[location[0]][location[1]] = type;
+		this.floorPlanType[location[0]][location[1]] = type;
 	}
 
 	/** 
@@ -37,36 +42,41 @@ public class FloorPlan {
 	 * @return a string representing a type of building structure
 	 */
 	public String getType(int[] location){
-		return floorPlan[location[0]][location[1]];
+		return floorPlanType[location[0]][location[1]];
 	}
-	
+
 	/**
 	 * Returns the name of the type of building structure the item is
 	 * @param  location, the location in the floor plan
 	 * @return a string representing a type of building structure
 	 */
     public String getType(int x, int y) {
-    	return floorPlan[x][y];
+    	return floorPlanType[x][y];
     }
         /** 
 	 * Returns the entire building structure in a two-dimensional array
 	 * @return a string representing the whole building structure
 	 */
-        public String[][] getFloorPlan() {
-            return floorPlan;
-        }
-        
-        public void setFloorPlanSize(int size) {
-        	floorPlan = new String[size][size];
-        }
-        
-        public void initializeFloorPlan() {
-        	for(int i = 0; i < floorPlan.length; i++)
-        	{
-        		for(int j = 0; j < floorPlan.length; j++)
-        		{
-        			floorPlan[i][j] = "";
-        		}
-        	}
-        }
+	public ArrayList getFloorPlan() {
+		ArrayList floorplan = new ArrayList();
+		
+		floorplan.add(floorPlanType);
+		floorplan.add(floorPlanItem);
+		
+		return floorplan;
+	}
+
+	public void setFloorPlanSize(int size) {
+		floorPlanType = new String[size][size];
+	}
+
+	public void initializeFloorPlan() {
+		for(int i = 0; i < floorPlanType.length; i++)
+		{
+			for(int j = 0; j < floorPlanType.length; j++)
+			{
+				floorPlanType[i][j] = "";
+			}
+		}
+	}
 }

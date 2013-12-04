@@ -1,5 +1,7 @@
 package control;
 
+import java.util.ArrayList;
+
 import model.FloorPlan;
 import enums.Structure;
 import access.FloorPlanDAO;
@@ -23,6 +25,7 @@ public class FloorPlanManagementController {
     //Joe's comment: isn't that what the normal stack is for, or am I misinterpreting?
     private FloorPlan[] undo = new FloorPlan[3];
 
+
     /**
      * Edits the Floor plan objects which could be the structure type, x, or y
      * coordinate.
@@ -33,7 +36,12 @@ public class FloorPlanManagementController {
     void editFloorPlan(int[] location, String type) {
         FloorPlan fp = stack[0];
         stack[0].setType(location, type);
-        FloorPlanDAO.updateFloorPlan(stack[0].getFloorPlan(), 0);
+        
+        ArrayList floor = stack[0].getFloorPlan();
+        String[][] floortype = (String[][]) floor.get(0);
+        String[][] flooritem = (String[][]) floor.get(1);
+        
+        FloorPlanDAO.updateFloorPlan(floortype, flooritem, 0);
         addToFloorPlanList(fp);
     }
 
@@ -49,7 +57,12 @@ public class FloorPlanManagementController {
         String str = stack[0].getType(location2);
         stack[0].setType(location2, stack[0].getType(location1));
         stack[0].setType(location1, str);
-        FloorPlanDAO.updateFloorPlan(stack[0].getFloorPlan(), 0);
+        
+        ArrayList floor = stack[0].getFloorPlan();
+        String[][] floortype = (String[][]) floor.get(0);
+        String[][] flooritem = (String[][]) floor.get(1);
+        
+        FloorPlanDAO.updateFloorPlan(floortype, flooritem, 0);
         addToFloorPlanList(fp);
     }
 
@@ -64,9 +77,19 @@ public class FloorPlanManagementController {
         //undo[0] = stack[0];
         
         stack[0] = stack[1];
-        FloorPlanDAO.updateFloorPlan(stack[1].getFloorPlan(), 0);
+        
+        ArrayList floor = stack[1].getFloorPlan();
+        String[][] floortype = (String[][]) floor.get(0);
+        String[][] flooritem = (String[][]) floor.get(1);
+        
+        FloorPlanDAO.updateFloorPlan(floortype, flooritem, 0);
         stack[1] = stack[2];
-        FloorPlanDAO.updateFloorPlan(stack[2].getFloorPlan(), 1);
+        
+        ArrayList floor2 = stack[2].getFloorPlan();
+        String[][] floortype2 = (String[][]) floor.get(0);
+        String[][] flooritem2 = (String[][]) floor.get(1);
+        
+        FloorPlanDAO.updateFloorPlan(floortype, flooritem, 1);
         stack[2] = null;
 
     }
@@ -78,9 +101,20 @@ public class FloorPlanManagementController {
      */
     void addToFloorPlanList(FloorPlan fp) {
         stack[2] = stack[1];
-        FloorPlanDAO.updateFloorPlan(stack[1].getFloorPlan(), 2);
+        
+        ArrayList floor = stack[1].getFloorPlan();
+        String[][] floortype = (String[][]) floor.get(0);
+        String[][] flooritem = (String[][]) floor.get(1);
+        
+        FloorPlanDAO.updateFloorPlan(floortype, flooritem, 2);
+        
         stack[1] = fp;
-        FloorPlanDAO.updateFloorPlan(fp.getFloorPlan(), 1);
+        
+        ArrayList floor2 = fp.getFloorPlan();
+        String[][] floortype2 = (String[][]) floor.get(0);
+        String[][] flooritem2 = (String[][]) floor.get(1);
+        
+        FloorPlanDAO.updateFloorPlan(floortype, flooritem, 1);
     }
 
     /**
