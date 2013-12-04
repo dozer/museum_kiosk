@@ -283,11 +283,13 @@ public class DirectionController {
 		{
 			//check east
 			if(this.intFloorplan[eastX][eastY] == 8 || this.intFloorplan[eastX][eastY] == 9)
-				return "pass " + this.coordFloorplan[eastX][eastY].getType() + " to the East";
+				return "pass " + this.floorplan.getType(eastX, eastY) + " to the East";
+				//return "pass " + this.coordFloorplan[eastX][eastY].getType() + " to the East";
 			
 			//check west
 			if(this.intFloorplan[westX][westY] == 8 || this.intFloorplan[westX][westY] == 9)
-				return "pass " + this.coordFloorplan[westX][westY].getType() + " to the West"; 
+				return "pass " + this.floorplan.getType(westX, westY) + " to the West";
+				//return "pass " + this.coordFloorplan[westX][westY].getType() + " to the West"; 
 			
 			eastX--;
 			westX++;
@@ -308,11 +310,13 @@ public class DirectionController {
 		{
 			//check north
 			if(this.intFloorplan[northX][northY] == 8 || this.intFloorplan[northX][northY] == 9)
-				return "pass " + this.coordFloorplan[northX][northY].getType() + " to the North";
+				return "pass " + this.floorplan.getType(northX, northY) + " to the North";
+				//return "pass " + this.coordFloorplan[northX][northY].getType() + " to the North";
 			
 			//check south
 			if(this.intFloorplan[southX][southY] == 8 || this.intFloorplan[southX][southY] == 9)
-				return "pass " + this.coordFloorplan[southX][southY].getType() + " to the South"; 
+				return "pass " + this.floorplan.getType(southX, southY) + " to the South";
+				//return "pass " + this.coordFloorplan[southX][southY].getType() + " to the South"; 
 			
 			northY--;
 			southY++;
