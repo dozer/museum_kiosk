@@ -21,9 +21,9 @@ import javax.swing.JPanel;
 public class FloorPlanEditView extends JFrame {
 	private static final int N = 18;				
     private static final int SIZE = 60;
-    static Object[][] gridObject = new Object[N][N];
+    static CoordinateObject[][] gridObject = new CoordinateObject[N][N];
     static String currentSelectedObject = "Wall";
-    static Object currentObject;
+    static CoordinateObject currentObject;
     
     JButton wall;
     JButton exhibit;
@@ -36,7 +36,7 @@ public class FloorPlanEditView extends JFrame {
      * to populate coordinates within the Floor Plan.
      */
     public FloorPlanEditView() {
-    	currentObject = new Object("Wall", -1, -1, "", "", "");
+    	currentObject = new CoordinateObject("Wall", -1, -1, "", "", "");
     	
     	JPanel coordGrid = new JPanel(new GridLayout(N,N));
     	coordGrid.setPreferredSize(new Dimension(N * SIZE, N * SIZE));
@@ -204,7 +204,7 @@ public class FloorPlanEditView extends JFrame {
     	wall.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e)
         	{
-        		currentObject = new Object("Wall", -1, -1, "", "", "");
+        		currentObject = new CoordinateObject("Wall", -1, -1, "", "", "");
         		setCurrent("Wall");
         	}
         });
@@ -218,7 +218,7 @@ public class FloorPlanEditView extends JFrame {
         		//popUp window populated with Exhibits
         		//e = Exhibit chosen by user
         		//currentObject = new Object("Exhibit", -1, -1, e.getName(), e.getDescription(), e.getMedia());
-        		currentObject = new Object("Exhibit", -1, -1, "Exhibit Name", "Exhibit Description", "Exhibit Media");
+        		currentObject = new CoordinateObject("Exhibit", -1, -1, "Exhibit Name", "Exhibit Description", "Exhibit Media");
         		setCurrent("Exhibit");
         	}
         });
@@ -234,7 +234,7 @@ public class FloorPlanEditView extends JFrame {
         		//popUp window populated with e.getMuseumItems
         		//m = MuseumItem chosen by user
         		//currentObject = new Object("Item", -1, -1, m.getName(), m.getDescription, m.getMedia());
-        		currentObject = new Object("Item", -1, -1, "Item Name", "Item Description", "Item Media");
+        		currentObject = new CoordinateObject("Item", -1, -1, "Item Name", "Item Description", "Item Media");
         		setCurrent("Item");
         	}
         });
@@ -244,7 +244,7 @@ public class FloorPlanEditView extends JFrame {
     	space.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e)
         	{
-        		currentObject = new Object("Space", -1, -1, "", "", "");
+        		currentObject = new CoordinateObject("Space", -1, -1, "", "", "");
         		setCurrent("Space");
         	}
         });
@@ -260,7 +260,7 @@ public class FloorPlanEditView extends JFrame {
         });*/
     }
     
-    public Object[][] getGridObject() {
+    public CoordinateObject[][] getGridObject() {
     	return this.gridObject;
     }
     
@@ -270,7 +270,7 @@ public class FloorPlanEditView extends JFrame {
      * @author caseytcaprice
      *
      */
-    private class Object {
+    private class CoordinateObject {
     	private String type;
     	private int x;
     	private int y;
@@ -278,7 +278,7 @@ public class FloorPlanEditView extends JFrame {
     	private String description;
     	private String media;
     	
-    	public Object(String type, int x, int y, String name, String description, String media) {
+    	public CoordinateObject(String type, int x, int y, String name, String description, String media) {
     		this.type = type;
     		this.x = x;
     		this.y = y;
@@ -293,6 +293,11 @@ public class FloorPlanEditView extends JFrame {
     	
     	public void setY(int y) {
     		this.y = y;
+    	}
+    	
+    	public String getType()
+    	{
+    		return this.type;
     	}
     }
 }
