@@ -24,7 +24,7 @@ public class UserDAO {
 	 * Queries the database to populate a collection of User objects
 	 * @return a list of User objects populated with data
 	 */
-	static List<User> find(){
+	public static List<User> find(){
 		List<User> list = new ArrayList<User>();
 		ResultSet result;
 		try {
@@ -47,7 +47,7 @@ public class UserDAO {
 	 * any changes that were made to the list of users
 	 * @param list, representing the list of users
 	 */
-	static void update(List<User> list){
+	public static void update(List<User> list){
 		try {
 			sqlUpdate("DELETE FROM User");
 

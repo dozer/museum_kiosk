@@ -93,6 +93,14 @@ public class Exhibit {
 	public void removeItem(MuseumItem item){
 		museumItemList.remove(item);
 	}
+        
+        /**
+         * Sets the museum item list
+         * @param museumItemList the new museum item list to be set
+         */
+        public void setMuseumItemList(List<MuseumItem> museumItemList) {
+            this.museumItemList = new ArrayList(museumItemList);
+        }
 	
 	/**
 	 * Returns the Exhibit's list of museum items

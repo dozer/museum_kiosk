@@ -24,7 +24,7 @@ public class MuseumItemDAO {
 	 * Queries the database to populate a collection of MuseumItem objects
 	 * @return a list of Museum item objects populated with data
 	 */
-	static List<MuseumItem> find(){
+	public static List<MuseumItem> find(){
 		List<MuseumItem> list= new ArrayList<MuseumItem>();
 		ResultSet result;
 		try {
@@ -80,106 +80,6 @@ public class MuseumItemDAO {
 		}
 		return string;
 	}
-	
-
-//	public static void addMuseumItem(String title, String description, String image, String audio, String video){
-//		try {
-//			if (image != null){
-//				image = image.replaceAll("/", "//");
-//				image = "'" + image + "'";
-//			}
-//			if (audio != null){
-//				audio = audio.replaceAll("/","//");
-//				audio = "'" + audio + "'";
-//			}
-//			if (video != null){
-//				video = video.replaceAll("/", "//");
-//				video = "'" + video + "'";
-//			}
-//
-//			sqlUpdate("INSERT INTO MuseumItem VALUES(default, '" + title + "', '" + description + "', " + image + ", " + audio + ", " + video + ", " + 1 + ")");
-//		} catch (ClassNotFoundException | SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	/**
-//	 * Sets the name of an item
-//	 * @param name representing the new name to be assigned to the item
-//	 */
-//	public static void  setName(String name){
-//		try {
-//			sqlUpdate("UPDATE MUSEUMITEM SET ItemTitle = '" + name + "'");
-//		} catch (ClassNotFoundException | SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	/**
-//	 * Sets the description for an item
-//	 * @param description representing the description of the item
-//	 */
-//	public static void  setDesciption(String description, String name){
-//		try {
-//			sqlUpdate("UPDATE MUSEUMITEM SET ItemDescription = '" + description + "' WHERE ItemTitle = '" + name + "'");
-//		} catch (ClassNotFoundException | SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	/**
-//	 * Sets the directory path for the items image file
-//	 * @param path representing the directory path
-//	 */
-//	public static void  setImage(String path, String name){
-//		try {
-//			if (path != null){
-//				path = path.replaceAll("/", "//");
-//				path = "'" + path + "'";
-//			}
-//			sqlUpdate("UPDATE MUSEUMITEM SET ItemImage = '" + path + "' WHERE ItemTitle = '" + name + "'");
-//		} catch (ClassNotFoundException | SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	/**
-//	 * Sets the directory path for the item's audio file
-//	 * @param path representing the directory path
-//	 */
-//	public static void setAdudio(String path, String name){
-//		try {
-//			if (path != null){
-//				path = path.replaceAll("/", "//");
-//				path = "'" + path + "'";
-//			}
-//			sqlUpdate("UPDATE MUSEUMITEM SET ItemAudio = '" + path + "' WHERE ItemTitle = '" + name + "'");
-//		} catch (ClassNotFoundException | SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	/**
-//	 * Sets the directory path for the item's video file
-//	 * @param path representing the directory path
-//	 */
-//	public static void  setVideo(String path, String name){
-//		try {
-//			if (path != null){
-//				path = path.replaceAll("/", "//");
-//				path = "'" + path + "'";
-//			}
-//			sqlUpdate("UPDATE MUSEUMITEM SET ItemVideo = '" + path + "' WHERE ItemTitle = '" + name + "'");
-//		} catch (ClassNotFoundException | SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
 
 	/**
 	 * sqlQuery takes a sql statement intended only as a query to retrieve a dataset from the museumitem table
@@ -213,17 +113,28 @@ public class MuseumItemDAO {
 	 */
 	public static void museumtest(){
 		
-		ArrayList mylist = (ArrayList) find();
+//		ArrayList mylist = (ArrayList) find();
+//		
+		ArrayList mylist = new ArrayList();
+		int[] location = {-1,-1};
+		MuseumItem item1 = new MuseumItem("Z3","First functional program-controlled Turing-complete computer, the Z3, which "
+				+ "became operational in May 1941. Thanks to this machine and its predecessors, Konrad Zuse is often regarded"
+				+ " as the inventor of the computer. Using 2,300 relays, the Z3 used floating point binary arithmetic and had "
+				+ "a 22-bit word length. The original Z3 was destroyed in a bombing raid of Berlin in late 1943. However, Zuse "
+				+ "later supervised a reconstruction of the Z3 in the 1960s.", null,null,null, location);
 		
-//		ArrayList mylist = new ArrayList();
-//		int[] location = {-1,-1};
-//		MuseumItem item = new MuseumItem("Z3","First functional program-controlled Turing-complete computer, the Z3, which "
-//				+ "became operational in May 1941. Thanks to this machine and its predecessors, Konrad Zuse is often regarded"
-//				+ " as the inventor of the computer. Using 2,300 relays, the Z3 used floating point binary arithmetic and had "
-//				+ "a 22-bit word length. The original Z3 was destroyed in a bombing raid of Berlin in late 1943. However, Zuse "
-//				+ "later supervised a reconstruction of the Z3 in the 1960s.", null,null,null, location);
-//		mylist.add(item);
-//		update(mylist);
+		MuseumItem item2 = new MuseumItem("Atanasoff–Berry Computer (ABC)","Built at Iowa State College (now University), "
+				+ "the ABC was designed and built by Professor John Vincent Atanasoff and graduate student Cliff Berry "
+				+ "between 1939 and 1942. The ABC was at the center of a patent dispute relating to the invention of the "
+				+ "computer, which was resolved in 1973 when it was shown that ENIAC co-designer John Mauchly had come to "
+				+ "examine the ABC shortly after it became functional. Atanasoff was declared the originator of several "
+				+ "basic computer ideas, but the computer as a concept was declared un-patentable and thus was freely open "
+				+ "to all. This result has been referred to as the dis-invention of the computer. A full-scale "
+				+ "reconstruction of the ABC was completed in 1997 and proved that the ABC machine functioned as Atanasoff "
+				+ "had claimed.", "C:\\MISDatabase\\Generation1\\ABC.jpg", null, null, location);
+		mylist.add(item1);
+		mylist.add(item2);
+		update(mylist);
 		
 		System.out.println((((MuseumItem) mylist.get(0)).getName().toString()));
 	}
