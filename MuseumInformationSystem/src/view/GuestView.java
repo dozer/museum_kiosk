@@ -2,12 +2,15 @@ package view;
 
 import java.net.URL;
 
+import netscape.javascript.JSObject;
 import model.MuseumItem;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.input.TouchPoint.State;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -80,7 +83,10 @@ class Browser extends Region {
         
         //add the web view to the scene
         getChildren().add(browser);
- 
+        
+        JSObject win = 
+                (JSObject) webEngine.executeScript("window");
+            win.setMember("app", new JavaApp());
     }
     
     private Node createSpacer() {
@@ -102,4 +108,15 @@ class Browser extends Region {
     @Override protected double computePrefHeight(double width) {
         return 600;
     }
+}
+
+
+class JavaApp {
+	public void transitionToSwing() {
+		System.out.println("Javascript upcall worked");
+		/*
+		String[] arg = null;
+		FloorPlanEditView swing = new FloorPlanEditView();
+		swing.main(arg); */
+	}
 }

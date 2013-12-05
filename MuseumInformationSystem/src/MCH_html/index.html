@@ -7,6 +7,14 @@
   <meta name="keywords" content="website keywords, website keywords" />
   <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
   <link rel="stylesheet" type="text/css" href="style/style.css" />
+  
+  <script>
+  function transitionToSwing() {
+    //Assumes that the Ant task uses "myMapApp" as id for this application
+    var app = document.getElementById("myApp");
+	window.alert(transitionToSwing());
+</script>
+
 </head>
 
 <body>
@@ -65,7 +73,8 @@
       </div>
     </div>
     <div id="footer">
-      <p><a href="index.html">Home</a> | <a href="exhibits.html">Exhibits</a> | <a href="map.html">Map</a> | <a href="about.html">About</a> | <a href="contact.html">Contact Us</a></p>
+      <p><a href="index.html">Home</a> | <a href="exhibits.html">Exhibits</a> | <a href="map.html">Map</a> | <a href="about.html">About</a> | <a href="contact.html">Contact Us</a> | <p><a href="about:blank" onclick="app.transitionToSwing()">Transition</a></p>    
+      </p>
     </div>
   </div>
 </body>
