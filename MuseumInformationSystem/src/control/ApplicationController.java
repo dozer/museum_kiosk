@@ -1,6 +1,7 @@
 package control;
 
 import access.ExhibitDAO;
+import access.MuseumItemDAO;
 import model.CoordinateObject;
 import model.FloorPlan;
 import view.FloorPlanEditView;
@@ -8,7 +9,7 @@ import view.FloorPlanEditView;
 public class ApplicationController {
 
 	public static void main(String[] args) {
-    	/*
+    	//MuseumItemDAO.museumtest();
 		FloorPlanEditView fpev = new FloorPlanEditView();
     	fpev.display();
     	
@@ -30,9 +31,8 @@ public class ApplicationController {
     	//DirectionController dc = new DirectionController();
         //boolean solved = dc.find();
         //System.out.println(dc.toString());
-         * 
-         */
+        
 		
-		ExhibitDAO.exhibittest();
+		//ExhibitDAO.exhibittest();
     }
 }

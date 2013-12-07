@@ -53,7 +53,9 @@ public class FloorPlanEditView extends JFrame {
     	exhibitList = ExhibitDAO.find();
     	//currentObject = new CoordinateObject("Wall", -1, -1, "", "", "");
     	currentObjectString = "Wall";
-    	floorplan.setFloorPlanSize(N);    	
+    	
+    	floorplan = new FloorPlan(N);
+    	//floorplan.setFloorPlanSize(N);    	//
     	
     	JPanel coordGrid = new JPanel(new GridLayout(N,N));
     	coordGrid.setPreferredSize(new Dimension(N * SIZE, N * SIZE));
@@ -245,6 +247,12 @@ public class FloorPlanEditView extends JFrame {
         		//popUp window populated with Exhibits
         		//e = Exhibit chosen by user
         		//currentObject = new Object("Exhibit", -1, -1, e.getName(), e.getDescription(), e.getMedia());
+        		ArrayList<String> arraylist = new ArrayList<String>() ;
+        		for(int i = 0; i< exhibitList.size(); i++){
+        			arraylist.add(exhibitList.get(0).getExhibitName());
+        		}
+        		String s = (String) JOptionPane.showInputDialog(null, "Choose an Exhibit", "Choose an Exhibit", JOptionPane.QUESTION_MESSAGE, null, arraylist.toArray(), arraylist.toArray()[0]);
+        		
         		currentObjectString = "Exhibit"; //change to Exhibit.name when hooked up****
         		//currentObjectType = "Exhibit";
         		//currentObject = new CoordinateObject("Exhibit", -1, -1, "Exhibit Name", "Exhibit Description", "Exhibit Media");

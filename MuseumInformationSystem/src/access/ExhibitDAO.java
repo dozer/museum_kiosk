@@ -163,7 +163,7 @@ public class ExhibitDAO {
          * Method is used as a test case, called from guestView in view folder
          */
         public static void exhibittest(){
-/*
+
                 //List<Exhibit> exhibitlist = (List<Exhibit> ) find();
 
                 //creating new exhibitlist for testing and updating it to exhibitlist table
@@ -192,7 +192,7 @@ public class ExhibitDAO {
                 for(int i = 0; i < itemlist2.size(); i++){
                         System.out.println("ITEMNAME: "+ itemlist2.get(i).getName() +", DESCRIPTION: "+ itemlist2.get(i).getDescription());
                 }
-                */
+                
                 
         }
 }

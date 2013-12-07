@@ -15,7 +15,13 @@ public class FloorPlan {
 	String[][] floorPlanType;
 	String[][] floorPlanItem;
 
-
+	/**
+	 * 
+	 */
+	public FloorPlan(int size) {
+		setFloorPlanSize(size);
+		initializeFloorPlan();
+	}
 	/**
 	 * Floor plan class constructor
 	 * @param location representing the location of the cell
@@ -68,6 +74,7 @@ public class FloorPlan {
 
 	public void setFloorPlanSize(int size) {
 		floorPlanType = new String[size][size];
+		floorPlanItem = new String[size][size];
 	}
 
 	public void initializeFloorPlan() {
@@ -78,5 +85,5 @@ public class FloorPlan {
 				floorPlanType[i][j] = "";
 			}
 		}
-	}
 }
+	}
