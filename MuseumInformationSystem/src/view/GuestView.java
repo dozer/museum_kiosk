@@ -81,7 +81,8 @@ public class GuestView extends JFrame {
     	return newUrl.toExternalForm();
     }
     
-    public static void main(String[] args) {
+//    public static void main(String[] args) {
+    public static void begin(){
     	GuestView browser = new GuestView();
     	browser.setVisible(true);
     }
