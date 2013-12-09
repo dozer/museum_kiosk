@@ -17,6 +17,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import control.ExhibitManagementController;
 import access.ExhibitDAO;
 import model.CoordinateObject;
 import model.Exhibit;
@@ -28,11 +29,10 @@ import model.FloorPlan;
  * @author Sara
  */
 public class FloorPlanEditView extends JFrame {
-	private static final int N = 18;				
+	private static final int N = 10;				
     private static final int SIZE = 60;
     static CoordinateObject[][] gridObject = new CoordinateObject[N][N];
     static String currentSelectedObject = "Wall";
-    //static CoordinateObject currentObject;
     static String currentObjectString = "Wall";
     static int currentObjectX;
     static int currentObjectY;
@@ -51,6 +51,8 @@ public class FloorPlanEditView extends JFrame {
      */
     public FloorPlanEditView() {
     	initializeArray();
+    	ExhibitManagementController emc = new ExhibitManagementController();
+    	emc.getExhibits();
     	exhibitList = ExhibitDAO.find();
     	currentObjectString = "Wall";
     	
@@ -248,12 +250,13 @@ public class FloorPlanEditView extends JFrame {
         		//popUp window populated with Exhibits
         		//e = Exhibit chosen by user
         		//currentObject = new Object("Exhibit", -1, -1, e.getName(), e.getDescription(), e.getMedia());
+        		/*
         		ArrayList<String> arraylist = new ArrayList<String>() ;
         		for(int i = 0; i< exhibitList.size(); i++){
         			arraylist.add(exhibitList.get(0).getExhibitName());
         		}
         		String s = (String) JOptionPane.showInputDialog(null, "Choose an Exhibit", "Choose an Exhibit", JOptionPane.QUESTION_MESSAGE, null, arraylist.toArray(), arraylist.toArray()[0]);
-        		
+        		*/
         		currentObjectString = "Exhibit"; //change to Exhibit.name when hooked up****
         		//currentObjectType = "Exhibit";
         		//currentObject = new CoordinateObject("Exhibit", -1, -1, "Exhibit Name", "Exhibit Description", "Exhibit Media");

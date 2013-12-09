@@ -26,9 +26,10 @@ public class FloorPlanDAO {
 	 * @num representing the stack (version of floorplan)
 	 * @return a list of Floor Plan objects populated with data
 	 */
-	public static ArrayList findFloorPlan(int num){
+	public static FloorPlan findFloorPlan(int num){
 		ArrayList floorplan = new ArrayList();
-
+		FloorPlan fp = new FloorPlan(10);
+		
 		ResultSet result;
 		try {
 			result = sqlQuery("Select LocationX, LocationY, StructureType, ItemName FROM FloorPlan" + num);
@@ -44,9 +45,13 @@ public class FloorPlanDAO {
 			e.printStackTrace();
 		}
 		
-		floorplan.add(floorPlanType);
-		floorplan.add(floorPlanItem);
-		return floorplan;
+		fp.setFloorPlanType(floorPlanType);
+		fp.setFloorPlanItem(floorPlanItem);
+		
+		//floorplan.add(floorPlanType);
+		//floorplan.add(floorPlanItem);
+		//return floorplan;
+		return fp;
 	}
 
 	/**
@@ -113,6 +118,7 @@ public class FloorPlanDAO {
 	 * Method is used as a test case, called from guestView in view folder
 	 */
 	public static void floorplantest(){        
+		/*
 		String[][] mylist1 = new String[18][18];
 		String[][] mylist2 = new String[18][18];
 		mylist1[0][0] = "Wall";
@@ -139,5 +145,6 @@ public class FloorPlanDAO {
 				System.out.println( testlist2[i][j]);
 			}
 		}	
+		*/
 	}
 }

@@ -31,6 +31,16 @@ public class FloorPlan {
 		this.floorPlanType[location[0]][location[1]] = type;
 		this.floorPlanItem[location[0]][location[1]] = itemName;
 	}
+	
+	public void setFloorPlanType(String[][] floorPlanType){
+		this.floorPlanType = floorPlanType;
+	}
+	
+	public void setFloorPlanItem(String[][] floorPlanItem){
+		this.floorPlanItem = floorPlanItem;
+	}
+	
+	
 
 	/**
 	 * Sets the type of the building structure such as outside and inside walls, 
