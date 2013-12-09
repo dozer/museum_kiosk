@@ -72,7 +72,6 @@ public class GuestView extends JFrame {
                     WebView view = new WebView();
                 	engine = view.getEngine();
                 	engine.load(getURL("../MCH_html/index.html"));
-                	
                 	jfxpanel.setScene(new Scene(view));
                 }});	
     }

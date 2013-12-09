@@ -1,6 +1,10 @@
 package control;
 
+import java.applet.*;
+//import java.awt.*;
 import java.util.ArrayList;
+
+//import javax.swing.text.html.parser.DocumentParser;
 
 import model.User;
 
@@ -12,7 +16,7 @@ import model.User;
  * @author Sara
  *
  */
-public class LoginController {
+public class LoginController extends Applet{
 
 	/**
 	 * Verify UserID and UserPassword from list of Users.  Set global User to 
@@ -55,5 +59,11 @@ public class LoginController {
 		else
 			return 0;	//return GUEST;
 	}
+	
+	
+	void loginTest(){
+		System.out.println("hello");
+	}
+	
 	
 }

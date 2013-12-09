@@ -7,8 +7,28 @@
   <meta name="keywords" content="website keywords, website keywords" />
   <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
   <link rel="stylesheet" type="text/css" href="style/style.css" />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </head>
+  <script>  
+  function login() {
+	  if (document.getElementById('login').value =="Admin"){
+		  if (document.getElementById('password').value == "AdminPassword"){
+			  	document.getElementById('password').type ="hidden"
+				document.getElementById('login').type ="hidden"
+				document.getElementById('logintxt').style.display ="none"
+				document.getElementById('passwordtxt').style.display ="none"
+				document.getElementById('loginButton').style.display ="none"	
+				document.getElementById('welcomeAdmin').style.display ="block"	
+			  }
+		  }
+	  else if (document.getElementById('login').value =="Guest"){
+		  if (document.getElementById('password').value == "GuestPassword"){
+			  window.location.href = "index.html"
+		  }
 
+	  }
+  }
+  </script> 
 <body>
   <div id="main">
     <div id="header">
@@ -37,13 +57,14 @@
       <div id="content">
         <h2>Admin Login Portal</h2>
         <p>NOTICE: This area is restricted to museum staff only! Thank you for your cooperation.</p>
-        <form action="#" method="post">
-          <div class="form_settings">
-            <p><span>Username</span><input class="contact" type="text" name="your_name" value="" /></p>
-            <p><span>Password</span><input class="contact" type="text" name="your_email" value="" /></p>
-            <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="contact_submitted" value="Login" /></p>
-          </div>
-        </form>
+          <!-- <form action="#" method="post">-->
+         <!--   <div class="form_settings">-->
+         	<p><span><label style = "font-size: 30px; display: none" id= "welcomeAdmin"><bold>Welcome Administrator!</bold></label></span></p>
+            <p><span><label id= "logintxt">Username</label></span><input class="contact" type="text" id= "login" name="your_name" /></p>
+            <p><span><label id= "passwordtxt">Password</label></span><input class="contact" type="text" id = "password" name="your_email"/></p>
+            <p style="padding-top: 15px"><span>&nbsp;</span><button id ="loginButton" runat= "server" onclick= "login()">Submit</button></p>
+         <!-- </div>
+        </form>-->
       </div>
     </div>
     <div id="footer">
@@ -51,6 +72,7 @@
       <center><p><a href="login.html">Admin Login Portal</a><p><center>
     </div>
   </div>
+
 </body>
 </html>
 
