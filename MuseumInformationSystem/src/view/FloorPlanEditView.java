@@ -41,7 +41,8 @@ public class FloorPlanEditView extends JFrame {
     JButton wall;
     JButton exhibit;
     JButton item;
-    JButton space;    
+    JButton space;
+    JButton save;
     
     /**
      * Create the Panel, as well as all coordinates and object buttons.  The User will
@@ -51,18 +52,17 @@ public class FloorPlanEditView extends JFrame {
     public FloorPlanEditView() {
     	initializeArray();
     	exhibitList = ExhibitDAO.find();
-    	//currentObject = new CoordinateObject("Wall", -1, -1, "", "", "");
     	currentObjectString = "Wall";
     	
     	floorplan = new FloorPlan(N);
-    	//floorplan.setFloorPlanSize(N);    	//
     	
     	JPanel coordGrid = new JPanel(new GridLayout(N,N));
     	coordGrid.setPreferredSize(new Dimension(N * SIZE, N * SIZE));
+    	
     	for(int i = 0; i < N * N; i++)
     		coordGrid.add(new Button(i));
     	
-    	JPanel bottomGrid = new JPanel(new GridLayout(4,1));
+    	JPanel bottomGrid = new JPanel(new GridLayout(5,1));
     	
     	createButtons();
     	
@@ -70,6 +70,7 @@ public class FloorPlanEditView extends JFrame {
     	bottomGrid.add(exhibit);
     	bottomGrid.add(item);
     	bottomGrid.add(space);
+    	bottomGrid.add(save);
     	
     	GridBagLayout gridBag = new GridBagLayout();
     	
@@ -288,6 +289,15 @@ public class FloorPlanEditView extends JFrame {
         		setCurrent("Space");
         	}
         });
+    	
+    	save = new JButton();
+    	save.setText("Save Floorplan");
+    	save.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e)
+    		{
+    			
+    		}
+    	});
     }
     
     public static void main(String[] args) {
