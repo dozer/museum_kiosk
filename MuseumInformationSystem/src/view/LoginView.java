@@ -1,8 +1,15 @@
 package view;
 
 import java.awt.*;
+
 import javax.swing.*;
+
+import control.LoginController;
+
 import java.awt.event.*;
+
+import model.FloorPlan;
+import view.FloorPlanEditView;
 
 
 
@@ -73,24 +80,26 @@ public class LoginView extends JFrame {
 			String user= usernameField.getText().toLowerCase();
 			String pass = new String(passwordField.getPassword()).toLowerCase();
 
-			if(user.equals("admin")) {
-				if(pass.equals("adminpassword")) {
-					this.setVisible(false);				// hide myself
+			int accessLevel = LoginController.verifyUser(user, pass);
+			if(accessLevel == 0){
+				this.setVisible(false);				// hide myself
 
-					
-					//CASEY, PLEASE ADD YOU CALL TO OPEN YOUR APP HERE PLEASE!!
 
-					this.dispose();						// clean my resource
-					return;
-				}
+				//CASEY, PLEASE ADD YOU CALL TO OPEN YOUR APP HERE PLEASE!!
+				FloorPlanEditView fpev = new FloorPlanEditView();
+				fpev.display();
+
+				FloorPlan fp = fpev.getFloorPlan();
+
+				this.dispose();						// clean my resource
+				return;
 			}
-			else if(user.equals("guest")) {
-				if(pass.equals("guestpassword")) {
-					GuestView.begin();
 
-					this.dispose();						// clean my resource
-					return;
-				}
+			else if(accessLevel == 1){
+				GuestView.begin();
+
+				this.dispose();						// clean my resource
+				return;
 			}
 
 			else{

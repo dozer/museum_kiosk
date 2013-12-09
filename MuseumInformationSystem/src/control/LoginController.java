@@ -1,11 +1,8 @@
 package control;
 
-import java.applet.*;
-//import java.awt.*;
 import java.util.ArrayList;
 
-//import javax.swing.text.html.parser.DocumentParser;
-
+import access.UserDAO;
 import model.User;
 
 /**
@@ -16,8 +13,8 @@ import model.User;
  * @author Sara
  *
  */
-public class LoginController extends Applet{
-
+public class LoginController{
+	
 	/**
 	 * Verify UserID and UserPassword from list of Users.  Set global User to 
 	 * User that matches ID and Password.  Calls determineView()
@@ -25,22 +22,19 @@ public class LoginController extends Applet{
 	 * @param UserPassword representing the User Password
 	 * @return the value of determineView()
 	 */
-	
-	int verifyID(ArrayList<User> list, String userID, String userPassword){
+	public static int verifyUser(String userID, String userPassword){
+		ArrayList<User> list = (ArrayList<User>) UserDAO.find();
+
 		for(User u: list)
 		{
-			if(u.getLogin() == userID)
+			if((u.getLogin().toLowerCase()).equals(userID.toLowerCase()))
 			{
-				if(u.getPassword() == userPassword)
-					return 1;  //return USER;
+				if((u.getPassword().toLowerCase()).equals(userPassword.toLowerCase()))
+					return u.getAccessLevel();  //return USER;
 			}
 		}
 		
-		return 0; //return GUEST;
-		
-				//not sure what Usertype is exactly referring to?? access level??
-				//If it is access level, then the return value should maybe be an int
-				//or referring to enum
+		return -1; //return GUEST;
 		
 				//Casey Comment: in keeping with Sara's comment, I am returning a 1 for
 				//access level User, 0 for access level Guest.  Can switch to enum if
@@ -52,17 +46,11 @@ public class LoginController extends Applet{
 	 * @param user representing a user object
 	 * @return a value representing either Admin or Guest
 	 */
-	
 	int verifyID(User user){
 		if(user.getAccessLevel() == 1)
 			return 1;	//return USER;
 		else
 			return 0;	//return GUEST;
-	}
-	
-	
-	void loginTest(){
-		System.out.println("hello");
 	}
 	
 	
