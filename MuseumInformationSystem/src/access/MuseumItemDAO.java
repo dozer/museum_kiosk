@@ -28,7 +28,7 @@ public class MuseumItemDAO {
 		List<MuseumItem> list= new ArrayList<MuseumItem>();
 		ResultSet result;
 		try {
-			result = MySqlConnection.sqlQuery("Select ItemName, ItemDescription, ItemImage, ItemAudio, ItemVideo, LocationX, LocationY FROM MuseumItem");
+			result = MySqlConnection.sqlQuery("Select ItemName, ItemDescription, ImagePath, AudioPath, VideoPath, LocationX, LocationY FROM MuseumItem");
 
 			while(result.next()){
 				int[] location = {result.getInt(6), result.getInt(7)};
