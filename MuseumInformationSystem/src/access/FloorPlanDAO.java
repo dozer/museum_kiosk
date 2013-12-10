@@ -19,17 +19,16 @@ import model.FloorPlan;
  *
  */
 public class FloorPlanDAO {
-	static String[][] floorPlanType = new String[18][18];
-	static String[][] floorPlanItem = new String[18][18];
+	static String[][] floorPlanType = new String[10][10];
+	static String[][] floorPlanItem = new String[10][10];
 	/**
 	 * Queries the database to populate a collection of Floor plan objects
 	 * @num representing the stack (version of floorplan)
 	 * @return a list of Floor Plan objects populated with data
 	 */
-	public static FloorPlan findFloorPlan(int num){
+	public static ArrayList findFloorPlan(int num){
 		ArrayList floorplan = new ArrayList();
-		FloorPlan fp = new FloorPlan(10);
-		
+
 		ResultSet result;
 		try {
 			result = sqlQuery("Select LocationX, LocationY, StructureType, ItemName FROM FloorPlan" + num);
@@ -45,14 +44,11 @@ public class FloorPlanDAO {
 			e.printStackTrace();
 		}
 		
-		fp.setFloorPlanType(floorPlanType);
-		fp.setFloorPlanItem(floorPlanItem);
-		
-		//floorplan.add(floorPlanType);
-		//floorplan.add(floorPlanItem);
-		//return floorplan;
-		return fp;
+		floorplan.add(floorPlanType);
+		floorplan.add(floorPlanItem);
+		return floorplan;
 	}
+	
 
 	/**
 	 * Updates entire database by dropping the previous table and inserting values back into the table based on
@@ -118,7 +114,6 @@ public class FloorPlanDAO {
 	 * Method is used as a test case, called from guestView in view folder
 	 */
 	public static void floorplantest(){        
-		/*
 		String[][] mylist1 = new String[18][18];
 		String[][] mylist2 = new String[18][18];
 		mylist1[0][0] = "Wall";
@@ -145,6 +140,5 @@ public class FloorPlanDAO {
 				System.out.println( testlist2[i][j]);
 			}
 		}	
-		*/
 	}
 }
