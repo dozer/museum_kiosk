@@ -229,7 +229,7 @@ public class FloorPlanEditView extends JFrame {
         		exhibitList = ExhibitDAO.find();
         		ArrayList<String> arraylist = new ArrayList<String>() ;
         		for(int i = 0; i< exhibitList.size(); i++){
-        			arraylist.add(exhibitList.get(0).getExhibitName());
+        			arraylist.add(exhibitList.get(i).getExhibitName());
         		}
         		
         		currentFloorPlanType = "Exhibit";
