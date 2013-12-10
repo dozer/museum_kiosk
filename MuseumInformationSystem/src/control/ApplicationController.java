@@ -1,6 +1,7 @@
 package control;
 
 import access.ExhibitDAO;
+import access.FloorPlanDAO;
 import access.MuseumItemDAO;
 import model.CoordinateObject;
 import model.FloorPlan;
@@ -10,7 +11,7 @@ public class ApplicationController {
 
 	public static void main(String[] args) {
     	//MuseumItemDAO.museumtest();
-		FloorPlanEditView fpev = new FloorPlanEditView();
+		FloorPlanEditView fpev = new FloorPlanEditView(FloorPlanDAO.findFloorPlan(0));
     	fpev.display();
     	
     	//while(fp.isShowing())

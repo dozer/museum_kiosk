@@ -79,6 +79,15 @@ public class FloorPlan {
     public String getItem(int x, int y) {
     	return floorPlanItem[x][y];
     }
+    
+    public void setFloorPlanType(String[][] floorPlanType) {
+    	this.floorPlanType = floorPlanType;
+    }
+    
+    public void setFloorPlanItem(String[][] floorPlanItem) {
+    	this.floorPlanItem = floorPlanItem;
+    }
+    
         /** 
 	 * Returns the entire building structure in a two-dimensional array
 	 * @return a string representing the whole building structure

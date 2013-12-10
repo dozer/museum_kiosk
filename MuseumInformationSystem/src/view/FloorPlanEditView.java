@@ -54,8 +54,13 @@ public class FloorPlanEditView extends JFrame {
      * be able to click a button to choose which type of object (Wall, Exhibit, Item, Open Space)
      * to populate coordinates within the Floor Plan.
      */
-    public FloorPlanEditView() {
+    public FloorPlanEditView(ArrayList floorplan) {
     	newfloorplan = new FloorPlan(10);
+    	String[][] tempType = (String[][]) floorplan.get(0);
+    	String[][] tempItem = (String[][]) floorplan.get(1);
+    	
+    	newfloorplan.setFloorPlanType(tempType);
+    	newfloorplan.setFloorPlanItem(tempItem);
     	currentFloorPlanType = "Wall";
     	
     	createGUI();
@@ -117,6 +122,23 @@ public class FloorPlanEditView extends JFrame {
                         
             this.x = i / N;
             this.y = i % N;
+            
+            switch(newfloorplan.getType(this.x, this.y)) //currentObjectType
+    		{
+    			case("Wall"):
+    				makeRed();
+    				break;
+    			case("Exhibit"):
+    				makeGreen();
+    				break;
+    			case("Item"):
+    				makeBlue();
+    				break;
+    			case("Space"):
+    				makeSpace();
+    			default:
+    				break;            			
+    		}
             
             this.addActionListener(new ActionListener() {
             	public void actionPerformed(ActionEvent e)
@@ -248,7 +270,7 @@ public class FloorPlanEditView extends JFrame {
         		museumItemList = MuseumItemDAO.find();
         		ArrayList<String> arraylist = new ArrayList<String>() ;
         		for(int i = 0; i< museumItemList.size(); i++){
-        			arraylist.add(museumItemList.get(0).getName());
+        			arraylist.add(museumItemList.get(i).getName());
         		}
         		currentFloorPlanType = "Item";
         		currentFloorPlanItem = (String) JOptionPane.showInputDialog(null, "Choose an Exhibit", "Choose an Exhibit", JOptionPane.QUESTION_MESSAGE, null, arraylist.toArray(), arraylist.toArray()[0]);
@@ -286,7 +308,7 @@ public class FloorPlanEditView extends JFrame {
 
             @Override
             public void run() {
-                new FloorPlanEditView().display();
+                //new FloorPlanEditView().display();
             }
         });
     }

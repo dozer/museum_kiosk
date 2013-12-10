@@ -6,6 +6,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import access.FillDatabase;
+import access.FloorPlanDAO;
 import access.MuseumItemDAO;
 import control.LoginController;
 import model.FloorPlan;
@@ -88,7 +89,7 @@ public class LoginView extends JFrame {
 
 
 				//CASEY, PLEASE ADD YOU CALL TO OPEN YOUR APP HERE PLEASE!!
-				FloorPlanEditView fpev = new FloorPlanEditView();
+				FloorPlanEditView fpev = new FloorPlanEditView(FloorPlanDAO.findFloorPlan(0));
 				fpev.display();
 
 				FloorPlan fp = fpev.getFloorPlan();

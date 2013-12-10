@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import access.FloorPlanDAO;
 import netscape.javascript.JSObject;
 import model.MuseumItem;
 import javafx.application.Application;
@@ -88,7 +89,7 @@ public class GuestView extends JFrame {
     }
     
     public void transitionToSwing() {
-    	FloorPlanEditView fpev = new FloorPlanEditView();
+    	FloorPlanEditView fpev = new FloorPlanEditView(FloorPlanDAO.findFloorPlan(0));
     	fpev.setVisible(true);
     	setVisible(false);
     }

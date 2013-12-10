@@ -27,7 +27,7 @@ public class FloorPlanDAO {
 	 * @return a list of Floor Plan objects populated with data
 	 */
 	public static ArrayList findFloorPlan(int num){
-		ArrayList floorplan = new ArrayList();
+		ArrayList<String[][]> floorplan = new ArrayList();
 
 		ResultSet result;
 		try {
