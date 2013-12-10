@@ -113,8 +113,8 @@ public class FloorPlanDAO {
 	 * Method is used as a test case, called from guestView in view folder
 	 */
 	public static void floorplantest(){        
-		String[][] mylist1 = new String[18][18];
-		String[][] mylist2 = new String[18][18];
+		String[][] mylist1 = new String[10][10];
+		String[][] mylist2 = new String[10][10];
 		mylist1[0][0] = "Wall";
 		mylist1[0][1] = "Wall";
 		

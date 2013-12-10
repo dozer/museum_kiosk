@@ -13,12 +13,12 @@ public class FillDatabase {
 	public static int[] location = { -1, -1 };
 
 	public static void fillAll() {
-		
+
 		dropTables();
 		createTables();
-		//fillMuseumItem();
-		// fillExhibitList();
-		// fillExhibits();
+		fillMuseumItem();
+		fillExhibitList();
+		fillExhibits();
 		fillFloorPlan();
 
 	}
@@ -27,11 +27,11 @@ public class FillDatabase {
 		List<Exhibit> exhibitlist = new ArrayList<Exhibit>();
 
 		Exhibit exhibit1 = new Exhibit("Generation1",
-				"Description of Generation1", location);
-		Exhibit exhibit2 = new Exhibit("Pre-Computing",
-				"Description of Pre-Computing", location);
+				"Exhibit filled with Generation1 museum items", location);
+		Exhibit exhibit2 = new Exhibit("PreComputing",
+				"Exhibit filled with Pre-Computing museum items", location);
 		Exhibit exhibit3 = new Exhibit("Generation2",
-				"Description of Generation2", location);
+				"Exhibit filled with Generation2 museum items", location);
 
 		exhibitlist.add(exhibit1);
 		exhibitlist.add(exhibit2);
@@ -47,8 +47,18 @@ public class FillDatabase {
 		itemlist.add("Atanasoff-Berry Computer (ABC)");
 		itemlist.add("Harvard Mark I");
 
+		ExhibitDAO.updateItemsInExhibit("Generation1", itemlist);
+
+		itemlist.clear();
+		itemlist.add("The Williams Tube");
+		ExhibitDAO.updateItemsInExhibit("PreComputing", itemlist);
+
+
+		itemlist.clear();
+		itemlist.add("TX-0");
 		ExhibitDAO.updateItemsInExhibit("Generation2", itemlist);
 	}
+
 
 	public static void fillMuseumItem() {
 		ArrayList mylist = new ArrayList();
@@ -60,7 +70,7 @@ public class FillDatabase {
 						+ " as the inventor of the computer. Using 2,300 relays, the Z3 used floating point binary arithmetic and had "
 						+ "a 22-bit word length. The original Z3 was destroyed in a bombing raid of Berlin in late 1943. However, Zuse "
 						+ "later supervised a reconstruction of the Z3 in the 1960s.",
-				null, null, null, location);
+						null, null, null, location);
 
 		MuseumItem item2 = new MuseumItem(
 				"Atanasoff–Berry Computer (ABC)",
@@ -73,8 +83,7 @@ public class FillDatabase {
 						+ "to all. This result has been referred to as the dis-invention of the computer. A full-scale "
 						+ "reconstruction of the ABC was completed in 1997 and proved that the ABC machine functioned as Atanasoff "
 						+ "had claimed.",
-				"C:\\\\MISDatabase\\\\Generation1\\\\ABC.jpg", null, null,
-				location);
+						"C:\\\\MISDatabase\\\\Generation1\\\\ABC.jpg", null, null, location);
 
 		MuseumItem item3 = new MuseumItem(
 				"Harvard Mark I",
@@ -87,8 +96,7 @@ public class FillDatabase {
 						+ "counted mechanically using 3000 decimal storage wheels, 1400 rotary dial switches, and 500 miles of wire. Its "
 						+ "electromagnetic relays classified the machine as a relay computer. All output was displayed on an electric "
 						+ "typewriter.",
-				"C:\\\\MISDatabase\\\\Generation1\\\\markI.jpg", null, null,
-				location);
+						"C:\\\\MISDatabase\\\\Generation1\\\\markI.jpg", null, null, location);
 
 		MuseumItem item4 = new MuseumItem(
 				"The Williams Tube",
@@ -96,17 +104,27 @@ public class FillDatabase {
 						+ "Williams and Tom Kilburn) it was a cathode ray tube used as a computer memory to electronically store binary "
 						+ "data. It was the first random-access digital storage device, and was used successfully in several early computers. "
 						+ "Vacuum tube machines, such as the IBM 701, used the Williams tube as primary memory.",
-				"C:\\\\MISDatabase\\\\Generation1\\\\williamsTube.jpg", null,
-				null, location);
+						"C:\\\\MISDatabase\\\\Generation1\\\\williamsTube.jpg", null, null, location);
+
+		MuseumItem item5 = new MuseumItem(
+				"TX-0",
+				"Engineers at Lincoln Laboratory led by Kenneth Olsen built the first general-purpose, programmable computer "
+						+ "built with transistors. The TX-0 was an experimental high-speed digital computer used for testing "
+						+ "transistor circuitry and very large magnetic core memory. Transistors were expensive, and TX-0 used 3,600 "
+						+ "total. For easy replacement, designers placed each transistor circuit inside a \"bottle,\" similar to a "
+						+ "vacuum tube. The very large memory (64K RAM), speed, and reliability of the TX-0 made it one of the "
+						+ "most advanced computers in the world when fully operational in 1957.", 
+						"C:\\\\MISDatabase\\\\Generation2\\\\TX0.jpg", null, null, location);
 
 		mylist.add(item1);
 		mylist.add(item2);
 		mylist.add(item3);
 		mylist.add(item4);
+		mylist.add(item5);
 
 		MuseumItemDAO.update(mylist);
 	}
-	
+
 	public static void fillFloorPlan(){
 		String[][] mylist1 = new String[10][10];
 		String[][] mylist2 = new String[10][10];
@@ -142,8 +160,8 @@ public class FillDatabase {
 				mylist2[i][j] = "";
 				if (mylist1[i][j] == null || !mylist1[i][j].equals("Wall"))		
 					mylist1[i][j] = "";
-				
-				System.out.println(mylist1[i][j]);
+
+				//System.out.println(mylist1[i][j]);
 			}
 		}	
 
@@ -155,21 +173,21 @@ public class FillDatabase {
 	public static void createTables() {
 		String sqlStatement;
 		try {
-		sqlStatement = "CREATE TABLE User(Login varchar(50), Password varchar(50), AccessLevel int) ";
-		MuseumItemDAO.sqlUpdate(sqlStatement);
-		
-		sqlStatement = "CREATE TABLE MuseumItem(ItemName varchar(100), ItemDescription varchar(1000),"
-				+ " ImagePath varchar(250), AudioPath varchar(250), VideoPath varchar(250),"
-				+ " LocationX int, LocationY int)";
-		MuseumItemDAO.sqlUpdate(sqlStatement);
-		
-		sqlStatement =  "CREATE TABLE ExhibitList(ExhibitName varchar(100), ExhibitDescription varchar(1000),"
-				+ " LocationX int, LocationY int)";
-		MuseumItemDAO.sqlUpdate(sqlStatement);
-		
-		sqlStatement = "CREATE TABLE FloorPlan0(LocationX int, LocationY int, StructureType varchar(50)"
-				+ ", ItemName varchar(50))";
-		MuseumItemDAO.sqlUpdate(sqlStatement);
+			sqlStatement = "CREATE TABLE User(Login varchar(50), Password varchar(50), AccessLevel int) ";
+			MuseumItemDAO.sqlUpdate(sqlStatement);
+
+			sqlStatement = "CREATE TABLE MuseumItem(ItemName varchar(100), ItemDescription varchar(1000),"
+					+ " ImagePath varchar(250), AudioPath varchar(250), VideoPath varchar(250),"
+					+ " LocationX int, LocationY int)";
+			MuseumItemDAO.sqlUpdate(sqlStatement);
+
+			sqlStatement =  "CREATE TABLE ExhibitList(ExhibitName varchar(100), ExhibitDescription varchar(1000),"
+					+ " LocationX int, LocationY int)";
+			MuseumItemDAO.sqlUpdate(sqlStatement);
+
+			sqlStatement = "CREATE TABLE FloorPlan0(LocationX int, LocationY int, StructureType varchar(50)"
+					+ ", ItemName varchar(50))";
+			MuseumItemDAO.sqlUpdate(sqlStatement);
 
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block

@@ -114,13 +114,12 @@ public class ExhibitDAO {
 	 * any changes that were made to the exhibit's list
 	 * @param list, representing a collection of museum items
 	 */
-	public static void updateItemsInExhibit(String ExhibitName, List<MuseumItem> list){
-		ResultSet result = null;
+	public static void updateItemsInExhibit(String ExhibitName, List<String> list){
+		ResultSet result;
 		try {
-			if (result.next()){
-				result = sqlQuery("SELECT COUNT(*) FROM information_schema.tables"
-						+ " WHERE table_name = '" + ExhibitName + "'");
-			}
+			result = sqlQuery("SELECT COUNT(*) FROM information_schema.tables"
+					+ " WHERE table_name = '" + ExhibitName + "'");
+			result.next();
 			if (result.getInt(1) == 0){
 				CreateExhibit(ExhibitName);
 			}
@@ -131,7 +130,7 @@ public class ExhibitDAO {
 
 			for(int i = 0; i < list.size(); i++){
 
-				sqlUpdate("INSERT INTO " + ExhibitName + " VALUES('" + list.get(i).toString() + "')");
+				sqlUpdate("INSERT INTO " + ExhibitName + " VALUES('" + list.get(i) + "')");
 				//MuseumItemName
 			}        
 
