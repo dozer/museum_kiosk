@@ -92,7 +92,7 @@ public class FloorPlanDAO {
 	 */
 	public static ResultSet sqlQuery(String sqlStatement) throws ClassNotFoundException, SQLException{
 		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInfoSystem", "root", "sschlosser3");
 		PreparedStatement statement = con.prepareStatement(sqlStatement);
 		return statement.executeQuery();
 	}
@@ -105,7 +105,7 @@ public class FloorPlanDAO {
 	 */
 	public static void sqlUpdate(String sqlStatement) throws SQLException, ClassNotFoundException{
 		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInfoSystem", "root", "sschlosser3");
 		PreparedStatement statement = con.prepareStatement(sqlStatement);
 		statement.executeUpdate();
 	}

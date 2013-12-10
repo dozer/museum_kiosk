@@ -92,6 +92,7 @@ public class ExhibitManagementController {
         //Joe's comment: With the addition of name to the Exhibit class this makes more sense
         //I did remove media and added location and museum item list to coincide with the 
         //actual parameters of the Exhibit class
+    	ArrayList<String> updatedlist = new ArrayList<String>();
         List<Exhibit> list = ExhibitDAO.find();
         for(Exhibit e: list) {
             if(e.getExhibitName().equals(name)) {
@@ -103,7 +104,13 @@ public class ExhibitManagementController {
                     e.setExhibitLocation(location);
                 if(museumItemList != null) {
                     e.setMuseumItemList(museumItemList);
-                    ExhibitDAO.updateItemsInExhibit(name, museumItemList);
+                    
+                    updatedlist.clear();
+                    for(MuseumItem item : e.getMuseumItemList()){
+                    	updatedlist.add(item.getName());
+                    }
+                    
+                    ExhibitDAO.updateItemsInExhibit(name, updatedlist);
                 }
             }
         }
@@ -116,18 +123,23 @@ public class ExhibitManagementController {
      * @param name representing the exhibit name
      * @param itemName representing the museum item name
      */
-    public void removeMuseumItemFromExhibit(String name, String itemName) {
+    public void removeMuseumItemFromExhibit(String exhibitName, String itemName) {
         List<Exhibit> list = ExhibitDAO.find();
         for (Exhibit e : list) {
-            if (e.getExhibitName().equals(name)) {
+            if (e.getExhibitName().equals(exhibitName)) {
                 for (MuseumItem m : e.getMuseumItemList()) {
                     if (m.getName().equals(itemName)) {
                         e.removeItem(m);
-                        ExhibitDAO.updateItemsInExhibit(name, e.getMuseumItemList());
                         break;
                     }
                 }
             }
+        
+        ArrayList<String> updatedlist = new ArrayList<String>();
+        for(MuseumItem item : e.getMuseumItemList()){
+        	updatedlist.add(item.getName());
+        }
+        ExhibitDAO.updateItemsInExhibit(exhibitName, updatedlist);
         }
     }
 }
