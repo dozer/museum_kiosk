@@ -19,8 +19,8 @@ import model.FloorPlan;
  *
  */
 public class FloorPlanDAO {
-	static String[][] floorPlanType = new String[18][18];
-	static String[][] floorPlanItem = new String[18][18];
+	static String[][] floorPlanType = new String[10][10];
+	static String[][] floorPlanItem = new String[10][10];
 	/**
 	 * Queries the database to populate a collection of Floor plan objects
 	 * @num representing the stack (version of floorplan)
@@ -48,6 +48,7 @@ public class FloorPlanDAO {
 		floorplan.add(floorPlanItem);
 		return floorplan;
 	}
+	
 
 	/**
 	 * Updates entire database by dropping the previous table and inserting values back into the table based on

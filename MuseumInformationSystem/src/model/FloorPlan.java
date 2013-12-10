@@ -32,6 +32,22 @@ public class FloorPlan {
 		this.floorPlanItem[location[0]][location[1]] = itemName;
 	}
 
+	public void setFloorPlanType(int x, int y, String floorPlanType) {
+		this.floorPlanType[x][y] = floorPlanType;
+	}
+	
+	public void setFloorPlanItem(int x, int y, String floorPlanItem) {
+		this.floorPlanItem[x][y] = floorPlanItem;
+	}
+	
+	public String[][] getFloorPlanType() {
+		return this.floorPlanType;
+	}
+	
+	public String[][] getFloorPlanItem() {
+		return this.floorPlanItem;
+	}
+	
 	/**
 	 * Sets the type of the building structure such as outside and inside walls, 
 	 * 	hallways, doors, exhibits, etc
@@ -58,6 +74,10 @@ public class FloorPlan {
 	 */
     public String getType(int x, int y) {
     	return floorPlanType[x][y];
+    }
+    
+    public String getItem(int x, int y) {
+    	return floorPlanItem[x][y];
     }
         /** 
 	 * Returns the entire building structure in a two-dimensional array
