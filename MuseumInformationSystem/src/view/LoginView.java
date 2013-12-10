@@ -1,13 +1,12 @@
 package view;
 
 import java.awt.*;
+import java.awt.event.*;
 
 import javax.swing.*;
 
+import access.MuseumItemDAO;
 import control.LoginController;
-
-import java.awt.event.*;
-
 import model.FloorPlan;
 import view.FloorPlanEditView;
 
@@ -20,7 +19,9 @@ public class LoginView extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new LoginView();
+		//new LoginView();
+		MuseumItemDAO.museumtest();
+		
 	}
 
 	class Login extends JFrame implements ActionListener

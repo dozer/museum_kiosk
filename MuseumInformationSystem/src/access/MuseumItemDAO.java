@@ -49,7 +49,7 @@ public class MuseumItemDAO {
 	 * any changes that were made to the list of museum items
 	 * @param list, representing a collection of museum items
 	 */
-	static void update(List<MuseumItem> list){
+	public static void update(List<MuseumItem> list){
 		try {
 			sqlUpdate("DELETE FROM MuseumItem");
 
@@ -90,7 +90,7 @@ public class MuseumItemDAO {
 	 */
 	public static ResultSet sqlQuery(String sqlStatement) throws ClassNotFoundException, SQLException{
 		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInfoSystem", "root", "sschlosser3");
 		PreparedStatement statement = con.prepareStatement(sqlStatement);
 		return statement.executeQuery();
 	}
@@ -103,7 +103,7 @@ public class MuseumItemDAO {
 	 */
 	public static void sqlUpdate(String sqlStatement) throws SQLException, ClassNotFoundException{
 		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInfoSystem", "root", "sschlosser3");
 		PreparedStatement statement = con.prepareStatement(sqlStatement);
 		statement.executeUpdate();
 	}
@@ -131,7 +131,7 @@ public class MuseumItemDAO {
 				+ "basic computer ideas, but the computer as a concept was declared un-patentable and thus was freely open "
 				+ "to all. This result has been referred to as the dis-invention of the computer. A full-scale "
 				+ "reconstruction of the ABC was completed in 1997 and proved that the ABC machine functioned as Atanasoff "
-				+ "had claimed.", "C:\\MISDatabase\\Generation1\\ABC.jpg", null, null, location);
+				+ "had claimed.", "C:\\\\MISDatabase\\\\Generation1\\\\ABC.jpg", null, null, location);
 		mylist.add(item1);
 		mylist.add(item2);
 		update(mylist);

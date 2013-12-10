@@ -35,10 +35,6 @@ public class LoginController{
 		}
 		
 		return -1; //return GUEST;
-		
-				//Casey Comment: in keeping with Sara's comment, I am returning a 1 for
-				//access level User, 0 for access level Guest.  Can switch to enum if
-				//people think thats better
 	}
 	
 	/**
