@@ -20,9 +20,11 @@ import javax.swing.JPanel;
 import control.ExhibitManagementController;
 import access.ExhibitDAO;
 import access.FloorPlanDAO;
+import access.MuseumItemDAO;
 import model.CoordinateObject;
 import model.Exhibit;
 import model.FloorPlan;
+import model.MuseumItem;
 
 /**
  * Provides a visual interface to create and alter the floor plan of the museum
@@ -40,6 +42,7 @@ public class FloorPlanEditView extends JFrame {
     static FloorPlan floorplan;
     static FloorPlan newfloorplan;
     List<Exhibit> exhibitList;
+    List<MuseumItem> museumItemList;
     JButton wall;
     JButton exhibit;
     JButton item;
@@ -53,9 +56,6 @@ public class FloorPlanEditView extends JFrame {
      */
     public FloorPlanEditView() {
     	newfloorplan = new FloorPlan(10);
-    	ExhibitManagementController emc = new ExhibitManagementController();
-    	emc.getExhibits();
-    	exhibitList = ExhibitDAO.find();
     	currentFloorPlanType = "Wall";
     	
     	createGUI();
@@ -225,6 +225,7 @@ public class FloorPlanEditView extends JFrame {
     	exhibit.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e)
         	{
+        		exhibitList = ExhibitDAO.find();
         		ArrayList<String> arraylist = new ArrayList<String>() ;
         		for(int i = 0; i< exhibitList.size(); i++){
         			arraylist.add(exhibitList.get(0).getExhibitName());
@@ -243,8 +244,13 @@ public class FloorPlanEditView extends JFrame {
     	item.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e)
         	{
+        		museumItemList = MuseumItemDAO.find();
+        		ArrayList<String> arraylist = new ArrayList<String>() ;
+        		for(int i = 0; i< museumItemList.size(); i++){
+        			arraylist.add(museumItemList.get(0).getName());
+        		}
         		currentFloorPlanType = "Item";
-        		currentFloorPlanItem = "Item"; //grab exhibit, grab item
+        		currentFloorPlanItem = (String) JOptionPane.showInputDialog(null, "Choose an Exhibit", "Choose an Exhibit", JOptionPane.QUESTION_MESSAGE, null, arraylist.toArray(), arraylist.toArray()[0]);
         		setNewFloorPlanSpot(currentFloorPlanItem, currentFloorPlanType);
         		setCurrent("Item");
         	}
