@@ -31,7 +31,7 @@ public class FloorPlanDAO {
 
 		ResultSet result;
 		try {
-			result = sqlQuery("Select LocationX, LocationY, StructureType, ItemName FROM FloorPlan" + num);
+			result = MySqlConnection.sqlQuery("Select LocationX, LocationY, StructureType, ItemName FROM FloorPlan" + num);
 
 			while(result.next()){
 				floorPlanType[result.getInt(1)][result.getInt(2)] = result.getString(3);
@@ -58,8 +58,8 @@ public class FloorPlanDAO {
 	 */
 	public static void updateFloorPlan(String[][] floorPlanType, String[][] floorPlanItem, int num){
 		try {
-			sqlQuery("set global max_connections = 500");
-			sqlUpdate("DELETE FROM FloorPlan" + num );
+			MySqlConnection.sqlQuery("set global max_connections = 500");
+			MySqlConnection.sqlUpdate("DELETE FROM FloorPlan" + num );
 
 			for(int i = 0; i < floorPlanType[0].length; i++){
 				for(int j = 0; j < floorPlanType[1].length; j++){
@@ -72,7 +72,7 @@ public class FloorPlanDAO {
 					}
 					
 					
-					sqlUpdate("INSERT INTO FloorPlan" + num + " VALUES("
+					MySqlConnection.sqlUpdate("INSERT INTO FloorPlan" + num + " VALUES("
 						 + i + ", " + j + ", '" + floorPlanType[i][j] + "', '" + floorPlanItem[i][j] + "')");
 				};
 			}	
@@ -83,32 +83,32 @@ public class FloorPlanDAO {
 		}
 	}
 
-	/**
-	 * sqlQuery takes a sql statement intended only as a query to retrieve a dataset from the user table
-	 * @param sqlStatement
-	 * @return resultset of sql query
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 */
-	public static ResultSet sqlQuery(String sqlStatement) throws ClassNotFoundException, SQLException{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
-		PreparedStatement statement = con.prepareStatement(sqlStatement);
-		return statement.executeQuery();
-	}
-
-	/**
-	 * sqlUpdate takes a sql statement intended only as an update, delete, or insert to the user table
-	 * @param sqlStatement
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
-	 */
-	public static void sqlUpdate(String sqlStatement) throws SQLException, ClassNotFoundException{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
-		PreparedStatement statement = con.prepareStatement(sqlStatement);
-		statement.executeUpdate();
-	}
+//	/**
+//	 * MySqlConnection.sqlQuery takes a sql statement intended only as a query to retrieve a dataset from the user table
+//	 * @param sqlStatement
+//	 * @return resultset of sql query
+//	 * @throws ClassNotFoundException
+//	 * @throws SQLException
+//	 */
+//	public static ResultSet MySqlConnection.sqlQuery(String sqlStatement) throws ClassNotFoundException, SQLException{
+//		Class.forName("com.mysql.jdbc.Driver");
+//		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
+//		PreparedStatement statement = con.prepareStatement(sqlStatement);
+//		return statement.executeQuery();
+//	}
+//
+//	/**
+//	 * MySqlConnection.sqlUpdate takes a sql statement intended only as an update, delete, or insert to the user table
+//	 * @param sqlStatement
+//	 * @throws SQLException
+//	 * @throws ClassNotFoundException
+//	 */
+//	public static void MySqlConnection.sqlUpdate(String sqlStatement) throws SQLException, ClassNotFoundException{
+//		Class.forName("com.mysql.jdbc.Driver");
+//		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
+//		PreparedStatement statement = con.prepareStatement(sqlStatement);
+//		statement.executeUpdate();
+//	}
 
 	/**
 	 * Method is used as a test case, called from guestView in view folder

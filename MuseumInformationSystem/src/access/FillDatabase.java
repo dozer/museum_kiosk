@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import access.MuseumItemDAO;
 import model.Exhibit;
 import model.MuseumItem;
+import model.User;
 
 public class FillDatabase {
 	public static int[] location = { -1, -1 };
@@ -16,6 +17,7 @@ public class FillDatabase {
 
 		dropTables();
 		createTables();
+		fillUsers();
 		fillMuseumItem();
 		fillExhibitList();
 		fillExhibits();
@@ -23,6 +25,17 @@ public class FillDatabase {
 
 	}
 
+	public static void fillUsers() {
+		ArrayList<User> userlist = new ArrayList<User>();
+		User admin = new User("Admin","AdminPassword", 0);
+		User guest = new User("Guest","GuestPassword", 1);
+		userlist.add(admin);
+		userlist.add(guest);
+		
+		UserDAO.update(userlist);
+		
+	}
+	
 	public static void fillExhibitList() {
 		List<Exhibit> exhibitlist = new ArrayList<Exhibit>();
 
@@ -174,20 +187,20 @@ public class FillDatabase {
 		String sqlStatement;
 		try {
 			sqlStatement = "CREATE TABLE User(Login varchar(50), Password varchar(50), AccessLevel int) ";
-			MuseumItemDAO.sqlUpdate(sqlStatement);
+			MySqlConnection.sqlUpdate(sqlStatement);
 
 			sqlStatement = "CREATE TABLE MuseumItem(ItemName varchar(100), ItemDescription varchar(1000),"
 					+ " ImagePath varchar(250), AudioPath varchar(250), VideoPath varchar(250),"
 					+ " LocationX int, LocationY int)";
-			MuseumItemDAO.sqlUpdate(sqlStatement);
+			MySqlConnection.sqlUpdate(sqlStatement);
 
 			sqlStatement =  "CREATE TABLE ExhibitList(ExhibitName varchar(100), ExhibitDescription varchar(1000),"
 					+ " LocationX int, LocationY int)";
-			MuseumItemDAO.sqlUpdate(sqlStatement);
+			MySqlConnection.sqlUpdate(sqlStatement);
 
 			sqlStatement = "CREATE TABLE FloorPlan0(LocationX int, LocationY int, StructureType varchar(50)"
 					+ ", ItemName varchar(50))";
-			MuseumItemDAO.sqlUpdate(sqlStatement);
+			MySqlConnection.sqlUpdate(sqlStatement);
 
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -199,36 +212,32 @@ public class FillDatabase {
 		ResultSet result;
 
 		try {
-			result = MuseumItemDAO
-					.sqlQuery("SELECT COUNT(*) FROM information_schema.TABLES"
+			result = MySqlConnection.sqlQuery("SELECT COUNT(*) FROM information_schema.TABLES"
 							+ " WHERE table_name = 'User' and table_schema = 'MuseumInformationSystem'");
 			result.next();
 			if (result.getInt(1) > 0) {
-				MuseumItemDAO.sqlUpdate("DROP TABLE User ");
+				MySqlConnection.sqlUpdate("DROP TABLE User ");
 			}
 
-			result = MuseumItemDAO
-					.sqlQuery("SELECT COUNT(*) FROM information_schema.TABLES"
+			result = MySqlConnection.sqlQuery("SELECT COUNT(*) FROM information_schema.TABLES"
 							+ " WHERE table_name = 'MuseumItem' and table_schema = 'MuseumInformationSystem'");
 			result.next();
 			if (result.getInt(1) > 0) {
-				MuseumItemDAO.sqlUpdate("DROP TABLE MuseumItem");
+				MySqlConnection.sqlUpdate("DROP TABLE MuseumItem");
 			}
 
-			result = MuseumItemDAO
-					.sqlQuery("SELECT COUNT(*) FROM information_schema.TABLES"
+			result = MySqlConnection.sqlQuery("SELECT COUNT(*) FROM information_schema.TABLES"
 							+ " WHERE table_name = 'ExhibitList' and table_schema = 'MuseumInformationSystem'");
 			result.next();
 			if (result.getInt(1) > 0) {
-				MuseumItemDAO.sqlUpdate("DROP TABLE ExhibitList");
+				MySqlConnection.sqlUpdate("DROP TABLE ExhibitList");
 			}
 
-			result = MuseumItemDAO
-					.sqlQuery("SELECT COUNT(*) FROM information_schema.TABLES"
+			result = MySqlConnection.sqlQuery("SELECT COUNT(*) FROM information_schema.TABLES"
 							+ " WHERE table_name = 'FloorPlan0' and table_schema = 'MuseumInformationSystem'");
 			result.next();
 			if (result.getInt(1) > 0) {
-				MuseumItemDAO.sqlUpdate("DROP TABLE FloorPlan0");
+				MySqlConnection.sqlUpdate("DROP TABLE FloorPlan0");
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block

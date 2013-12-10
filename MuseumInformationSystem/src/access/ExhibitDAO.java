@@ -28,7 +28,7 @@ public class ExhibitDAO {
 		List<Exhibit> list = new ArrayList<Exhibit>();
 		ResultSet result;
 		try {
-			result = sqlQuery("Select ExhibitName, ExhibitDescription, LocationX, LocationY "
+			result = MySqlConnection.sqlQuery("Select ExhibitName, ExhibitDescription, LocationX, LocationY "
 					+ "FROM ExhibitList");
 
 			while(result.next()){
@@ -53,7 +53,7 @@ public class ExhibitDAO {
 		List<MuseumItem> list = new ArrayList<MuseumItem>();
 		ResultSet result;
 		try {
-			result = sqlQuery("SELECT ItemName, ItemDescription, ItemImage, ItemAudio, "
+			result = MySqlConnection.sqlQuery("SELECT ItemName, ItemDescription, ItemImage, ItemAudio, "
 					+ "ItemVideo, LocationX, LocationY FROM MuseumItem "
 					+ "INNER JOIN " + ExhibitName +" ON " + ExhibitName + ".MuseumItemName = MuseumItem.ItemName");
 			//                                                " WHERE ItemName = '" + result1.getString(1) + "'");
@@ -80,7 +80,7 @@ public class ExhibitDAO {
 	 */
 	public static void CreateExhibit(String ExhibitName){
 		try {
-			sqlUpdate("CREATE TABLE " + ExhibitName + " (MuseumItemName varchar(50))");
+			MySqlConnection.sqlUpdate("CREATE TABLE " + ExhibitName + " (MuseumItemName varchar(50))");
 
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -98,7 +98,7 @@ public class ExhibitDAO {
 			for(int i = 0; i < list.size(); i++){
 
 				int[] location = list.get(i).getExhibitLocation();
-				sqlUpdate("INSERT INTO ExhibitList VALUES('"
+				MySqlConnection.sqlUpdate("INSERT INTO ExhibitList VALUES('"
 						+ list.get(i).getExhibitName() + "', '" + list.get(i).getExhibitDescription() + "', "
 						+ location[0] + ", " + location[1] + ")");
 			}        
@@ -117,7 +117,7 @@ public class ExhibitDAO {
 	public static void updateItemsInExhibit(String ExhibitName, List<String> list){
 		ResultSet result;
 		try {
-			result = sqlQuery("SELECT COUNT(*) FROM information_schema.tables"
+			result = MySqlConnection.sqlQuery("SELECT COUNT(*) FROM information_schema.tables"
 					+ " WHERE table_name = '" + ExhibitName + "'");
 			result.next();
 			if (result.getInt(1) == 0){
@@ -125,12 +125,12 @@ public class ExhibitDAO {
 			}
 			else{
 
-				sqlUpdate("DELETE FROM " + ExhibitName);
+				MySqlConnection.sqlUpdate("DELETE FROM " + ExhibitName);
 			}
 
 			for(int i = 0; i < list.size(); i++){
 
-				sqlUpdate("INSERT INTO " + ExhibitName + " VALUES('" + list.get(i) + "')");
+				MySqlConnection.sqlUpdate("INSERT INTO " + ExhibitName + " VALUES('" + list.get(i) + "')");
 				//MuseumItemName
 			}        
 
@@ -140,32 +140,32 @@ public class ExhibitDAO {
 		}
 	}
 
-	/**
-	 * sqlQuery takes a sql statement intended only as a query to retrieve a dataset from the museumitem table
-	 * @param sqlStatement
-	 * @return resultset of sql query
-	 * @throws ClassNotFoundException
-	 * @throws SQLException
-	 */
-	public static ResultSet sqlQuery(String sqlStatement) throws ClassNotFoundException, SQLException{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
-		PreparedStatement statement = con.prepareStatement(sqlStatement);
-		return statement.executeQuery();
-	}
-
-	/**
-	 * sqlUpdate takes a sql statement intended only as an update, delete, or insert to the msueumitem table
-	 * @param sqlStatement
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
-	 */
-	public static void sqlUpdate(String sqlStatement) throws SQLException, ClassNotFoundException{
-		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
-		PreparedStatement statement = con.prepareStatement(sqlStatement);
-		statement.executeUpdate();
-	}
+//	/**
+//	 * MySqlConnection.sqlQuery takes a sql statement intended only as a query to retrieve a dataset from the museumitem table
+//	 * @param sqlStatement
+//	 * @return resultset of sql query
+//	 * @throws ClassNotFoundException
+//	 * @throws SQLException
+//	 */
+//	public static ResultSet MySqlConnection.sqlQuery(String sqlStatement) throws ClassNotFoundException, SQLException{
+//		Class.forName("com.mysql.jdbc.Driver");
+//		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
+//		PreparedStatement statement = con.prepareStatement(sqlStatement);
+//		return statement.executeQuery();
+//	}
+//
+//	/**
+//	 * MySqlConnection.sqlUpdate takes a sql statement intended only as an update, delete, or insert to the msueumitem table
+//	 * @param sqlStatement
+//	 * @throws SQLException
+//	 * @throws ClassNotFoundException
+//	 */
+//	public static void MySqlConnection.sqlUpdate(String sqlStatement) throws SQLException, ClassNotFoundException{
+//		Class.forName("com.mysql.jdbc.Driver");
+//		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/MuseumInformationSystem", "root", "sschlosser3");
+//		PreparedStatement statement = con.prepareStatement(sqlStatement);
+//		statement.executeUpdate();
+//	}
 
 	/**
 	 * Method is used as a test case, called from guestView in view folder
