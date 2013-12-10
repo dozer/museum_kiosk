@@ -39,7 +39,7 @@ public class FloorPlanEditView extends JFrame {
     static String currentFloorPlanItem = "Wall";
     static int currentObjectX;
     static int currentObjectY;
-    static FloorPlan floorplan;
+    //static FloorPlan floorplan;
     static FloorPlan newfloorplan;
     List<Exhibit> exhibitList;
     List<MuseumItem> museumItemList;
@@ -128,7 +128,8 @@ public class FloorPlanEditView extends JFrame {
             		tempLocation[0] = x;
             		tempLocation[1] = y;
             		
-            		floorplan.setType(tempLocation, currentFloorPlanType);
+            		newfloorplan.setFloorPlanType(x, y, currentFloorPlanType);
+            		newfloorplan.setType(tempLocation, currentFloorPlanType);
             		//gridObject[x][y] = currentObject;
             		
             		//switch(currentSelectedObject)
@@ -295,7 +296,7 @@ public class FloorPlanEditView extends JFrame {
     }
     
     public FloorPlan getFloorPlan() {
-    	return floorplan;
+    	return newfloorplan;
     }
     
     public void initializeArray(){
