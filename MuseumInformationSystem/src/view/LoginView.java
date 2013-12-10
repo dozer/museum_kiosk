@@ -5,6 +5,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import access.FillDatabase;
 import access.MuseumItemDAO;
 import control.LoginController;
 import model.FloorPlan;
@@ -19,8 +20,8 @@ public class LoginView extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new LoginView();
-		//MuseumItemDAO.museumtest();
+		//new LoginView();
+		FillDatabase.fillAll();
 		
 	}
 
