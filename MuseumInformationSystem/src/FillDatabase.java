@@ -7,6 +7,7 @@ import model.MuseumItem;
 public class FillDatabase {
 	
 	public static void fillAll(){
+		fillMuseumItem();
 		
 	}
 	
