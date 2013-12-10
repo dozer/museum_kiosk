@@ -75,6 +75,10 @@ public class FloorPlan {
     public String getType(int x, int y) {
     	return floorPlanType[x][y];
     }
+    
+    public String getItem(int x, int y) {
+    	return floorPlanItem[x][y];
+    }
         /** 
 	 * Returns the entire building structure in a two-dimensional array
 	 * @return a string representing the whole building structure
