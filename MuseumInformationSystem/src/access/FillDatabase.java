@@ -183,7 +183,7 @@ public class FillDatabase {
 		try {
 			result = MuseumItemDAO
 					.sqlQuery("SELECT COUNT(*) FROM information_schema.TABLES"
-							+ " WHERE table_name = 'User' and table_schema = 'MuseumInfoSystem'");
+							+ " WHERE table_name = 'User' and table_schema = 'MuseumInformationSystem'");
 			result.next();
 			if (result.getInt(1) > 0) {
 				MuseumItemDAO.sqlUpdate("DROP TABLE User ");
@@ -191,7 +191,7 @@ public class FillDatabase {
 
 			result = MuseumItemDAO
 					.sqlQuery("SELECT COUNT(*) FROM information_schema.TABLES"
-							+ " WHERE table_name = 'MuseumItem' and table_schema = 'MuseumInfoSystem'");
+							+ " WHERE table_name = 'MuseumItem' and table_schema = 'MuseumInformationSystem'");
 			result.next();
 			if (result.getInt(1) > 0) {
 				MuseumItemDAO.sqlUpdate("DROP TABLE MuseumItem");
@@ -199,7 +199,7 @@ public class FillDatabase {
 
 			result = MuseumItemDAO
 					.sqlQuery("SELECT COUNT(*) FROM information_schema.TABLES"
-							+ " WHERE table_name = 'ExhibitList' and table_schema = 'MuseumInfoSystem'");
+							+ " WHERE table_name = 'ExhibitList' and table_schema = 'MuseumInformationSystem'");
 			result.next();
 			if (result.getInt(1) > 0) {
 				MuseumItemDAO.sqlUpdate("DROP TABLE ExhibitList");
@@ -207,7 +207,7 @@ public class FillDatabase {
 
 			result = MuseumItemDAO
 					.sqlQuery("SELECT COUNT(*) FROM information_schema.TABLES"
-							+ " WHERE table_name = 'FloorPlan0' and table_schema = 'MuseumInfoSystem'");
+							+ " WHERE table_name = 'FloorPlan0' and table_schema = 'MuseumInformationSystem'");
 			result.next();
 			if (result.getInt(1) > 0) {
 				MuseumItemDAO.sqlUpdate("DROP TABLE FloorPlan0");
