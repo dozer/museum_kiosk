@@ -209,6 +209,7 @@ public class FloorPlanEditView extends JFrame {
     	}
     	
     	if(type == "Exhibit") {
+    		
     		newFloorPlanType = "Exhibit";
     		exhibit.setFont(space.getFont().deriveFont(Font.BOLD | Font.ITALIC));
     	}
