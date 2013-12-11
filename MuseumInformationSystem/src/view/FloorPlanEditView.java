@@ -35,12 +35,19 @@ public class FloorPlanEditView extends JFrame {
 	private static final int N = 10;				
     private static final int SIZE = 60;
     static CoordinateObject[][] gridObject = new CoordinateObject[N][N];
-    static String currentFloorPlanType = "Wall";
-    static String currentFloorPlanItem = "Wall";
     static int currentObjectX;
     static int currentObjectY;
     //static FloorPlan floorplan;
+    
+    static FloorPlan currentfloorplan;
     static FloorPlan newfloorplan;
+    
+    static String currentFloorPlanType = "Wall";
+    static String currentFloorPlanItem = "Wall";
+    
+    static String newFloorPlanType = "Wall";
+    static String newFloorPlanItem = "Wall";
+    
     List<Exhibit> exhibitList;
     List<MuseumItem> museumItemList;
     JButton wall;
@@ -61,7 +68,10 @@ public class FloorPlanEditView extends JFrame {
     	
     	newfloorplan.setFloorPlanType(tempType);
     	newfloorplan.setFloorPlanItem(tempItem);
+    	currentfloorplan = newfloorplan;
+    	
     	currentFloorPlanType = "Wall";
+    	currentFloorPlanItem = "Wall";
     	
     	createGUI();
     }
@@ -116,7 +126,7 @@ public class FloorPlanEditView extends JFrame {
     	 */
         public Button(int i) {
             //super(i / N + "," + i % N);
-        	super(newfloorplan.getItem(i / N, i % N));
+        	super(currentfloorplan.getItem(i / N, i % N));
         	this.setOpaque(true);
             this.setBorderPainted(true);
             this.setBackground(Color.white);
@@ -124,7 +134,7 @@ public class FloorPlanEditView extends JFrame {
             this.x = i / N;
             this.y = i % N;
             
-            switch(newfloorplan.getType(this.x, this.y)) //currentObjectType
+            switch(currentfloorplan.getType(this.x, this.y)) //currentObjectType
     		{
     			case("Wall"):
     				makeRed();
@@ -151,12 +161,10 @@ public class FloorPlanEditView extends JFrame {
             		tempLocation[0] = x;
             		tempLocation[1] = y;
             		
-            		newfloorplan.setFloorPlanType(x, y, currentFloorPlanType);
-            		newfloorplan.setType(tempLocation, currentFloorPlanType);
-            		//gridObject[x][y] = currentObject;
+            		newfloorplan.setFloorPlanType(x, y, newFloorPlanType);
+            		newfloorplan.setType(tempLocation, newFloorPlanType);
             		
-            		//switch(currentSelectedObject)
-            		switch(currentFloorPlanType) //currentObjectType
+            		switch(newFloorPlanType) //currentObjectType
             		{
             			case("Wall"):
             				makeRed();
@@ -191,9 +199,9 @@ public class FloorPlanEditView extends JFrame {
      * Set current coordinate to an object type, Wall, Exhibit, Item, or Open Space.
      * @param type Object type, Wall, Exhibit, Item, Open Space
      */
-    private void setCurrent(String type){
+    private void setCurrent(String type, String name){
     	if(type == "Wall") {
-    		currentFloorPlanType = "Wall";
+    		newFloorPlanType = "Wall";
     		wall.setFont(space.getFont().deriveFont(Font.BOLD | Font.ITALIC));
     	}
     	else {
@@ -201,7 +209,7 @@ public class FloorPlanEditView extends JFrame {
     	}
     	
     	if(type == "Exhibit") {
-    		currentFloorPlanType = "Exhibit";
+    		newFloorPlanType = "Exhibit";
     		exhibit.setFont(space.getFont().deriveFont(Font.BOLD | Font.ITALIC));
     	}
     	else {
@@ -209,7 +217,7 @@ public class FloorPlanEditView extends JFrame {
     	}
     	
     	if(type == "Item") {
-    		currentFloorPlanType = "Item";
+    		newFloorPlanType = "Item";
     		item.setFont(space.getFont().deriveFont(Font.BOLD | Font.ITALIC));
     	}
     	else {
@@ -217,7 +225,7 @@ public class FloorPlanEditView extends JFrame {
     	}
     	
     	if(type == "Space") {
-    		currentFloorPlanType = "Space";
+    		newFloorPlanType = "Space";
     		space.setFont(space.getFont().deriveFont(Font.BOLD | Font.ITALIC));
     	}
     	else {
@@ -236,10 +244,10 @@ public class FloorPlanEditView extends JFrame {
     	wall.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e)
         	{
-        		currentFloorPlanType = "Wall";
-        		currentFloorPlanItem = "Wall";
-        		setNewFloorPlanSpot(currentFloorPlanItem, currentFloorPlanType);
-        		setCurrent(currentFloorPlanType);
+        		newFloorPlanType = "Wall";
+        		newFloorPlanItem = "Wall";
+        		setNewFloorPlanSpot(newFloorPlanItem, newFloorPlanType);
+        		setCurrent(newFloorPlanType, newFloorPlanItem);
         	}
         });
     	
@@ -255,10 +263,10 @@ public class FloorPlanEditView extends JFrame {
         			arraylist.add(exhibitList.get(i).getExhibitName());
         		}
         		
-        		currentFloorPlanType = "Exhibit";
-        		currentFloorPlanItem = (String) JOptionPane.showInputDialog(null, "Choose an Exhibit", "Choose an Exhibit", JOptionPane.QUESTION_MESSAGE, null, arraylist.toArray(), arraylist.toArray()[0]);
-        		setNewFloorPlanSpot(currentFloorPlanItem, currentFloorPlanType);
-        		setCurrent(currentFloorPlanType); 
+        		newFloorPlanType = "Exhibit";
+        		newFloorPlanItem = (String) JOptionPane.showInputDialog(null, "Choose an Exhibit", "Choose an Exhibit", JOptionPane.QUESTION_MESSAGE, null, arraylist.toArray(), arraylist.toArray()[0]);
+        		setNewFloorPlanSpot(newFloorPlanItem, newFloorPlanType);
+        		setCurrent(newFloorPlanType, newFloorPlanItem);
         	}
         });
     	
@@ -273,10 +281,10 @@ public class FloorPlanEditView extends JFrame {
         		for(int i = 0; i< museumItemList.size(); i++){
         			arraylist.add(museumItemList.get(i).getName());
         		}
-        		currentFloorPlanType = "Item";
-        		currentFloorPlanItem = (String) JOptionPane.showInputDialog(null, "Choose an Item", "Choose an Exhibit", JOptionPane.QUESTION_MESSAGE, null, arraylist.toArray(), arraylist.toArray()[0]);
-        		setNewFloorPlanSpot(currentFloorPlanItem, currentFloorPlanType);
-        		setCurrent("Item");
+        		newFloorPlanType = "Item";
+        		newFloorPlanItem = (String) JOptionPane.showInputDialog(null, "Choose an Item", "Choose an Exhibit", JOptionPane.QUESTION_MESSAGE, null, arraylist.toArray(), arraylist.toArray()[0]);
+        		setNewFloorPlanSpot(newFloorPlanItem, newFloorPlanType);
+        		setCurrent(newFloorPlanType, newFloorPlanItem);
         	}
         });
     	
@@ -285,10 +293,10 @@ public class FloorPlanEditView extends JFrame {
     	space.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e)
         	{
-        		currentFloorPlanType = "Space";
-        		currentFloorPlanItem = "Space";
-        		setNewFloorPlanSpot(currentFloorPlanItem, currentFloorPlanType);
-        		setCurrent("Space");
+        		newFloorPlanType = "Space";
+        		newFloorPlanItem = "Space";
+        		setNewFloorPlanSpot(newFloorPlanItem, newFloorPlanType);
+        		setCurrent(newFloorPlanType, newFloorPlanItem);
         	}
         });
     	
