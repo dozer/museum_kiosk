@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -43,6 +44,7 @@ public class FloorPlanView extends JFrame {
     static JTextArea description;// = new JTextArea();
     static BufferedImage image;
     static JLabel imageLabel;
+    static ImageIcon imageIcon;
 //    JButton image;
 //    JButton audio;
 //    JButton video;
@@ -207,15 +209,20 @@ public class FloorPlanView extends JFrame {
             		{
             			title.setText(elementName);
             			description.setText(elementDescription);
-            			if(!elementPicture.equals(""))
+            			if(elementPicture != null)
             			{
             				try {
-								image = ImageIO.read(new File(elementPicture));
+								String s = "images\\" + elementPicture;
+            					image = ImageIO.read(new File("C:\\Development\\git\\museum_kiosk\\MuseumInformationSystem\\src\\view\\images\\" + elementPicture));
+            					imageIcon = new ImageIcon(image);
+            					Image img = imageIcon.getImage();
+            					Image nwimg = img.getScaledInstance(130, 130,  java.awt.Image.SCALE_SMOOTH);
+            					imageLabel.setIcon(new ImageIcon(nwimg));//.getImage().getScaledInstance(imageLabel.getHeight(), imageLabel.getWidth(),Image.SCALE_SMOOTH));
 							} catch (IOException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
-            				imageLabel = new JLabel(new ImageIcon(image));
+            				
             			}
             		}            		
             	}
@@ -232,11 +239,11 @@ public class FloorPlanView extends JFrame {
     	
     	title = new JTextArea();
     	description = new JTextArea();
-    	//imageLabel = new JLabel();
+    	imageLabel = new JLabel();
     	description.setLineWrap(true);
     	title.setPreferredSize(new Dimension(25, 50));
     	description.setPreferredSize(new Dimension(250,200));
-    	
+    	//imageLabel.setPreferredSize(new Dimension(250,200));
     
     	//title.setText("TeestTestTest");
     	//description.setText("TestTestTestTEst");
@@ -249,6 +256,7 @@ public class FloorPlanView extends JFrame {
     	bottomGrid.add(title);
     	bottomGrid.add(Box.createVerticalGlue());
     	bottomGrid.add(description);
+    	bottomGrid.add(imageLabel);
 //    	bottomGrid.add(image);
 //    	bottomGrid.add(audio);
 //    	bottomGrid.add(video);
