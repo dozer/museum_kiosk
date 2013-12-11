@@ -41,7 +41,7 @@ import javafx.stage.Stage;
  * levels.  It is also where the user inputs are received, and used 
  * to call functions from the lower levels.
  * Created November 26th 2013
- * @author Sara
+ * @author Sara, Amanda
  */
 public class GuestView extends JFrame {
     private Scene scene;
