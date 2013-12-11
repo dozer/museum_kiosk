@@ -86,7 +86,7 @@ public class FillDatabase {
 						null, null, null, location);
 
 		MuseumItem item2 = new MuseumItem(
-				"Atanasoff–Berry Computer (ABC)",
+				"Atanasoffï¿½Berry Computer (ABC)",
 				"Built at Iowa State College (now University), "
 						+ "the ABC was designed and built by Professor John Vincent Atanasoff and graduate student Cliff Berry "
 						+ "between 1939 and 1942. The ABC was at the center of a patent dispute relating to the invention of the "
@@ -113,7 +113,7 @@ public class FillDatabase {
 
 		MuseumItem item4 = new MuseumItem(
 				"The Williams Tube",
-				"Better called the Williams–Kilburn tube (after inventors Freddie "
+				"Better called the Williamsï¿½Kilburn tube (after inventors Freddie "
 						+ "Williams and Tom Kilburn) it was a cathode ray tube used as a computer memory to electronically store binary "
 						+ "data. It was the first random-access digital storage device, and was used successfully in several early computers. "
 						+ "Vacuum tube machines, such as the IBM 701, used the Williams tube as primary memory.",
@@ -128,12 +128,46 @@ public class FillDatabase {
 						+ "vacuum tube. The very large memory (64K RAM), speed, and reliability of the TX-0 made it one of the "
 						+ "most advanced computers in the world when fully operational in 1957.", 
 						"style\\\\TX0.jpg", null, null, location);
+                
+                MuseumItem item6 = new MuseumItem(
+                        "FORTRAN",
+                        "A new language, FORTRAN (short for FORmula TRANslator), enabled a computer to perform a repetitive task from a single set "
+                                                + "of instructions by using loops. The first commercial FORTRAN program ran at Westinghouse, producing "
+                                                + "a missing comma diagnostic. A successful attempt followed. The picture is a Punch card from a typical Fortran program.",
+                                                "style\\\\fortranCard.jpg", null, null, location);
+                
+                MuseumItem item7 = new MuseumItem(
+                        "MATH-MATIC",
+                        "Sperry Rand released a commercial compiler for its UNIVAC. Developed by Grace Hopper as a refinement of her earlier innovation, "
+                                                + "the A-0 compiler, the new version was called MATH-MATIC.",
+                                                "style\\\\mathMatic.jpg", null, null, location);
+                
+                MuseumItem item8 = new MuseumItem(
+                        "First Integrated Circuit",
+                        "The first working integrated circuits (IC) were created independently by Jack Kilby (Texas Instruments) and Robert Noyce "
+                                                + "(Fairchild Semiconductor) in 1958. It contains a single transistor and supporting components on a slice "
+                                                + "of germanium and measures 1/16 by 7/16 inches (1.6 x 11.1 mm). In 1961 the first commercially available ICs "
+                                                + "came from the Fairchild Semiconductor Corporation. All computers then started to be made using chips instead of "
+                                                + "the individual transistors and their accompanying parts. Texas Instruments first used the chips in Air Force computers "
+                                                + "and the Minuteman Missile in 1962. They later used the chips to produce the first electronic portable calculators. The "
+                                                + "original IC had only one transistor, three resistors and one capacitor and was the size of an adult's pinkie finger.",
+                                                "style\\\\kilbysIC.jpg", null, null, location);
+                
+                MuseumItem item9 = new MuseumItem(
+                        "ERMA",
+                        "ERMA, the Electronic Recording Method of Accounting, digitized checking for the Bank of America by creating a computer-readable font. A special "
+                                                + "scanner read account numbers preprinted on checks in magnetic ink.",
+                                                "style\\\\ERMA.jpg", null, null, location);
 
 		mylist.add(item1);
 		mylist.add(item2);
 		mylist.add(item3);
 		mylist.add(item4);
 		mylist.add(item5);
+                mylist.add(item6);
+                mylist.add(item7);
+                mylist.add(item8);
+                mylist.add(item9);
 
 		MuseumItemDAO.update(mylist);
 	}
