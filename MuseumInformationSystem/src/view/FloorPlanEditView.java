@@ -273,7 +273,7 @@ public class FloorPlanEditView extends JFrame {
         			arraylist.add(museumItemList.get(i).getName());
         		}
         		currentFloorPlanType = "Item";
-        		currentFloorPlanItem = (String) JOptionPane.showInputDialog(null, "Choose an Exhibit", "Choose an Exhibit", JOptionPane.QUESTION_MESSAGE, null, arraylist.toArray(), arraylist.toArray()[0]);
+        		currentFloorPlanItem = (String) JOptionPane.showInputDialog(null, "Choose an Item", "Choose an Exhibit", JOptionPane.QUESTION_MESSAGE, null, arraylist.toArray(), arraylist.toArray()[0]);
         		setNewFloorPlanSpot(currentFloorPlanItem, currentFloorPlanType);
         		setCurrent("Item");
         	}
