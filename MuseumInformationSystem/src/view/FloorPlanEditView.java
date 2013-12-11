@@ -162,7 +162,8 @@ public class FloorPlanEditView extends JFrame {
             		tempLocation[1] = y;
             		
             		newfloorplan.setFloorPlanType(x, y, newFloorPlanType);
-            		newfloorplan.setType(tempLocation, newFloorPlanType);
+            		newfloorplan.setFloorPlanItem(x, y, newFloorPlanItem);
+            		//newfloorplan.setType(tempLocation, newFloorPlanType);
             		setText(newFloorPlanItem);
             		setToolTipText(newFloorPlanItem);
             		
@@ -251,7 +252,7 @@ public class FloorPlanEditView extends JFrame {
         	{
         		newFloorPlanType = "Wall";
         		newFloorPlanItem = "";
-        		setNewFloorPlanSpot(newFloorPlanItem, newFloorPlanType);
+        		//setNewFloorPlanSpot(newFloorPlanItem, newFloorPlanType);
         		setCurrent(newFloorPlanType, newFloorPlanItem);
         	}
         });
@@ -270,7 +271,7 @@ public class FloorPlanEditView extends JFrame {
         		
         		newFloorPlanType = "Exhibit";
         		newFloorPlanItem = (String) JOptionPane.showInputDialog(null, "Choose an Exhibit", "Choose an Exhibit", JOptionPane.QUESTION_MESSAGE, null, arraylist.toArray(), arraylist.toArray()[0]);
-        		setNewFloorPlanSpot(newFloorPlanItem, newFloorPlanType);
+        		//setNewFloorPlanSpot(newFloorPlanItem, newFloorPlanType);
         		setCurrent(newFloorPlanType, newFloorPlanItem);
         	}
         });
@@ -288,7 +289,7 @@ public class FloorPlanEditView extends JFrame {
         		}
         		newFloorPlanType = "Item";
         		newFloorPlanItem = (String) JOptionPane.showInputDialog(null, "Choose an Item", "Choose an Exhibit", JOptionPane.QUESTION_MESSAGE, null, arraylist.toArray(), arraylist.toArray()[0]);
-        		setNewFloorPlanSpot(newFloorPlanItem, newFloorPlanType);
+        		//setNewFloorPlanSpot(newFloorPlanItem, newFloorPlanType);
         		setCurrent(newFloorPlanType, newFloorPlanItem);
         	}
         });
@@ -300,7 +301,7 @@ public class FloorPlanEditView extends JFrame {
         	{
         		newFloorPlanType = "Space";
         		newFloorPlanItem = "";
-        		setNewFloorPlanSpot(newFloorPlanItem, newFloorPlanType);
+        		//setNewFloorPlanSpot(newFloorPlanItem, newFloorPlanType);
         		setCurrent(newFloorPlanType, newFloorPlanItem);
         	}
         });
@@ -311,14 +312,6 @@ public class FloorPlanEditView extends JFrame {
     		public void actionPerformed(ActionEvent e)
     		{
     			FloorPlanDAO.updateFloorPlan(newfloorplan.getFloorPlanType(), newfloorplan.getFloorPlanItem(), 0);
-    			for(int i = 0; i < 10; i++)
-    			{
-    				for(int j = 0; j < 10; j++)
-    				{
-    					System.out.print(newfloorplan.getItem(i, j) + " . ");
-    				}
-    				System.out.println("");
-    			}
     			setVisible(false);
     			new LoginView();
     			
