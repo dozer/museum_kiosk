@@ -64,6 +64,7 @@ public class FillDatabase {
 
 		itemlist.clear();
 		itemlist.add("The Williams Tube");
+		itemlist.add("Abacus");
 		ExhibitDAO.updateItemsInExhibit("PreComputing", itemlist);
 
 
@@ -162,16 +163,22 @@ public class FillDatabase {
                         "ERMA, the Electronic Recording Method of Accounting, digitized checking for the Bank of America by creating a computer-readable font. A special "
                                                 + "scanner read account numbers preprinted on checks in magnetic ink.",
                                                 "style\\\\ERMA.jpg", null, null, location);
-
+                
+                MuseumItem item10 = new MuseumItem(
+                        "Abacus",
+                        "2700-2300 BC.  Saw the first appearance of the Sumerian abacus, a table of successive columns which"
+                                                + "delimited the successive orders of magnitude of their sexagesimal number system.",
+                                                "style\\\\abacus.jpg", null, null, location);
+                
 		mylist.add(item1);
 		mylist.add(item2);
 		mylist.add(item3);
 		mylist.add(item4);
 		mylist.add(item5);
-                mylist.add(item6);
-                mylist.add(item7);
-                mylist.add(item8);
-                mylist.add(item9);
+		mylist.add(item6);
+		mylist.add(item7);
+		mylist.add(item8);
+		mylist.add(item9);
 
 		MuseumItemDAO.update(mylist);
 	}
