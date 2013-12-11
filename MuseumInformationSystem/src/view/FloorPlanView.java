@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,8 +23,13 @@ public class FloorPlanView extends JFrame {
     static int currentObjectY;
     static FloorPlan floorplan;
     
-	public FloorPlanView() { //(Floorplan floorplan) // pull in floor plan when we get it
-		//currentFloorPlan = floorplan;
+	public FloorPlanView(ArrayList floorplan) {
+		this.floorplan = new FloorPlan(10);
+    	String[][] tempType = (String[][]) floorplan.get(0);
+    	String[][] tempItem = (String[][]) floorplan.get(1);
+    	
+    	this.floorplan.setFloorPlanType(tempType);
+    	this.floorplan.setFloorPlanItem(tempItem);
 		createGUI();
 		
 	}
@@ -64,6 +70,7 @@ public class FloorPlanView extends JFrame {
     		this.setBackground(Color.white);
     	}
     	
+    	/*
     	void color()
     	{
     		switch(floorplan.getType(x,y))
@@ -83,6 +90,7 @@ public class FloorPlanView extends JFrame {
     				break; 
 			}
     	}
+    	*/
     	
     	/**
     	 * Button Constructor, creates a generic white button with a coordinate.
@@ -97,7 +105,24 @@ public class FloorPlanView extends JFrame {
             this.x = i / N;
             this.y = i % N;
             
-            color();
+            switch(floorplan.getType(this.x, this.y)) //currentObjectType
+    		{
+    			case("Wall"):
+    				makeRed();
+    				break;
+    			case("Exhibit"):
+    				makeGreen();
+    				break;
+    			case("Item"):
+    				makeBlue();
+    				break;
+    			case("Space"):
+    				makeSpace();
+    			default:
+    				break;            			
+    		}
+            
+            //color();
             
             this.addActionListener(new ActionListener() {
             	public void actionPerformed(ActionEvent e)
@@ -135,7 +160,7 @@ public class FloorPlanView extends JFrame {
 
             @Override
             public void run() {
-                new FloorPlanView().display();
+                //new FloorPlanView().display();
             }
         });
     }

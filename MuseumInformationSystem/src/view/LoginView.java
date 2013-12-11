@@ -21,8 +21,11 @@ public class LoginView extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new LoginView();			//make this call to prompt user with login screen
+		//new LoginView();			//make this call to prompt user with login screen
 		//FillDatabase.fillAll();		//call this method to fill databases with default info
+		
+		FloorPlanView fpv = new FloorPlanView(FloorPlanDAO.findFloorPlan(0));
+		fpv.display();
 		
 	}
 
