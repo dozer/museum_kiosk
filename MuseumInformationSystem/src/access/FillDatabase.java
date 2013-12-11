@@ -69,6 +69,10 @@ public class FillDatabase {
 
 		itemlist.clear();
 		itemlist.add("TX-0");
+		itemlist.add("FORTRAN");
+		itemlist.add("MATH-MATIC");
+		itemlist.add("First Integrated Circuit");
+		itemlist.add("ERMA");
 		ExhibitDAO.updateItemsInExhibit("Generation2", itemlist);
 	}
 
@@ -86,7 +90,7 @@ public class FillDatabase {
 						"style\\\\Z3.jpg", null, null, location);
 
 		MuseumItem item2 = new MuseumItem(
-				"Atanasoff�Berry Computer (ABC)",
+				"Atanasoff-Berry Computer (ABC)",
 				"Built at Iowa State College (now University), "
 						+ "the ABC was designed and built by Professor John Vincent Atanasoff and graduate student Cliff Berry "
 						+ "between 1939 and 1942. The ABC was at the center of a patent dispute relating to the invention of the "
