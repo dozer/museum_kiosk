@@ -13,7 +13,7 @@ import model.FloorPlan;
  * terminal to the Exhibit of choice.  The Directon Controller will be using 
  * Dijkstra's algorithm
  * Created November 26th 2013
- * @author Sara
+ * @author Sara, Casey
  *
  */
 public class DirectionController {

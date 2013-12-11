@@ -33,7 +33,11 @@ import model.Exhibit;
 import model.FloorPlan;
 import model.MuseumItem;
 
-
+/**
+ * 
+ * @author casey
+ *
+ */
 public class FloorPlanView extends JFrame {
 	private static final int N = 10;				
     private static final int SIZE = 60;
@@ -222,8 +226,9 @@ public class FloorPlanView extends JFrame {
             			if(elementPicture != null)
             			{
             				try {
-								String s = "images\\" + elementPicture;
-            					image = ImageIO.read(new File("C:\\Development\\git\\museum_kiosk\\MuseumInformationSystem\\src\\view\\images\\" + elementPicture));
+            					
+            					image = ImageIO.read(new File(new File(".").getCanonicalPath() + new File("\\MuseumInformationSystem\\src\\view\\images\\" + elementPicture)));
+            					//image = ImageIO.read(new File("C:\\Development\\git\\museum_kiosk\\MuseumInformationSystem\\src\\view\\images\\" + elementPicture));
             					imageIcon = new ImageIcon(image);
             					Image img = imageIcon.getImage();
             					Image nwimg = img.getScaledInstance(130, 130,  java.awt.Image.SCALE_SMOOTH);
