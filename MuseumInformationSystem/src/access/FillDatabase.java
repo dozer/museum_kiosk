@@ -83,7 +83,7 @@ public class FillDatabase {
 						+ " as the inventor of the computer. Using 2,300 relays, the Z3 used floating point binary arithmetic and had "
 						+ "a 22-bit word length. The original Z3 was destroyed in a bombing raid of Berlin in late 1943. However, Zuse "
 						+ "later supervised a reconstruction of the Z3 in the 1960s.",
-						null, null, null, location);
+						"style\\\\Z3.jpg", null, null, location);
 
 		MuseumItem item2 = new MuseumItem(
 				"Atanasoff�Berry Computer (ABC)",
