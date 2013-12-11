@@ -182,7 +182,7 @@ public class FloorPlanEditView extends JFrame {
             			default:
             				break;            			
             		}
-            		newFloorPlanItem = "Space";
+            		newFloorPlanItem = "";
             		newFloorPlanType = "Space";
             	}
             });            
@@ -250,7 +250,7 @@ public class FloorPlanEditView extends JFrame {
         	public void actionPerformed(ActionEvent e)
         	{
         		newFloorPlanType = "Wall";
-        		newFloorPlanItem = "Wall";
+        		newFloorPlanItem = "";
         		setNewFloorPlanSpot(newFloorPlanItem, newFloorPlanType);
         		setCurrent(newFloorPlanType, newFloorPlanItem);
         	}
@@ -299,7 +299,7 @@ public class FloorPlanEditView extends JFrame {
         	public void actionPerformed(ActionEvent e)
         	{
         		newFloorPlanType = "Space";
-        		newFloorPlanItem = "Space";
+        		newFloorPlanItem = "";
         		setNewFloorPlanSpot(newFloorPlanItem, newFloorPlanType);
         		setCurrent(newFloorPlanType, newFloorPlanItem);
         	}
@@ -311,6 +311,14 @@ public class FloorPlanEditView extends JFrame {
     		public void actionPerformed(ActionEvent e)
     		{
     			FloorPlanDAO.updateFloorPlan(newfloorplan.getFloorPlanType(), newfloorplan.getFloorPlanItem(), 0);
+    			for(int i = 0; i < 10; i++)
+    			{
+    				for(int j = 0; j < 10; j++)
+    				{
+    					System.out.print(newfloorplan.getItem(i, j) + " . ");
+    				}
+    				System.out.println("");
+    			}
     			setVisible(false);
     			new LoginView();
     			

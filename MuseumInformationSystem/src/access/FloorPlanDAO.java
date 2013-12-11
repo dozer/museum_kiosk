@@ -64,12 +64,11 @@ public class FloorPlanDAO {
 			for(int i = 0; i < floorPlanType[0].length; i++){
 				for(int j = 0; j < floorPlanType[1].length; j++){
 					if (floorPlanType[i][j] == null){
-						floorPlanType[i][j] = "";
-						floorPlanItem[i][j] = "";
+						floorPlanType[i][j] = "Space";
 					}
-					if (floorPlanType[i][j] == "Wall" || floorPlanType[i][j] == "Space"){
-						floorPlanItem[i][j] = "";
-					}
+					//if (floorPlanType[i][j] == "Wall" || floorPlanType[i][j] == "Space"){
+					//	floorPlanItem[i][j] = "";
+					//}
 					
 					
 					MySqlConnection.sqlUpdate("INSERT INTO FloorPlan" + num + " VALUES("
