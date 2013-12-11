@@ -140,7 +140,7 @@ public class FloorPlanEditView extends JFrame {
     				makeRed();
     				break;
     			case("Exhibit"):
-    				makeGreen();    				
+    				makeGreen();    	
     				break;
     			case("Item"):
     				makeBlue();
@@ -163,6 +163,8 @@ public class FloorPlanEditView extends JFrame {
             		
             		newfloorplan.setFloorPlanType(x, y, newFloorPlanType);
             		newfloorplan.setType(tempLocation, newFloorPlanType);
+            		setText(newFloorPlanItem);
+            		setToolTipText(newFloorPlanItem);
             		
             		switch(newFloorPlanType) //currentObjectType
             		{
@@ -170,7 +172,7 @@ public class FloorPlanEditView extends JFrame {
             				makeRed();
             				break;
             			case("Exhibit"):
-            				makeGreen();
+            				makeGreen();            				
             				break;
             			case("Item"):
             				makeBlue();
@@ -180,6 +182,8 @@ public class FloorPlanEditView extends JFrame {
             			default:
             				break;            			
             		}
+            		newFloorPlanItem = "Space";
+            		newFloorPlanType = "Space";
             	}
             });            
         }
