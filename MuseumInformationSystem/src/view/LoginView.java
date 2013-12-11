@@ -13,9 +13,14 @@ import model.FloorPlan;
 import view.FloorPlanEditView;
 
 
-
+/**
+ * This is the login popup.  This takes in a username and
+ * password, and determines which view is seen, Admin or Guest
+ * @author Sara
+ *
+ */
 public class LoginView extends JFrame {
-	LoginView() {
+	public LoginView() {
 		super("LoginView");
 		new Login(this);
 	}
@@ -24,7 +29,12 @@ public class LoginView extends JFrame {
 		new LoginView();			//make this call to prompt user with login screen
 		//FillDatabase.fillAll();		//call this method to fill databases with default info
 	}
-
+	
+	/**
+	 * Login Class
+	 * 
+	 *
+	 */
 	class Login extends JFrame implements ActionListener
 	{
 		final JButton submitBtn;
@@ -77,6 +87,7 @@ public class LoginView extends JFrame {
 
 			setVisible(true);
 		}
+		
 		public void actionPerformed(ActionEvent ee)
 		{
 			String user= usernameField.getText().toLowerCase();
@@ -86,8 +97,6 @@ public class LoginView extends JFrame {
 			if(accessLevel == 0){
 				this.setVisible(false);				// hide myself
 
-
-				//CASEY, PLEASE ADD YOU CALL TO OPEN YOUR APP HERE PLEASE!!
 				FloorPlanEditView fpev = new FloorPlanEditView(FloorPlanDAO.findFloorPlan(0));
 				fpev.display();
 

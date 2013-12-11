@@ -8,7 +8,7 @@ import java.util.List;
  * and their grouped location.  This module consists of creating and deleting
  * groups of exhibits, and adding and removing individual items into that collection
  * Created November 26th 2013
- * @author Sara
+ * @author Sara, Casey
  *
  */
 public class Exhibit {

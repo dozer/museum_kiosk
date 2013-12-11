@@ -7,7 +7,7 @@ package model;
  * of a login ID, password, and a numerical representation of 
  * their member access level
  * Created November 25th 2013
- * @author Sara
+ * @author Sara, Casey
  */
 public class User {
 

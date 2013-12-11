@@ -12,7 +12,7 @@ import access.MuseumItemDAO;
  * The purpose of the Exhibit Management Controller is to add, remove or edit
  * Exhibits in the ExhibitList Created November 26th 2013
  *
- * @author Sara, Joe
+ * @author Sara, Joe, Casey
  *
  */
 public class ExhibitManagementController {
@@ -85,14 +85,7 @@ public class ExhibitManagementController {
      * @param museumItemList representing the museum items of this Exhibit
      */
     public void editExhibit(String name, String newName, String description, int[] location, ArrayList<MuseumItem> museumItemList) {
-        //this method may need to be altered;
-        //what is considered media?? museum item model can have image, audio, and video
-        // also is the name representing the exhibit name supposed to be the museum item?
-        
-        //Joe's comment: With the addition of name to the Exhibit class this makes more sense
-        //I did remove media and added location and museum item list to coincide with the 
-        //actual parameters of the Exhibit class
-    	ArrayList<String> updatedlist = new ArrayList<String>();
+        ArrayList<String> updatedlist = new ArrayList<String>();
         List<Exhibit> list = ExhibitDAO.find();
         for(Exhibit e: list) {
             if(e.getExhibitName().equals(name)) {

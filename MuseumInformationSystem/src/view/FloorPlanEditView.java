@@ -2,7 +2,6 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -13,15 +12,12 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import control.ExhibitManagementController;
 import access.ExhibitDAO;
 import access.FloorPlanDAO;
 import access.MuseumItemDAO;
-import model.CoordinateObject;
 import model.Exhibit;
 import model.FloorPlan;
 import model.MuseumItem;
@@ -34,10 +30,8 @@ import model.MuseumItem;
 public class FloorPlanEditView extends JFrame {
 	private static final int N = 10;				
     private static final int SIZE = 60;
-    static CoordinateObject[][] gridObject = new CoordinateObject[N][N];
     static int currentObjectX;
     static int currentObjectY;
-    //static FloorPlan floorplan;
     
     static FloorPlan currentfloorplan;
     static FloorPlan newfloorplan;
@@ -75,8 +69,6 @@ public class FloorPlanEditView extends JFrame {
     	
     	createGUI();
     }
-    
-    
     
     /**
      * Generic class to create buttons that will be used as coordinates.  When a
@@ -125,8 +117,7 @@ public class FloorPlanEditView extends JFrame {
     	 * @param i, representing the number of Button created.  Used for coordinates
     	 */
         public Button(int i) {
-            //super(i / N + "," + i % N);
-        	super(currentfloorplan.getItem(i / N, i % N));
+            super(currentfloorplan.getItem(i / N, i % N));
         	this.setOpaque(true);
             this.setBorderPainted(true);
             this.setBackground(Color.white);
@@ -134,7 +125,7 @@ public class FloorPlanEditView extends JFrame {
             this.x = i / N;
             this.y = i % N;
             
-            switch(currentfloorplan.getType(this.x, this.y)) //currentObjectType
+            switch(currentfloorplan.getType(this.x, this.y))
     		{
     			case("Wall"):
     				makeRed();
@@ -152,6 +143,10 @@ public class FloorPlanEditView extends JFrame {
     		}
             
             this.addActionListener(new ActionListener() {
+            	/**
+            	 * when a square from the grid is clicked, this action listener
+            	 * will set the new floor plan based on what is changed
+            	 */
             	public void actionPerformed(ActionEvent e)
             	{
             		currentObjectX = x;
@@ -163,11 +158,11 @@ public class FloorPlanEditView extends JFrame {
             		
             		newfloorplan.setFloorPlanType(x, y, newFloorPlanType);
             		newfloorplan.setFloorPlanItem(x, y, newFloorPlanItem);
-            		//newfloorplan.setType(tempLocation, newFloorPlanType);
+            		
             		setText(newFloorPlanItem);
             		setToolTipText(newFloorPlanItem);
             		
-            		switch(newFloorPlanType) //currentObjectType
+            		switch(newFloorPlanType)
             		{
             			case("Wall"):
             				makeRed();
@@ -255,7 +250,6 @@ public class FloorPlanEditView extends JFrame {
         	{
         		newFloorPlanType = "Wall";
         		newFloorPlanItem = "";
-        		//setNewFloorPlanSpot(newFloorPlanItem, newFloorPlanType);
         		setCurrent(newFloorPlanType, newFloorPlanItem);
         	}
         });
@@ -274,7 +268,6 @@ public class FloorPlanEditView extends JFrame {
         		
         		newFloorPlanType = "Exhibit";
         		newFloorPlanItem = (String) JOptionPane.showInputDialog(null, "Choose an Exhibit", "Choose an Exhibit", JOptionPane.QUESTION_MESSAGE, null, arraylist.toArray(), arraylist.toArray()[0]);
-        		//setNewFloorPlanSpot(newFloorPlanItem, newFloorPlanType);
         		setCurrent(newFloorPlanType, newFloorPlanItem);
         	}
         });
@@ -291,8 +284,7 @@ public class FloorPlanEditView extends JFrame {
         			arraylist.add(museumItemList.get(i).getName());
         		}
         		newFloorPlanType = "Item";
-        		newFloorPlanItem = (String) JOptionPane.showInputDialog(null, "Choose an Item", "Choose an Exhibit", JOptionPane.QUESTION_MESSAGE, null, arraylist.toArray(), arraylist.toArray()[0]);
-        		//setNewFloorPlanSpot(newFloorPlanItem, newFloorPlanType);
+        		newFloorPlanItem = (String) JOptionPane.showInputDialog(null, "Choose an Item", "Choose an Item", JOptionPane.QUESTION_MESSAGE, null, arraylist.toArray(), arraylist.toArray()[0]);
         		setCurrent(newFloorPlanType, newFloorPlanItem);
         	}
         });
@@ -304,7 +296,6 @@ public class FloorPlanEditView extends JFrame {
         	{
         		newFloorPlanType = "Space";
         		newFloorPlanItem = "";
-        		//setNewFloorPlanSpot(newFloorPlanItem, newFloorPlanType);
         		setCurrent(newFloorPlanType, newFloorPlanItem);
         	}
         });
@@ -320,45 +311,18 @@ public class FloorPlanEditView extends JFrame {
     			
     		}
     	});
-    }
-    
-    
-    
-//    public static void main(String[] args) {
-//        EventQueue.invokeLater(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                //new FloorPlanEditView().display();
-//            }
-//        });
-//    }
-    
-    public CoordinateObject[][] getGridObject() {
-    	return this.gridObject;
-    }
-    
+    }    
+
+    /**
+     * @return newfloorplan, which is the floor plan with admin user edits
+     */
     public FloorPlan getFloorPlan() {
     	return newfloorplan;
     }
     
-    public void initializeArray(){
-    	CoordinateObject temp = new CoordinateObject("Space", -1, -1, "", "", "");
-    	for(int i = 0; i < N; i++)
-    	{
-    		for(int j = 0; j < N; j++)
-    		{
-    			gridObject[i][j] = temp;
-    		}
-    	}
-    }
-    
-    private void setNewFloorPlanSpot(String floorPlanItem, String floorPlanType) {
-    	
-    	newfloorplan.setFloorPlanItem(currentObjectX, currentObjectY, floorPlanItem);
-    	newfloorplan.setFloorPlanType(currentObjectX, currentObjectY, floorPlanType);
-    }
-    
+    /**
+     * creates all GUI components of FloorPlanEditView
+     */
     private void createGUI() {
     	JPanel coordGrid = new JPanel(new GridLayout(N,N));
     	coordGrid.setPreferredSize(new Dimension(N * SIZE, N * SIZE));

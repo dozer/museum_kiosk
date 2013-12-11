@@ -15,14 +15,12 @@ import access.FloorPlanDAO;
  * as adding new FloorPlans to the list, and remove old Floor Plans from the
  * list Created November 26th 2013
  *
- * @author Sara, Joe
+ * @author Sara, Joe, Casey
  *
  */
 public class FloorPlanManagementController {
 
     private FloorPlan[] stack = new FloorPlan[3];
-    //undo is added to allocate space for user error in floor plan editing
-    //Joe's comment: isn't that what the normal stack is for, or am I misinterpreting?
     private FloorPlan[] undo = new FloorPlan[3];
 
 
@@ -71,10 +69,6 @@ public class FloorPlanManagementController {
      *
      */
     void fallbackToFloorPlan() {
-        //Joe's comment: as stated above, not sure of the use of the undo stack
-        //undo[2] = undo[1];
-        //undo[1] = undo[0];
-        //undo[0] = stack[0];
         
         stack[0] = stack[1];
         
@@ -115,12 +109,5 @@ public class FloorPlanManagementController {
         String[][] flooritem2 = (String[][]) floor.get(1);
         
         FloorPlanDAO.updateFloorPlan(floortype, flooritem, 1);
-    }
-
-    /**
-     * Removes last floor plan from the floor plan list.
-     */
-    void removeFromFloorPlanList() {
-        //not sure if neccessary
     }
 }

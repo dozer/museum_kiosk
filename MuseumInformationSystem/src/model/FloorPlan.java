@@ -8,7 +8,7 @@ import enums.Structure;
  * to change the blueprints for the museum itself, as well as rearrange 
  * the walls, rooms, and exhibits inside the building
  * Created November 26th 2013
- * @author Sara & Jack
+ * @author Sara & Jack, Casey
  */
 public class FloorPlan {
 
@@ -32,18 +32,38 @@ public class FloorPlan {
 		this.floorPlanItem[location[0]][location[1]] = itemName;
 	}
 
+	/**
+	 * Set element of floorPlanType
+	 * @param x, x coordinate
+	 * @param y, y coordinate
+	 * @param floorPlanType, the type of object held in this coordinate
+	 */
 	public void setFloorPlanType(int x, int y, String floorPlanType) {
 		this.floorPlanType[x][y] = floorPlanType;
 	}
 	
+	/**
+	 * Set element of floorPlanItem
+	 * @param x, x coordinate
+	 * @param y, y coordinate
+	 * @param floorPlanItem, the item held in this coordinate
+	 */
 	public void setFloorPlanItem(int x, int y, String floorPlanItem) {
 		this.floorPlanItem[x][y] = floorPlanItem;
 	}
 	
+	/**
+	 * Get an array of floorPlanType
+	 * @return
+	 */
 	public String[][] getFloorPlanType() {
 		return this.floorPlanType;
 	}
 	
+	/**
+	 * get an array of floorPlanItem
+	 * @return
+	 */
 	public String[][] getFloorPlanItem() {
 		return this.floorPlanItem;
 	}
@@ -76,14 +96,28 @@ public class FloorPlan {
     	return floorPlanType[x][y];
     }
     
+    /**
+     * Get item at coordinate x,y
+     * @param x, coordinate x
+     * @param y, coordinate y
+     * @return name of item at coordinate
+     */
     public String getItem(int x, int y) {
     	return floorPlanItem[x][y];
     }
     
+    /**
+     * set the floorPlanType 2d array
+     * @param floorPlanType, 2d array
+     */
     public void setFloorPlanType(String[][] floorPlanType) {
     	this.floorPlanType = floorPlanType;
     }
     
+    /**
+     * set floorPlanItem 2d array
+     * @param floorPlanItem, 2d array
+     */
     public void setFloorPlanItem(String[][] floorPlanItem) {
     	this.floorPlanItem = floorPlanItem;
     }
@@ -106,6 +140,9 @@ public class FloorPlan {
 		floorPlanItem = new String[size][size];
 	}
 
+	/**
+	 * initiliaze this floor plan, so not null
+	 */
 	public void initializeFloorPlan() {
 		for(int i = 0; i < floorPlanType.length; i++)
 		{

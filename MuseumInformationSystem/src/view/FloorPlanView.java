@@ -34,7 +34,10 @@ import model.FloorPlan;
 import model.MuseumItem;
 
 /**
- * 
+ * FloorPlanView is the guests view of the FloorPlan. The Guest may click
+ * within the map to display Exhibit or Item information.  There is a direction
+ * button, that when clicked uses Dijkstra's algorithm to find the fastest 
+ * path to get to whatever item or exhibit was chosen
  * @author casey
  *
  */
@@ -46,17 +49,17 @@ public class FloorPlanView extends JFrame {
     static FloorPlan floorplan;
     static boolean canGetDirections = false;
     
-    
-    static JTextArea title;// = new JTextField();
-    static JTextArea description;// = new JTextArea();
+    static JTextArea title;
+    static JTextArea description;
     static BufferedImage image;
     static JLabel imageLabel;
     static ImageIcon imageIcon;
     static JButton directions;
-//    JButton image;
-//    JButton audio;
-//    JButton video;
     
+    /**
+     * Constructor. Sets the floorplan passed in, and creates the GUI.
+     * @param floorplan, representing the floor plan the user will see.  From DB
+     */
 	public FloorPlanView(ArrayList floorplan) {
 		this.floorplan = new FloorPlan(10);
     	String[][] tempType = (String[][]) floorplan.get(0);
@@ -68,6 +71,12 @@ public class FloorPlanView extends JFrame {
 		
 	}
 	
+	/**
+     * Generic class to create buttons that will be used as coordinates.  When a
+     * button is clicked, it will take on the properties of the selected object
+     * @author caseytcaprice
+     *
+     */
 	private static class Button extends JButton {
     	int x;
     	int y;
@@ -104,35 +113,12 @@ public class FloorPlanView extends JFrame {
     		this.setBackground(Color.white);
     	}
     	
-    	/*
-    	void color()
-    	{
-    		switch(floorplan.getType(x,y))
-			{
-				case("Wall"):
-    				makeRed();
-    				break;
-    			case("Exhibit"):
-    				makeGreen();
-    				break;
-    			case("Item"):
-    				makeBlue();
-    				break;
-    			case("Space"):
-    				makeSpace();
-    			default:
-    				break; 
-			}
-    	}
-    	*/
-    	
     	/**
     	 * Button Constructor, creates a generic white button with a coordinate.
     	 * @param i, representing the number of Button created.  Used for coordinates
     	 */
         public Button(int i) {
-            //super(i / N + "," + i % N);
-        	super(floorplan.getItem(i / N, i % N));
+            super(floorplan.getItem(i / N, i % N));
         	setToolTipText(floorplan.getItem(i / N, i % N));
             this.setOpaque(true);
             this.setBorderPainted(true);
@@ -141,7 +127,7 @@ public class FloorPlanView extends JFrame {
             this.x = i / N;
             this.y = i % N;
             
-            switch(floorplan.getType(this.x, this.y)) //currentObjectType
+            switch(floorplan.getType(this.x, this.y))
     		{
     			case("Wall"):
     				makeRed();
@@ -158,9 +144,11 @@ public class FloorPlanView extends JFrame {
     				break;            			
     		}
             
-            //color();
-            
             this.addActionListener(new ActionListener() {
+            	/**
+            	 * Action Event.  When a user clicks a square within the grid,
+            	 * this handler will populate the side bar with item information
+            	 */
             	public void actionPerformed(ActionEvent e)
             	{
             		currentObjectX = x;
@@ -226,15 +214,12 @@ public class FloorPlanView extends JFrame {
             			if(elementPicture != null)
             			{
             				try {
-            					
             					image = ImageIO.read(new File(new File(".").getCanonicalPath() + new File("\\MuseumInformationSystem\\src\\view\\images\\" + elementPicture)));
-            					//image = ImageIO.read(new File("C:\\Development\\git\\museum_kiosk\\MuseumInformationSystem\\src\\view\\images\\" + elementPicture));
             					imageIcon = new ImageIcon(image);
             					Image img = imageIcon.getImage();
             					Image nwimg = img.getScaledInstance(130, 130,  java.awt.Image.SCALE_SMOOTH);
             					imageLabel.setIcon(new ImageIcon(nwimg));//.getImage().getScaledInstance(imageLabel.getHeight(), imageLabel.getWidth(),Image.SCALE_SMOOTH));
 							} catch (IOException e1) {
-								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
             				
@@ -245,6 +230,9 @@ public class FloorPlanView extends JFrame {
         }
     }
 	
+	/**
+	 * Creates the GUI for FloorPlanView
+	 */
 	private void createGUI() {
     	JPanel coordGrid = new JPanel(new GridLayout(N,N));
     	coordGrid.setPreferredSize(new Dimension(N * SIZE, N * SIZE));
@@ -281,24 +269,15 @@ public class FloorPlanView extends JFrame {
         });
     	directions.setText("Get Directions");
     	directions.setPreferredSize(new Dimension(150,150));
-    	//imageLabel.setPreferredSize(new Dimension(250,200));
-    
-    	//title.setText("TeestTestTest");
-    	//description.setText("TestTestTestTEst");
     	
     	JPanel bottomGrid = new JPanel();
     	bottomGrid.setLayout(new BoxLayout(bottomGrid,BoxLayout.Y_AXIS));
-    	
-    	createBoxes();
     	
     	bottomGrid.add(title);
     	bottomGrid.add(Box.createVerticalGlue());
     	bottomGrid.add(description);
     	bottomGrid.add(imageLabel);
     	bottomGrid.add(directions);
-//    	bottomGrid.add(image);
-//    	bottomGrid.add(audio);
-//    	bottomGrid.add(video);
     	
     	JPanel mainPanel = new JPanel();
     	
@@ -308,25 +287,13 @@ public class FloorPlanView extends JFrame {
     	this.add(mainPanel);
     }
 	
-	
-	public void createBoxes(){
-		
-	}
-	
+	/**
+	 * Display FloorPlanView
+	 */
 	public void display() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 	}
-	
-//	public static void main(String[] args) {
-//        EventQueue.invokeLater(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                //new FloorPlanView().display();
-//            }
-//        });
-//    }
 }

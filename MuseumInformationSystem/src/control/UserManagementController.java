@@ -11,7 +11,7 @@ import access.UserDAO;
  * User. User management Controller will be able to add, remove, and edit Users
  * on a list, by using User Model functions Created November 26th 2013
  *
- * @author Sara, Joe
+ * @author Sara, Joe, Casey
  *
  */
 public class UserManagementController {

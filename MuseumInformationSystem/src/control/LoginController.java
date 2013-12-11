@@ -10,7 +10,7 @@ import model.User;
  * supplied by the user.  If the D and password is verified, Login
  * Controller will set the User Credentials 
  * Created November 26th 2013
- * @author Sara
+ * @author Sara, Casey
  *
  */
 public class LoginController{

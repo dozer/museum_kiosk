@@ -5,7 +5,6 @@ import view.FloorPlanEditView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import model.CoordinateObject;
 import model.FloorPlan;
 
 /**
@@ -21,46 +20,7 @@ public class DirectionController {
     final static int TRIED = 2;
     final static int PATH = 3;
     
-    private static int[][] FLOORPLAN = { 
-        { 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1 },
-        { 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1 },
-        { 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0 },
-        { 1, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 1, 1 },
-        { 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1 },
-        { 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1 },
-        { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-        { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } 
-    };
-    
-    private static int[][] FLOORPLAN2 = { 
-        { 1, 1, 1, 0, 1 },
-        { 1, 0, 1, 1, 1 },
-        { 0, 0, 0, 0, 1 },
-        { 1, 1, 1, 0, 1 },
-        { 1, 0, 1, 0, 1 },
-        { 1, 0, 1, 1, 1 },
-        { 1, 0, 0, 0, 0 },
-        { 1, 1, 1, 1, 1 } 
-    };
-
-    /*
-    public static void main(String[] args) {
-    	
-    	int[] a = new int[2];
-    	int[] b = new int[2];
-    	a[0] = 0;
-    	a[1] = 1;
-    	b[0] = 5;
-    	b[1] = 5;
-    	CoordinateObject[][] coordFloorplanTest = new CoordinateObject[1][1];
-    	DirectionController dc = new DirectionController(coordFloorplanTest, a,b);
-        boolean solved = dc.find();
-        System.out.println(dc.toString());
-    }
-*/
-    private CoordinateObject[][] coordFloorplan;
     private FloorPlan floorplan;
-    private int[][] intFloorplan;
     private int height;
     private int width;
     private int startX;
@@ -70,7 +30,6 @@ public class DirectionController {
     private String directionString = "";
     String[][] floorPlanItem;
     String[][] floorPlanType;
-
     private int[][] directions;
 
     /**
@@ -80,13 +39,10 @@ public class DirectionController {
      * @param terminalPoint, representing the beginning point of the user
      * @param destinationPoint, representing the destination point of the user
      */
-    //public DirectionController(CoordinateObject[][] floorplan, int[] terminalPoint, int[] destinationPoint) {
     public DirectionController(String[][] floorPlanItem, String[][] floorPlanType, int[] terminalPoint, int[] destinationPoint) {
-    	//this.coordFloorplan = floorplan;
-        this.floorPlanItem = floorPlanItem;
+    	this.floorPlanItem = floorPlanItem;
         this.floorPlanType = floorPlanType;
-    	//this.intFloorplan = convertToIntArray(floorplan);
-        this.height = floorPlanItem.length;
+    	this.height = floorPlanItem.length;
         this.width = floorPlanItem.length;
         
         this.startX = terminalPoint[1];
@@ -210,58 +166,6 @@ public class DirectionController {
         return s;
     }
     
-    public int[][] convertToIntArray(FloorPlan floorplan) {
-    	ArrayList FloorPlanstring = floorplan.getFloorPlan();
-    	String[][] stringFloorPlan = (String[][]) FloorPlanstring.get(0);
-    	int height = stringFloorPlan.length; 
-    	int width = stringFloorPlan[0].length;
-    	
-    	int[][] intArray = new int[height][width];
-    	
-    	for(int i = 0; i < height; i++)
-    	{
-    		for(int j = 0; j < width; j++)
-    		{
-    			if(floorplan.getType(i,j) == "Space")
-    				intArray[i][j] = 1;
-    			else if(floorplan.getType(i,j) == "Exhibit")
-    				intArray[i][j] = 8;
-    			else if(floorplan.getType(i,j) == "Item")
-    				intArray[i][j] = 9;
-    			else if(floorplan.getType(i,j) == "Wall")
-    				intArray[i][j] = 0;
-    		}
-    	}
-    	
-    	return intArray;
-    }
-    
-    /*
-    public int[][] convertToIntArray(CoordinateObject[][] objectArray) {
-    	int height = objectArray.length; 
-    	int width = objectArray[0].length;
-    	
-    	int[][] intArray = new int[height][width];
-    	
-    	for(int i = 0; i < height; i++)
-    	{
-    		for(int j = 0; j < width; j++)
-    		{
-    			if(objectArray[i][j].getType() == "Space")
-    				intArray[i][j] = 1;
-    			else if(objectArray[i][j].getType() == "Exhibit")
-    				intArray[i][j] = 8;
-    			else if(objectArray[i][j].getType() == "Item")
-    				intArray[i][j] = 9;
-    			else if(objectArray[i][j].getType() == "Wall")
-    				intArray[i][j] = 0;
-    		}
-    	}
-    	
-    	return intArray;
-    }
-    */
-    
     /**
 	 * Output directions from the user terminal to the chosen exhibit, by using other 
 	 * exhibits for landmarks.  Uses Dikstra's algorithm
@@ -269,15 +173,19 @@ public class DirectionController {
 	 * @param exhibitPosition representing the position of the chosen exhibit
 	 */
 	
-    	public String getDirections(){
-    		return directionString;		
-		}
+	public String getDirections(){
+		return directionString;		
+	}
+	
 	
 	/**
-	 * 
+	 * check for any exhibits to the east or west of current
+	 * coordinate.  Return as string to be output
+	 * @param i, coordinate i
+	 * @param j, coordinate j
+	 * @return string output direction
 	 */
-	
-    	String checkForExhibitEastWest(int i, int j){
+	String checkForExhibitEastWest(int i, int j){
 		int eastX = i;
 		int eastY = j;
 		int westX = i;
@@ -300,7 +208,11 @@ public class DirectionController {
 	}
 	
 	/**
-	 * 
+	 * Check for any exhibits or items to north or south, return 
+	 * as string for directions
+	 * @param i, coordinate i
+	 * @param j, coordinate j
+	 * @return string, directions
 	 */
 	String checkForExhibitNorthSouth(int i, int j){
 		int northX = i;

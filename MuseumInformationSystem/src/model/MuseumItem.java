@@ -14,7 +14,7 @@ import java.sql.SQLException;
  * an image, and a location.  If available, it is also
  * possible for the item to have audio or video capabilities
  * Created November 25th 2013
- * @author Sara
+ * @author Sara, Casey
  *
  */
 public class MuseumItem {
