@@ -201,6 +201,14 @@ public class FillDatabase {
 			sqlStatement = "CREATE TABLE FloorPlan0(LocationX int, LocationY int, StructureType varchar(50)"
 					+ ", ItemName varchar(50))";
 			MySqlConnection.sqlUpdate(sqlStatement);
+			
+			sqlStatement = "CREATE TABLE FloorPlan1(LocationX int, LocationY int, StructureType varchar(50)"
+					+ ", ItemName varchar(50))";
+			MySqlConnection.sqlUpdate(sqlStatement);
+			
+			sqlStatement = "CREATE TABLE FloorPlan2(LocationX int, LocationY int, StructureType varchar(50)"
+					+ ", ItemName varchar(50))";
+			MySqlConnection.sqlUpdate(sqlStatement);
 
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -213,32 +221,47 @@ public class FillDatabase {
 
 		try {
 			result = MySqlConnection.sqlQuery("SELECT COUNT(*) FROM information_schema.TABLES"
-							+ " WHERE table_name = 'User' and table_schema = 'MuseumInformationSystem'");
+							+ " WHERE table_name = 'User' and table_schema = 'MuseumInfoSystem'");
 			result.next();
 			if (result.getInt(1) > 0) {
 				MySqlConnection.sqlUpdate("DROP TABLE User ");
 			}
 
 			result = MySqlConnection.sqlQuery("SELECT COUNT(*) FROM information_schema.TABLES"
-							+ " WHERE table_name = 'MuseumItem' and table_schema = 'MuseumInformationSystem'");
+							+ " WHERE table_name = 'MuseumItem' and table_schema = 'MuseumInfoSystem'");
 			result.next();
 			if (result.getInt(1) > 0) {
 				MySqlConnection.sqlUpdate("DROP TABLE MuseumItem");
 			}
 
 			result = MySqlConnection.sqlQuery("SELECT COUNT(*) FROM information_schema.TABLES"
-							+ " WHERE table_name = 'ExhibitList' and table_schema = 'MuseumInformationSystem'");
+							+ " WHERE table_name = 'ExhibitList' and table_schema = 'MuseumInfoSystem'");
 			result.next();
 			if (result.getInt(1) > 0) {
 				MySqlConnection.sqlUpdate("DROP TABLE ExhibitList");
 			}
 
 			result = MySqlConnection.sqlQuery("SELECT COUNT(*) FROM information_schema.TABLES"
-							+ " WHERE table_name = 'FloorPlan0' and table_schema = 'MuseumInformationSystem'");
+							+ " WHERE table_name = 'FloorPlan0' and table_schema = 'MuseumInfoSystem'");
 			result.next();
 			if (result.getInt(1) > 0) {
 				MySqlConnection.sqlUpdate("DROP TABLE FloorPlan0");
 			}
+			
+			result = MySqlConnection.sqlQuery("SELECT COUNT(*) FROM information_schema.TABLES"
+					+ " WHERE table_name = 'FloorPlan1' and table_schema = 'MuseumInfoSystem'");
+			result.next();
+			if (result.getInt(1) > 0) {
+				MySqlConnection.sqlUpdate("DROP TABLE FloorPlan1");
+			}		
+			
+			result = MySqlConnection.sqlQuery("SELECT COUNT(*) FROM information_schema.TABLES"
+					+ " WHERE table_name = 'FloorPlan2' and table_schema = 'MuseumInfoSystem'");
+			result.next();
+			if (result.getInt(1) > 0) {
+				MySqlConnection.sqlUpdate("DROP TABLE FloorPlan2");
+			}
+			
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

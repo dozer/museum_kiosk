@@ -296,22 +296,25 @@ public class FloorPlanEditView extends JFrame {
     	save.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e)
     		{
-    			FloorPlanDAO.updateFloorPlan(newfloorplan.getFloorPlanItem(), newfloorplan.getFloorPlanType(), 1);
+    			FloorPlanDAO.updateFloorPlan(newfloorplan.getFloorPlanType(), newfloorplan.getFloorPlanItem(), 0);
+    			setVisible(false);
+    			new LoginView();
+    			
     		}
     	});
     }
     
     
     
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                //new FloorPlanEditView().display();
-            }
-        });
-    }
+//    public static void main(String[] args) {
+//        EventQueue.invokeLater(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                //new FloorPlanEditView().display();
+//            }
+//        });
+//    }
     
     public CoordinateObject[][] getGridObject() {
     	return this.gridObject;
