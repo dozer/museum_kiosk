@@ -96,7 +96,7 @@ public class FillDatabase {
 						+ "to all. This result has been referred to as the dis-invention of the computer. A full-scale "
 						+ "reconstruction of the ABC was completed in 1997 and proved that the ABC machine functioned as Atanasoff "
 						+ "had claimed.",
-						"C:\\\\MISDatabase\\\\Generation1\\\\ABC.jpg", null, null, location);
+						"style\\\\ABC.jpg", null, null, location);
 
 		MuseumItem item3 = new MuseumItem(
 				"Harvard Mark I",
@@ -109,7 +109,7 @@ public class FillDatabase {
 						+ "counted mechanically using 3000 decimal storage wheels, 1400 rotary dial switches, and 500 miles of wire. Its "
 						+ "electromagnetic relays classified the machine as a relay computer. All output was displayed on an electric "
 						+ "typewriter.",
-						"C:\\\\MISDatabase\\\\Generation1\\\\markI.jpg", null, null, location);
+						"style\\\\markI.jpg", null, null, location);
 
 		MuseumItem item4 = new MuseumItem(
 				"The Williams Tube",
@@ -117,7 +117,7 @@ public class FillDatabase {
 						+ "Williams and Tom Kilburn) it was a cathode ray tube used as a computer memory to electronically store binary "
 						+ "data. It was the first random-access digital storage device, and was used successfully in several early computers. "
 						+ "Vacuum tube machines, such as the IBM 701, used the Williams tube as primary memory.",
-						"C:\\\\MISDatabase\\\\Generation1\\\\williamsTube.jpg", null, null, location);
+						"style\\\\williamsTube.jpg", null, null, location);
 
 		MuseumItem item5 = new MuseumItem(
 				"TX-0",
@@ -127,7 +127,7 @@ public class FillDatabase {
 						+ "total. For easy replacement, designers placed each transistor circuit inside a \"bottle,\" similar to a "
 						+ "vacuum tube. The very large memory (64K RAM), speed, and reliability of the TX-0 made it one of the "
 						+ "most advanced computers in the world when fully operational in 1957.", 
-						"C:\\\\MISDatabase\\\\Generation2\\\\TX0.jpg", null, null, location);
+						"style\\\\TX0.jpg", null, null, location);
 
 		mylist.add(item1);
 		mylist.add(item2);
