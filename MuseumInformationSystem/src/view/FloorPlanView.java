@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import model.FloorPlan;
 
@@ -22,6 +24,13 @@ public class FloorPlanView extends JFrame {
     static int currentObjectX;
     static int currentObjectY;
     static FloorPlan floorplan;
+    
+    
+    JTextField title = new JTextField();
+    JTextArea description = new JTextArea();
+//    JButton image;
+//    JButton audio;
+//    JButton video;
     
 	public FloorPlanView(ArrayList floorplan) {
 		this.floorplan = new FloorPlan(10);
@@ -140,13 +149,28 @@ public class FloorPlanView extends JFrame {
     	for(int i = 0; i < N * N; i++)
     		coordGrid.add(new Button(i));
     	
+    	JPanel bottomGrid = new JPanel(new GridLayout(5,1));
     	
+    	createBoxes();
+    	
+    	bottomGrid.add(title);
+    	bottomGrid.add(description);
+//    	bottomGrid.add(image);
+//    	bottomGrid.add(audio);
+//    	bottomGrid.add(video);
     	
     	JPanel mainPanel = new JPanel();
     	
     	mainPanel.add(coordGrid);
+    	mainPanel.add(bottomGrid);
+    	
     	this.add(mainPanel);
     }
+	
+	
+	public void createBoxes(){
+		
+	}
 	
 	public void display() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -155,13 +179,13 @@ public class FloorPlanView extends JFrame {
         this.setVisible(true);
 	}
 	
-	public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                //new FloorPlanView().display();
-            }
-        });
-    }
+//	public static void main(String[] args) {
+//        EventQueue.invokeLater(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                //new FloorPlanView().display();
+//            }
+//        });
+//    }
 }
