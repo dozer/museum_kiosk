@@ -295,7 +295,7 @@ public class DirectionController {
 			
 			eastY--;
 			westY++;
-		}
+		} 
 		return "";
 	}
 	
