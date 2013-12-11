@@ -150,7 +150,7 @@ public class FillDatabase {
                                                 + "came from the Fairchild Semiconductor Corporation. All computers then started to be made using chips instead of "
                                                 + "the individual transistors and their accompanying parts. Texas Instruments first used the chips in Air Force computers "
                                                 + "and the Minuteman Missile in 1962. They later used the chips to produce the first electronic portable calculators. The "
-                                                + "original IC had only one transistor, three resistors and one capacitor and was the size of an adult's pinkie finger.",
+                                                + "original IC had only one transistor, three resistors and one capacitor and was the size of an adults pinkie finger.",
                                                 "style\\\\kilbysIC.jpg", null, null, location);
                 
                 MuseumItem item9 = new MuseumItem(
