@@ -7,15 +7,28 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.imageio.ImageIO;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import access.ExhibitDAO;
+import access.MuseumItemDAO;
+import model.Exhibit;
 import model.FloorPlan;
+import model.MuseumItem;
 
 
 public class FloorPlanView extends JFrame {
@@ -26,8 +39,10 @@ public class FloorPlanView extends JFrame {
     static FloorPlan floorplan;
     
     
-    JTextField title = new JTextField();
-    JTextArea description = new JTextArea();
+    static JTextArea title;// = new JTextField();
+    static JTextArea description;// = new JTextArea();
+    static BufferedImage image;
+    static JLabel imageLabel;
 //    JButton image;
 //    JButton audio;
 //    JButton video;
@@ -106,7 +121,8 @@ public class FloorPlanView extends JFrame {
     	 * @param i, representing the number of Button created.  Used for coordinates
     	 */
         public Button(int i) {
-            super(i / N + "," + i % N);
+            //super(i / N + "," + i % N);
+        	super(floorplan.getItem(i / N, i % N));
             this.setOpaque(true);
             this.setBorderPainted(true);
             this.setBackground(Color.white);
@@ -136,7 +152,72 @@ public class FloorPlanView extends JFrame {
             this.addActionListener(new ActionListener() {
             	public void actionPerformed(ActionEvent e)
             	{
-            		//floorplan.getItem(x, y);            		
+            		int element = 0;
+            		String elementName = "";
+            		String elementDescription = "";
+            		String elementPicture = "";
+            		String elementVideo = "";
+            		String elementAudio = "";
+            		
+            		switch(floorplan.getType(x, y))
+            		{
+            			case "Exhibit":
+            				List<Exhibit> exhibitList = ExhibitDAO.find();
+            				for(int i = 0; i < exhibitList.size(); i++)
+            				{
+            					if(exhibitList.get(i).equals(getText()))
+            					{
+            						element = i;
+            						break;
+            					}
+            				}
+            				
+            				elementName = exhibitList.get(element).getExhibitName();
+            				elementDescription = exhibitList.get(element).getExhibitDescription();
+            				break;
+            			case "Item":
+            				List<MuseumItem> itemList = MuseumItemDAO.find();
+            				for(int i = 0; i < itemList.size(); i++)
+            				{
+            					if(itemList.get(i).equals(getText()))
+            					{
+            						element = i;
+            						break;
+            					}
+            				}
+            				
+            				elementName = itemList.get(element).getName();
+            				elementDescription = itemList.get(element).getDescription();
+            				elementPicture = itemList.get(element).getImage();
+            				elementVideo = itemList.get(element).getVideo();
+            				elementAudio = itemList.get(element).getAudio();
+            				break;
+            			default:
+            				break;
+            		}
+            		
+            		String tempName = getText();
+            		
+            		if(tempName.equals(""))
+            		{
+            			title.setText("");
+            			description.setText("");
+            		}
+            		else
+            		{
+            			title.setText(elementName);
+            			description.setText(elementDescription);
+            			if(!elementPicture.equals(""))
+            			{
+            				try {
+								image = ImageIO.read(new File(elementPicture));
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+            				imageLabel = new JLabel(new ImageIcon(image));
+            			}
+            		}            		
             	}
             });            
         }
@@ -149,11 +230,24 @@ public class FloorPlanView extends JFrame {
     	for(int i = 0; i < N * N; i++)
     		coordGrid.add(new Button(i));
     	
-    	JPanel bottomGrid = new JPanel(new GridLayout(5,1));
+    	title = new JTextArea();
+    	description = new JTextArea();
+    	//imageLabel = new JLabel();
+    	description.setLineWrap(true);
+    	title.setPreferredSize(new Dimension(25, 50));
+    	description.setPreferredSize(new Dimension(250,200));
+    	
+    
+    	//title.setText("TeestTestTest");
+    	//description.setText("TestTestTestTEst");
+    	
+    	JPanel bottomGrid = new JPanel();
+    	bottomGrid.setLayout(new BoxLayout(bottomGrid,BoxLayout.Y_AXIS));
     	
     	createBoxes();
     	
     	bottomGrid.add(title);
+    	bottomGrid.add(Box.createVerticalGlue());
     	bottomGrid.add(description);
 //    	bottomGrid.add(image);
 //    	bottomGrid.add(audio);
