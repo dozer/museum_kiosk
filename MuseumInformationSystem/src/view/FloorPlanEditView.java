@@ -115,8 +115,9 @@ public class FloorPlanEditView extends JFrame {
     	 * @param i, representing the number of Button created.  Used for coordinates
     	 */
         public Button(int i) {
-            super(i / N + "," + i % N);
-            this.setOpaque(true);
+            //super(i / N + "," + i % N);
+        	super(newfloorplan.getItem(i / N, i % N));
+        	this.setOpaque(true);
             this.setBorderPainted(true);
             this.setBackground(Color.white);
                         
@@ -129,7 +130,7 @@ public class FloorPlanEditView extends JFrame {
     				makeRed();
     				break;
     			case("Exhibit"):
-    				makeGreen();
+    				makeGreen();    				
     				break;
     			case("Item"):
     				makeBlue();
