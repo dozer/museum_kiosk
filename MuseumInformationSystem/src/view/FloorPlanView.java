@@ -21,10 +21,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import control.DirectionController;
 import access.ExhibitDAO;
 import access.MuseumItemDAO;
 import model.Exhibit;
@@ -38,6 +40,7 @@ public class FloorPlanView extends JFrame {
     static int currentObjectX;
     static int currentObjectY;
     static FloorPlan floorplan;
+    static boolean canGetDirections = false;
     
     
     static JTextArea title;// = new JTextField();
@@ -45,6 +48,7 @@ public class FloorPlanView extends JFrame {
     static BufferedImage image;
     static JLabel imageLabel;
     static ImageIcon imageIcon;
+    static JButton directions;
 //    JButton image;
 //    JButton audio;
 //    JButton video;
@@ -125,6 +129,7 @@ public class FloorPlanView extends JFrame {
         public Button(int i) {
             //super(i / N + "," + i % N);
         	super(floorplan.getItem(i / N, i % N));
+        	setToolTipText(floorplan.getItem(i / N, i % N));
             this.setOpaque(true);
             this.setBorderPainted(true);
             this.setBackground(Color.white);
@@ -154,6 +159,8 @@ public class FloorPlanView extends JFrame {
             this.addActionListener(new ActionListener() {
             	public void actionPerformed(ActionEvent e)
             	{
+            		currentObjectX = x;
+            		currentObjectY = y;
             		int element = 0;
             		String elementName = "";
             		String elementDescription = "";
@@ -164,10 +171,11 @@ public class FloorPlanView extends JFrame {
             		switch(floorplan.getType(x, y))
             		{
             			case "Exhibit":
+            				canGetDirections = true;
             				List<Exhibit> exhibitList = ExhibitDAO.find();
             				for(int i = 0; i < exhibitList.size(); i++)
             				{
-            					if(exhibitList.get(i).equals(getText()))
+            					if(exhibitList.get(i).getExhibitName().equals(getText()))
             					{
             						element = i;
             						break;
@@ -178,10 +186,11 @@ public class FloorPlanView extends JFrame {
             				elementDescription = exhibitList.get(element).getExhibitDescription();
             				break;
             			case "Item":
+            				canGetDirections = true;
             				List<MuseumItem> itemList = MuseumItemDAO.find();
             				for(int i = 0; i < itemList.size(); i++)
             				{
-            					if(itemList.get(i).equals(getText()))
+            					if(itemList.get(i).getName().equals(getText()))
             					{
             						element = i;
             						break;
@@ -195,6 +204,7 @@ public class FloorPlanView extends JFrame {
             				elementAudio = itemList.get(element).getAudio();
             				break;
             			default:
+            				canGetDirections = false;
             				break;
             		}
             		
@@ -243,6 +253,29 @@ public class FloorPlanView extends JFrame {
     	description.setLineWrap(true);
     	title.setPreferredSize(new Dimension(25, 50));
     	description.setPreferredSize(new Dimension(250,200));
+    	
+    	directions = new JButton();
+    	directions.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e)
+        	{
+        		if(canGetDirections)
+        		{
+	        		int[] start = new int[2];
+	        		int[] end = new int[2];
+	        		start[0] = 5;
+	            	start[1] = 9;
+	            	end[0] = currentObjectX;
+	            	end[1] = currentObjectY;
+	        		DirectionController dc = new DirectionController(floorplan.getFloorPlanItem(), floorplan.getFloorPlanType(),start,end);
+	        		dc.find();
+	        		JOptionPane.showMessageDialog(null, dc.getDirections());
+        		}
+        		else
+        			JOptionPane.showMessageDialog(null, "Please choose an Item or Exhibit");
+        	}
+        });
+    	directions.setText("Get Directions");
+    	directions.setPreferredSize(new Dimension(150,150));
     	//imageLabel.setPreferredSize(new Dimension(250,200));
     
     	//title.setText("TeestTestTest");
@@ -257,6 +290,7 @@ public class FloorPlanView extends JFrame {
     	bottomGrid.add(Box.createVerticalGlue());
     	bottomGrid.add(description);
     	bottomGrid.add(imageLabel);
+    	bottomGrid.add(directions);
 //    	bottomGrid.add(image);
 //    	bottomGrid.add(audio);
 //    	bottomGrid.add(video);

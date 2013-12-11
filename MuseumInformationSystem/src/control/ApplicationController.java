@@ -26,9 +26,9 @@ public class ApplicationController {
     	start[1] = 1;
     	end[0] = 4;
     	end[1] = 4;
-    	DirectionController dc = new DirectionController(fp,start, end);
-		dc.find();
-		dc.outputDirections();
+    	//DirectionController dc = new DirectionController(fp,start, end);
+		//dc.find();
+		//dc.outputDirections();
     	//DirectionController dc = new DirectionController();
         //boolean solved = dc.find();
         //System.out.println(dc.toString());

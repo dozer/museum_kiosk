@@ -183,8 +183,11 @@ public class FloorPlanEditView extends JFrame {
             			default:
             				break;            			
             		}
-            		newFloorPlanItem = "";
-            		newFloorPlanType = "Space";
+            		if(!newFloorPlanType.equals("Wall"))
+            		{
+            			newFloorPlanItem = "";
+            			newFloorPlanType = "Space";
+            		}
             	}
             });            
         }

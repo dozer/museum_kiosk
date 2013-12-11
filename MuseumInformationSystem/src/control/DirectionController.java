@@ -68,6 +68,8 @@ public class DirectionController {
     private int findX;
     private int findY;
     private String directionString = "";
+    String[][] floorPlanItem;
+    String[][] floorPlanType;
 
     private int[][] directions;
 
@@ -79,12 +81,13 @@ public class DirectionController {
      * @param destinationPoint, representing the destination point of the user
      */
     //public DirectionController(CoordinateObject[][] floorplan, int[] terminalPoint, int[] destinationPoint) {
-    public DirectionController(FloorPlan floorplan, int[] terminalPoint, int[] destinationPoint) {
+    public DirectionController(String[][] floorPlanItem, String[][] floorPlanType, int[] terminalPoint, int[] destinationPoint) {
     	//this.coordFloorplan = floorplan;
-        this.floorplan = floorplan;
-    	this.intFloorplan = convertToIntArray(floorplan);
-        this.height = intFloorplan.length;
-        this.width = intFloorplan[0].length;
+        this.floorPlanItem = floorPlanItem;
+        this.floorPlanType = floorPlanType;
+    	//this.intFloorplan = convertToIntArray(floorplan);
+        this.height = floorPlanItem.length;
+        this.width = floorPlanItem.length;
         
         this.startX = terminalPoint[1];
         this.startY = terminalPoint[0];
@@ -128,25 +131,25 @@ public class DirectionController {
         // North
         if (traverse(i - 1, j)) {
             directions[i-1][j] = PATH;
-            directionString += checkForExhibitEastWest(i-1, j);
+            directionString = checkForExhibitEastWest(i-1, j) + directionString;
             return true;
         }
         // East
         if (traverse(i, j + 1)) {
             directions[i][j + 1] = PATH;
-            directionString += checkForExhibitNorthSouth(i, j+1);
+            directionString = checkForExhibitNorthSouth(i, j+1) + directionString;
             return true;
         }
         // South
         if (traverse(i + 1, j)) {
             directions[i + 1][j] = PATH;
-            directionString += checkForExhibitEastWest(i+1, j);
+            directionString = checkForExhibitEastWest(i+1, j) + directionString;
             return true;
         }
         // West
         if (traverse(i, j - 1)) {
             directions[i][j - 1] = PATH;
-            directionString += checkForExhibitNorthSouth(i, j-1);
+            directionString = checkForExhibitNorthSouth(i, j-1)  + directionString;
             return true;
         }
 
@@ -179,7 +182,7 @@ public class DirectionController {
     }
 
     private boolean isOpen(int i, int j) {
-        return intFloorplan[i][j] == 1 || intFloorplan[i][j] == 8 || intFloorplan[i][j] == 9;
+        return floorPlanType[i][j].equals("Space") || floorPlanType[i][j].equals("Item") || floorPlanType[i][j].equals("Exhibit") || floorPlanType[i][j].equals("");
     }
 
     private boolean isTried(int i, int j) {
@@ -266,10 +269,9 @@ public class DirectionController {
 	 * @param exhibitPosition representing the position of the chosen exhibit
 	 */
 	
-    	void outputDirections(){
-    		System.out.println(directionString);
-		
-	}
+    	public String getDirections(){
+    		return directionString;		
+		}
 	
 	/**
 	 * 
@@ -281,20 +283,18 @@ public class DirectionController {
 		int westX = i;
 		int westY = j;
 		
-		while(eastX != 0 && westX != this.intFloorplan[0].length)
+		while(eastY != 0 && westY != floorPlanType[0].length)
 		{
 			//check east
-			if(this.intFloorplan[eastX][eastY] == 8 || this.intFloorplan[eastX][eastY] == 9)
-				return "pass " + this.floorplan.getType(eastX, eastY) + " to the East";
-				//return "pass " + this.coordFloorplan[eastX][eastY].getType() + " to the East";
+			if(floorPlanType[eastX][eastY].equals("Item") || floorPlanType[eastX][eastY].equals("Exhibit"))
+				return "pass " + floorPlanItem[eastX][eastY] + " to the East ";
 			
 			//check west
-			if(this.intFloorplan[westX][westY] == 8 || this.intFloorplan[westX][westY] == 9)
-				return "pass " + this.floorplan.getType(westX, westY) + " to the West";
-				//return "pass " + this.coordFloorplan[westX][westY].getType() + " to the West"; 
+			if(floorPlanType[westX][westY].equals("Item") || floorPlanType[westX][westY].equals("Exhibit"))
+				return "pass " + floorPlanItem[westX][westY] + " to the West "; 
 			
-			eastX--;
-			westX++;
+			eastY--;
+			westY++;
 		}
 		return "";
 	}
@@ -308,20 +308,18 @@ public class DirectionController {
 		int southX = i;
 		int southY = j;
 		
-		while(southX != this.intFloorplan.length && northY != 0)
+		while(southX != floorPlanItem.length && northX != 0)
 		{
 			//check north
-			if(this.intFloorplan[northX][northY] == 8 || this.intFloorplan[northX][northY] == 9)
-				return "pass " + this.floorplan.getType(northX, northY) + " to the North";
-				//return "pass " + this.coordFloorplan[northX][northY].getType() + " to the North";
+			if(floorPlanType[northX][northY].equals("Item") || floorPlanType[northX][northY].equals("Exhibit"))
+				return "pass " + floorPlanItem[northX][northY] + " to the North ";
 			
 			//check south
-			if(this.intFloorplan[southX][southY] == 8 || this.intFloorplan[southX][southY] == 9)
-				return "pass " + this.floorplan.getType(southX, southY) + " to the South";
-				//return "pass " + this.coordFloorplan[southX][southY].getType() + " to the South"; 
+			if(floorPlanType[southX][southY].equals("Item") || floorPlanType[southX][southY].equals("Exhibit"))
+				return "pass " + floorPlanItem[southX][southX] + " to the South "; 
 			
-			northY--;
-			southY++;
+			northX--;
+			southX++;
 		}
 		return "";
 	}
